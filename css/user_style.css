@@ -1,0 +1,367 @@
+/* no horizontal overflow */
+body {
+  overflow-x: hidden;
+}
+
+.navbar-nav {
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  min-width: 200px;
+}
+
+.navbar-toggler {
+  margin-right: 1rem;
+}
+
+.nav-icons .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.nav-icons .nav-link i {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  color: #ff6f61;
+}
+
+.nav-icons .nav-link:hover i {
+  color: #d45d5a;
+}
+
+.nav-icons .nav-link:hover {
+  color: #ff6f61;
+}
+
+/* header-start */
+.top-bar {
+  background-color: #e3b18c;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  font-size: 0.9em;
+}
+.navbar {
+  padding: 15px 0;
+}
+.navbar-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #a47b61;
+}
+.navbar-nav .nav-link {
+  color: #6b5841;
+  font-size: 1.1em;
+  padding: 0 20px;
+}
+.navbar-nav .nav-link:hover {
+  color: #a47b61;
+}
+.navbar-nav .nav-link.active {
+  color: #a47b61;
+  font-weight: bold;
+}
+/* header-end */
+
+/* Carousel-start */
+
+.carousel-item {
+  height: 60vh; /* Responsive height */
+  background-color: #f8f9fa; /* Placeholder color */
+  text-align: center;
+}
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media (min-width: 768px) {
+  .carousel-caption h5 {
+    font-size: 3rem;
+  }
+  .carousel-caption p {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 768px) {
+  .carousel-item img {
+    object-fit: contain;
+    height: auto;
+    width: 100%;
+  }
+  .carousel-item {
+    height: 16vh; /* Responsive height */
+  }
+}
+
+/* Carousel-end */
+
+/* categories - start */
+
+.popular-categories {
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.popular-categories h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.category {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.category:hover {
+  transform: scale(1.05);
+}
+
+.category img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.category h3 {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+}
+
+/* categories - end */
+
+/* new arrival - start */
+.new-arrivals {
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.new-arrivals h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.arrivals-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.arrival-item {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  text-align: center;
+  width: 220px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.arrival-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.arrival-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.arrival-item h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.arrival-item .price {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.buy-now {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.buy-now:hover {
+  background-color: #e65c53;
+}
+/* new arrival -  end */
+
+.footer {
+  background-color: #333; /* Dark background color */
+  color: #fff; /* White text color */
+}
+
+.footer h5 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #ff6f61; /* Optional: Add a theme color */
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #ff6f61; /* Optional: Add a theme color on hover */
+}
+
+.footer .social-icons a {
+  font-size: 1.25rem;
+  display: inline-block;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.footer .social-icons a:hover {
+  color: #ff6f61; /* Optional: Add a theme color on hover */
+}
+
+.footer .form-control {
+  background-color: #444; /* Darker input background */
+  border: 1px solid #555;
+  color: #fff;
+}
+
+.footer .btn-outline-light {
+  border-color: #ff6f61;
+  color: #ff6f61;
+}
+
+.footer .btn-outline-light:hover {
+  background-color: #ff6f61;
+  color: #fff;
+}
+
+/* footer-start */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+}
+.bg-footer {
+  background-color: #ddd3c8;
+  color: #fff;
+}
+/* footer {
+    background-color: #f8f9fa;
+    text-wrap-mode:#6c757d;
+    padding-top: 8rem;
+} */
+.footer-bottom {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+/* footer-end */
+
+/* single-product - start */
+
+.product-thumbnails img {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.product-thumbnails img:hover {
+  transform: scale(1.2); /* Zoom in effect */
+}
+
+.product-main-image {
+  position: relative;
+  margin-left: 20px;
+}
+
+.product-main-image img {
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.product-main-image img:hover {
+  transform: scale(1.05); /* Slight zoom when hovering over the main image */
+}
+
+/* single-product - end */
+
+/* wishlist product - start */
+
+/* Container for the wishlisted products section */
+.wishlisted-products {
+  background-color: #f8f9fa; /* Light background color */
+  padding: 3rem 0; /* Top and bottom padding */
+}
+
+/* Style for the card container */
+.product-item {
+  max-width: 300px; /* Limit the card width */
+  margin: auto; /* Center the card */
+}
+
+/* Style for the card image */
+.product-item .card-img-top {
+  max-height: 200px; /* Limit the image height */
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+/* Style for card title */
+.product-item .card-title {
+  font-size: 1.1rem; /* Adjust font size */
+}
+
+/* Style for product category */
+.product-item .text-muted {
+  font-size: 0.9rem; /* Adjust font size */
+}
+
+/* Style for product price */
+.product-item .text-danger {
+  font-size: 1.2rem; /* Adjust font size */
+}
+
+/* Style for buttons */
+.product-item .btn {
+  font-size: 0.875rem; /* Slightly smaller font size for buttons */
+}
+/* wishlist product - end */
+
+/* order-detail - start  */
+.order-details .media img {
+  width: 150px; /* Adjust the width as needed */
+  height: auto;
+}
+
+/* order-detail - end  */

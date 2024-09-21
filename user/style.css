@@ -1,0 +1,36 @@
+body {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    color: #f39c12; /* Adjust color to match your brand */
+  }
+  
+  .card {
+    border-radius: 8px;
+  }
+  
+  .card h2 {
+    font-size: 1.75rem;
+    color: #333;
+  }
+  
+  .form-check-label a {
+    color: #f39c12;
+  }
+  
+  .btn-primary {
+    background-color: #f39c12; /* Adjust color to match your brand */
+    border-color: #f39c12;
+  }
+  
+  .btn-primary:hover {
+    background-color: #e67e22;
+    border-color: #e67e22;
+  }
+  
+  footer p a {
+    color: #f39c12;
+  }
+  
