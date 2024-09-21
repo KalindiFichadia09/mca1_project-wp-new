@@ -165,7 +165,7 @@ function genderValidate(gender, genderMsg) {
   if (selectedGender) {
     genderMsg.innerHTML = "";
   } else {
-    genderMsg.innerHTML = "Please select a gender!";
+    genderMsg.innerHTML = "Please select a this!";
     genderMsg.style.color = "red";
     validate = false;
   }
@@ -378,6 +378,10 @@ function categoryInsertValidation() {
     document.querySelector("#categoryImage"),
     document.querySelector("#categoryImageMsg")
   );
+  genderValidate(
+    document.querySelectorAll('input[name="c_status"]'),
+    document.querySelector("#categoryStatusMsg")
+  );
 
   return validate;
 }
@@ -390,12 +394,16 @@ function categoryUpdateValidation(form) {
     form.querySelector("#categoryNameMsgU")
   );
   genderValidate(
-    form.querySelectorAll('input[name="category_genderU"]'),
+    form.querySelectorAll('input[name="c_genderU"]'),
     form.querySelector("#categoryGenderMsgU")
   );
-  fileValidate(
-    form.querySelector("#categoryImageU"),
-    form.querySelector("#categoryImageMsgU")
+  // fileValidate(
+  //   form.querySelector("#categoryImageU"),
+  //   form.querySelector("#categoryImageMsgU")
+  // );
+  genderValidate(
+    document.querySelectorAll('input[name="c_status"]'),
+    document.querySelector("#categoryStatusMsg")
   );
   return validate;
 }
