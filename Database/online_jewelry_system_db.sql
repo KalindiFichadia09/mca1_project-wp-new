@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2024 at 06:52 PM
+-- Generation Time: Sep 21, 2024 at 08:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,18 +32,21 @@ CREATE TABLE `category_tbl` (
   `c_code` varchar(10) NOT NULL,
   `c_name` varchar(255) NOT NULL,
   `c_gender` varchar(10) NOT NULL,
-  `c_image` varchar(255) DEFAULT NULL
+  `c_image` varchar(255) DEFAULT NULL,
+  `c_status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `category_tbl`
 --
 
-INSERT INTO `category_tbl` (`c_id`, `c_code`, `c_name`, `c_gender`, `c_image`) VALUES
-(1, 'CAT01', 'Sample Category', 'Male', 'sample_image.jpg'),
-(2, 'CAT02', 'Sample Category 1', 'Female', 'sample_image1.jpg'),
-(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/bangle.png'),
-(4, 'CAT04', 'Ring', 'Male', '../images/category_image/g_ring_m.jpg');
+INSERT INTO `category_tbl` (`c_id`, `c_code`, `c_name`, `c_gender`, `c_image`, `c_status`) VALUES
+(1, 'CAT01', 'Sample Category', 'Male', 'sample_image.jpg', ''),
+(2, 'CAT02', 'Sample Category 1', 'Female', 'sample_image1.jpg', ''),
+(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/bangle.png', ''),
+(4, 'CAT04', 'Ring', 'Male', '../images/category_image/g_ring_m.jpg', ''),
+(5, 'CAT05', 'Ring', 'Male', '../images/category_image/g_ring_f.jpg', 'Active'),
+(6, 'CAT06', '', '', '../images/category_image/', '');
 
 --
 -- Triggers `category_tbl`
@@ -83,7 +86,7 @@ ALTER TABLE `category_tbl`
 -- AUTO_INCREMENT for table `category_tbl`
 --
 ALTER TABLE `category_tbl`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
