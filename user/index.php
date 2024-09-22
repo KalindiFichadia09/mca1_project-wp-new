@@ -1,77 +1,65 @@
 <?php
-    include_once 'header.php';
+include_once 'header.php';
+include_once '../conn.php';
 ?>
 
 <!-- Image Carousel-start -->
 <div id="jewelryCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="../images/carouselImg1.png" class="d-block w-100" alt="Jewelry Image 1">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Try Something New</h5>
-                <p>Explore our latest pieces</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="../images/carouselImg2.png" class="d-block w-100" alt="Jewelry Image 2">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Elegance Redefined</h5>
-                <p>Discover our exclusive collection</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="../images/carouselImg3.png" class="d-block w-100" alt="Jewelry Image 3">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Timeless Beauty</h5>
-                <p>Find your perfect piece</p>
-            </div>
-        </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../images/carouselImg1.png" class="d-block w-100" alt="Jewelry Image 1">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Try Something New</h5>
+        <p>Explore our latest pieces</p>
+      </div>
     </div>
-    <button class="carousel-control-prev carousel-button" type="button" data-bs-target="#jewelryCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next carousel-button" type="button" data-bs-target="#jewelryCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+    <div class="carousel-item">
+      <img src="../images/carouselImg2.png" class="d-block w-100" alt="Jewelry Image 2">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Elegance Redefined</h5>
+        <p>Discover our exclusive collection</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../images/carouselImg3.png" class="d-block w-100" alt="Jewelry Image 3">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Timeless Beauty</h5>
+        <p>Find your perfect piece</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev carousel-button" type="button" data-bs-target="#jewelryCarousel"
+    data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next carousel-button" type="button" data-bs-target="#jewelryCarousel"
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 <!-- Image Carousel-end -->
-<br/>
+<br />
 <!-- categories-start -->
 <section class="popular-categories">
   <h2>Popular Categories</h2>
   <div class="categories-container">
-  <a href="product.php">
-      <div class="category">
-          <img src="../images/category1.jpg" alt="Category 1">
-          <h3>Category 1</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category2.jpg" alt="Category 1">
-          <h3>Category 2</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category3.jpg" alt="Category 1">
-          <h3>Category 3</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category4.jpg" alt="Category 1">
-          <h3>Category 4</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category1.jpg" alt="Category 1">
-          <h3>Category 1</h3>
-      </div>
-    </a>
+    <?php
+    $q = "select * from category_tbl where c_status='Active' ORDER BY c_id DESC LIMIT 5";
+    $result = mysqli_query($con, $q);
+    while ($r = mysqli_fetch_assoc($result)) {
+      ?>
+      <a href="product.php">
+        <div class="category">
+          <img src="<?php echo
+            $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>">
+          <h3><?php echo $r['c_name']; ?></h3>
+        </div>
+      </a>
+      <?php
+    }
+    ?>
   </div>
 </section>
 <!-- categories-end -->
@@ -157,5 +145,5 @@
 <!-- featured product - end -->
 
 <?php
-    include_once 'footer.php';
+include_once 'footer.php';
 ?>

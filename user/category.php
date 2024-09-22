@@ -1,59 +1,27 @@
 <?php
-    include('header.php');
+include_once 'header.php';
+include_once '../conn.php';
 ?>
 
 <!-- categories-start -->
 <section class="popular-categories">
   <h2>Categories</h2>
   <div class="categories-container">
+    <?php
+    $q = "select * from category_tbl where c_status='Active' ";
+    $result = mysqli_query($con, $q);
+    while ($r = mysqli_fetch_assoc($result)) {
+      ?>
     <a href="product.php">
       <div class="category">
-          <img src="../images/category1.jpg" alt="Category 1">
-          <h3>Category 1</h3>
+          <img src="<?php echo
+            $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>">
+          <h3><?php echo $r['c_name']; ?></h3>
       </div>
     </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category2.jpg" alt="Category 1">
-          <h3>Category 2</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category3.jpg" alt="Category 1">
-          <h3>Category 3</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category4.jpg" alt="Category 1">
-          <h3>Category 4</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category1.jpg" alt="Category 1">
-          <h3>Category 1</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category2.jpg" alt="Category 1">
-          <h3>Category 2</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category3.jpg" alt="Category 1">
-          <h3>Category 3</h3>
-      </div>
-    </a>
-    <a href="product.php">
-      <div class="category">
-          <img src="../images/category4.jpg" alt="Category 1">
-          <h3>Category 4</h3>
-      </div>
-    </a>
+    <?php
+    }
+    ?>
   </div>
 </section>
  <!-- categories-end -->
