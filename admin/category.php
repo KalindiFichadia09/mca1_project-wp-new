@@ -102,7 +102,8 @@ include_once '../conn.php';
                             <td><?php echo $r['c_gender']; ?></td>
                             <td><img src="<?php echo
                                                         $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>" width="50"></td>
-                            <td><span class="status-text text-success"><?php echo $r['c_status']; ?></span></td>
+                            <td><span class="status-text <?php echo ($r['c_status'] == 'Inactive') ? 'text-danger' : 'text-success'; ?>"><?php echo $r['c_status']; ?></span>
+                            </td>
                             <td><button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow<?php echo $r['c_id']; ?>"><i
                                         class="fas fa-arrow-down "></button></td>
                             <td><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></button></td>
@@ -112,9 +113,7 @@ include_once '../conn.php';
                                 <div id="formBlockUpdate" class="row formBlock mb-3">
                                     <div class="col-lg-8 col-md-10 mx-auto">
                                         <div class="form-block p-2">
-                                            <form id="update" method="post"
-                                                onsubmit="return categoryUpdateValidation(this);"
-                                                enctype="multipart/form-data">
+                                            <form id="update" method="post" action="category.php" enctype="multipart/form-data" onsubmit="return categoryUpdateValidation(this);">
                                                 <input type="hidden" name="c_codeU" value="<?php echo $r['c_code']; ?>">
                                                 <div class="row">
                                                     <div class="col-md-4 product-image">
@@ -179,7 +178,7 @@ include_once '../conn.php';
                                                                     <label class="form-check-label" for="inactiveU">Inactive</label>
                                                                 </div>
                                                             </div>
-                                                            <span id="categoryStatusMsg"></span>
+                                                            <span id="categoryStatusMsgU"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -238,14 +237,24 @@ if (isset($_POST['add'])) {
 }
 
 if (isset($_POST['update'])) {
-    // Form data extraction
-    $c_code = $_POST['c_codeU'];  // Correctly retrieve c_codeU
+    // Extract form data
+    $c_code = $_POST['c_codeU'];
     $c_name = $_POST['c_nameU'];
     $c_gender = $_POST['c_genderU'];
     $c_status = $_POST['c_statusU'];
 
-    // Prepare your SQL query for updating
-    $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_status`='$c_status' WHERE `c_code`='$c_code'";
+    // Check if a new image is uploaded
+    if ($_FILES['c_imageU']['name']) {
+        // Image upload
+        $c_image = "../images/category_image/" . $_FILES['c_imageU']['name'];
+        move_uploaded_file($_FILES['c_imageU']['tmp_name'], $c_image);  // Upload the new image
+
+        // Update query with the new image
+        $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$c_image', `c_status`='$c_status' WHERE `c_code`='$c_code'";
+    } else {
+        // Update without changing the image
+        $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_status`='$c_status' WHERE `c_code`='$c_code'";
+    }
 
     // Execute the query
     if (mysqli_query($con, $q)) {
@@ -254,5 +263,4 @@ if (isset($_POST['update'])) {
         echo "<script>alert('Category not Updated'); window.location.href = 'category.php';</script>";
     }
 }
-
 ?>

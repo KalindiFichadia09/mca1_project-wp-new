@@ -397,13 +397,9 @@ function categoryUpdateValidation(form) {
     form.querySelectorAll('input[name="c_genderU"]'),
     form.querySelector("#categoryGenderMsgU")
   );
-  // fileValidate(
-  //   form.querySelector("#categoryImageU"),
-  //   form.querySelector("#categoryImageMsgU")
-  // );
   genderValidate(
-    document.querySelectorAll('input[name="c_status"]'),
-    document.querySelector("#categoryStatusMsg")
+    document.querySelectorAll('input[name="c_statusU"]'),
+    document.querySelector("#categoryStatusMsgU")
   );
   return validate;
 }

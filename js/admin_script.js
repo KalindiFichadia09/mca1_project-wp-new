@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
       let target = document.querySelector(
         this.getAttribute("data-target-update")
       );
-
       // Toggle the form display
       target.style.display =
         target.style.display === "none" ? "table-row" : "none";
@@ -54,11 +53,11 @@ document.querySelectorAll("#toggleFormBtnU").forEach((button) => {
 });
 
 // User form visibile - Update
-document.getElementById("BtnUpdate").addEventListener("click", function () {
-  var formBlock = document.getElementById("formUpdate");
-  if (formBlock.style.display === "none" || formBlock.style.display === "") {
-    formBlock.style.display = "block";
-  } else {
-    formBlock.style.display = "none";
-  }
-});
+// document.getElementById("BtnUpdate").addEventListener("click", function () {
+//   var formBlock = document.getElementById("formUpdate");
+//   if (formBlock.style.display === "none" || formBlock.style.display === "") {
+//     formBlock.style.display = "block";
+//   } else {
+//     formBlock.style.display = "none";
+//   }
+// });
