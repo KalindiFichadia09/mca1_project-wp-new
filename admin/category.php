@@ -106,7 +106,14 @@ include_once '../conn.php';
                             </td>
                             <td><button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow<?php echo $r['c_id']; ?>"><i
                                         class="fas fa-arrow-down "></button></td>
-                            <td><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></button></td>
+                            
+                            <td><form method="POST" action="">
+                                    <input type="hidden" name="delete_id" value="<?php echo $r['c_id']; ?>">
+                                    <button type="submit" name="delete" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this record?');">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form></td>
                         </tr>
                         <tr id="updateRow<?php echo $r['c_id']; ?>" class="update-row" style="display:none;">
                             <td colspan="8">
@@ -262,5 +269,21 @@ if (isset($_POST['update'])) {
     } else {
         echo "<script>alert('Category not Updated'); window.location.href = 'category.php';</script>";
     }
+}
+if (isset($_POST['delete'])) {
+    $delete_id = $_POST['delete_id']; // Get the id of the row to delete
+
+    // SQL query to delete the specific record
+    $delete_query = "DELETE FROM category_tbl WHERE c_id = '$delete_id'";
+
+    // Execute the query and check if it was successful
+    if (mysqli_query($con, $delete_query)) {
+        echo "<script>confirm('Record deleted successfully');</script>";
+    } else {
+        echo "<script>confirm('Error deleting record');</script>";
+    }
+
+    // Redirect to refresh the page after deletion
+    echo "<script>window.location.href = 'category.php';</script>";
 }
 ?>
