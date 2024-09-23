@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- head start -->
 <head> 
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Jaysheree Jewels</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -63,7 +62,7 @@
     </style>
 </head>
 <body>
-    <!-- Sign-In Form -->
+    <!-- Sign-In Form here -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
