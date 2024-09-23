@@ -62,7 +62,7 @@
     </style>
 </head>
 <body>
-    <!-- Sign-In Form here -->
+    <!-- Sign-In Form -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
