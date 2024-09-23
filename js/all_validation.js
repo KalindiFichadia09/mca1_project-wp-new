@@ -220,7 +220,7 @@ function pwValidate(price, priceMsg) {
     priceMsg.style.color = "red";
     validate = false;
   } else {
-    let priceReg = /^\d+(\.\d{1,2})?$/;
+    let priceReg = /^\d+(\.\d+)?$/;
     if (priceReg.test(price.value)) {
       priceMsg.innerHTML = "";
     } else {
@@ -419,7 +419,7 @@ function productInsertValidation() {
     document.querySelector("#stock"),
     document.querySelector("#stockMsg")
   );
-  codeValidate(
+  dropdownValidate(
     document.querySelector("#productCategoryCode"),
     document.querySelector("#productCategoryCodeMsg")
   );
@@ -450,6 +450,10 @@ function productInsertValidation() {
   fileValidate(
     document.querySelector("#productImage"),
     document.querySelector("#productImageMsg")
+  );
+  genderValidate(
+    document.querySelectorAll('input[name="p_status"]'),
+    document.querySelector("#productStatusMsg")
   );
 
   return validate;
@@ -498,10 +502,11 @@ function productUpdateValidation(form) {
     form.querySelector("#diamondColorU"),
     form.querySelector("#diamondColorMsgU")
   );
-  fileValidate(
-    form.querySelector("#productImageU"),
-    form.querySelector("#productImageMsgU")
+  genderValidate(
+    document.querySelectorAll('input[name="p_statusU"]'),
+    document.querySelector("#productStatusMsgU")
   );
+
   return validate;
 }
 
