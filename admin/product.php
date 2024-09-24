@@ -193,7 +193,13 @@ include_once '../conn.php';
                                             class="fas fa-arrow-down "></button></td>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="delete_id" value="<?php echo $r['p_id']; ?>">
+                                        <button type="submit" name="delete" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this record?');">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <tr id="detailRow<?php echo $r['p_id']; ?>" class="detail-row" style="display:none;">
@@ -253,11 +259,57 @@ include_once '../conn.php';
                                                                 <span id="productNameMsgU"></span>
                                                             </div>
 
+                                                            <!-- Product Category Code -->
+                                                            <div class="form-group mb-3">
+                                                                <label for="productCategoryCode">Product Category
+                                                                    Code</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="productCategoryCodeU" name="product_category_code"
+                                                                    value="<?php echo $r['p_c_code']; ?>">
+                                                                <span id="productCategoryCodeMsgU"></span>
+                                                            </div>
+
+                                                            <!-- Diamond Weight -->
+                                                            <div class="form-group mb-3">
+                                                                <label for="grossWeight">Diamond Weight (in grams)</label>
+                                                                <input type="text" class="form-control" id="diamondWeightU"
+                                                                    name="gross_weight"
+                                                                    value="<?php echo $r['p_diamond_weight']; ?>">
+                                                                <span id="diamondWeightMsgU"></span>
+                                                            </div>
+
+                                                            <!-- Diamond Pieces -->
+                                                            <div class="form-group mb-3">
+                                                                <label for="diamondPieces">Diamond Pieces</label>
+                                                                <input type="number" class="form-control"
+                                                                    id="diamondPiecesU" name="diamond_pieces"
+                                                                    value="<?php echo $r['p_diamond_pices']; ?>">
+                                                                <span id="diamondPiecesMsgU"></span>
+                                                            </div>
+
+                                                            <!-- Diamond Color -->
+                                                            <div class="form-group mb-3">
+                                                                <label for="diamondColor">Diamond Color</label>
+                                                                <input type="text" class="form-control" id="diamondColorU"
+                                                                    name="diamond_color"
+                                                                    value="<?php echo $r['p_diamond_color']; ?>">
+                                                                <span id="diamondColorMsgU"></span>
+                                                            </div>
+
+                                                            <!-- Product Image -->
+                                                            <div class="form-group mb-3">
+                                                                <label for="productImage">Product Image</label>
+                                                                <input type="file" class="form-control" id="productImageU"
+                                                                    name="product_image">
+                                                                <span id="productImageMsgU"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
                                                             <!-- Product Type -->
                                                             <div class="form-group mb-3">
                                                                 <label for="productType">Product Type</label>
-                                                                <select name="p_typeU" id="productTypeU"
-                                                                    class="form-select">
+                                                                <select name="type" id="productTypeU" class="form-select">
                                                                     <option value="none">--Select product type--</option>
                                                                     <option value="Yellow Gold">Yellow Gold</option>
                                                                     <option value="Rose Gold">Rose Gold</option>
@@ -271,7 +323,7 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="grossWeight">Gross Weight (in grams)</label>
                                                                 <input type="text" class="form-control" id="grossWeightU"
-                                                                    name="p_gross_weight"
+                                                                    name="gross_weight"
                                                                     value="<?php echo $r['p_gross_weight']; ?>">
                                                                 <span id="grossWeightMsgU"></span>
                                                             </div>
@@ -280,57 +332,15 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="grossWeight">Overhead charges</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="overheadChargesU" name="p_overhead_charges"
+                                                                    id="overheadChargesU" name="gross_weight"
                                                                     value="<?php echo $r['p_overhead_charges']; ?>">
                                                                 <span id="overheadChargesMsgU"></span>
-                                                            </div>
-
-                                                            <!-- Diamond Color -->
-                                                            <div class="form-group mb-3">
-                                                                <label for="diamondColor">Diamond Color</label>
-                                                                <input type="text" class="form-control" id="diamondColorU"
-                                                                    name="p_diamond_color"
-                                                                    value="<?php echo $r['p_diamond_color']; ?>">
-                                                                <span id="diamondColorMsgU"></span>
-                                                            </div>
-
-                                                            <!-- Product Image -->
-                                                            <div class="form-group mb-3">
-                                                                <label for="productImage">Product Image</label>
-                                                                <input type="file" class="form-control" id="productImageU"
-                                                                    name="product_image">
-                                                                <!-- <span id="productImageMsgU"></span> -->
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <!-- Product Category Code -->
-                                                            <div class="form-group mb-3">
-                                                                <label for="productCategoryCode">Product Category
-                                                                    Code</label>
-                                                                <select name="p_c_codeU" id="productCategoryCode"
-                                                                    class="form-select">
-                                                                    <option value="none">--Select product category code--
-                                                                    </option>
-                                                                    <?php
-                                                                    $q = "select c_code,c_name from category_tbl where c_status='Active' ";
-                                                                    $result = mysqli_query($con, $q);
-                                                                    while ($r = mysqli_fetch_assoc($result)) {
-                                                                        ?>
-                                                                        <option value="<?php echo $r['c_code']; ?>">
-                                                                            <?php echo $r['c_name']; ?>
-                                                                        </option>
-                                                                        <?php
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                                <span id="productCategoryCodeMsgU"></span>
                                                             </div>
 
                                                             <!-- Purity -->
                                                             <div class="form-group mb-3">
                                                                 <label for="purity">Purity</label>
-                                                                <select name="p_purityU" id="purityU" class="form-select">
+                                                                <select name="purity" id="purityU" class="form-select">
                                                                     <option value="none">-- Select product purity --
                                                                     </option>
                                                                     <option value="22K">22 Karat (91.67% gold)</option>
@@ -342,29 +352,11 @@ include_once '../conn.php';
                                                                 <span id="purityMsgU"></span>
                                                             </div>
 
-                                                            <!-- Diamond Weight -->
-                                                            <div class="form-group mb-3">
-                                                                <label for="grossWeight">Diamond Weight (in grams)</label>
-                                                                <input type="text" class="form-control" id="diamondWeightU"
-                                                                    name="p_diamond_weightU"
-                                                                    value="<?php echo $r['p_diamond_weight']; ?>">
-                                                                <span id="diamondWeightMsgU"></span>
-                                                            </div>
-
-                                                            <!-- Diamond Pieces -->
-                                                            <div class="form-group mb-3">
-                                                                <label for="diamondPieces">Diamond Pieces</label>
-                                                                <input type="number" class="form-control"
-                                                                    id="diamondPiecesU" name="p_diamond_pieces"
-                                                                    value="<?php echo $r['p_diamond_pieces']; ?>">
-                                                                <span id="diamondPiecesMsgU"></span>
-                                                            </div>
-
                                                             <!-- Stock -->
                                                             <div class="form-group mb-3">
                                                                 <label for="stock">Stock</label>
-                                                                <input type="text" class="form-control" id="stockU"
-                                                                    name="p_stockU" value="<?php echo $r['p_stock']; ?>">
+                                                                <input type="number" class="form-control" id="stockU"
+                                                                    name="stock" value="<?php echo $r['p_stock']; ?>">
                                                                 <span id="stockMsgU"></span>
                                                             </div>
 
@@ -374,30 +366,29 @@ include_once '../conn.php';
                                                                 <div class="form-control">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
-                                                                            name="p_statusU" id="active" value="Active"
+                                                                            name="p_statusU" id="activeu" value="Active"
                                                                             <?php if ($r['p_status'] == "Active")
                                                                                 echo "checked"; ?>>
                                                                         <label class="form-check-label"
-                                                                            for="active">Active</label>
+                                                                            for="activeu">Active</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
-                                                                            name="p_statusU" id="inactive" value="Inactive"
+                                                                            name="p_statusU" id="inactiveu" value="Inactive"
                                                                             <?php if ($r['p_status'] == "Inactive")
                                                                                 echo "checked"; ?>>
                                                                         <label class="form-check-label"
-                                                                            for="inactive">Inactive</label>
+                                                                            for="inactiveu">Inactive</label>
                                                                     </div>
                                                                 </div>
-                                                                <span id="productStatusMsgU"></span>
+                                                                <span id="productStatusMsg"></span>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <!-- Submit Button -->
                                                     <div class="d-flex justify-content-end mt-3">
-                                                        <input type="submit" value="Update Product" name="update"
-                                                            class="btn btn-success">
+                                                        <button type="submit" class="btn btn-success">Update</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -514,4 +505,21 @@ include_once '../conn.php';
 //         echo "<script>alert('Category not Updated'); window.location.href = 'category.php';</script>";
 //     }
 // }
+    
+    if (isset($_POST['delete'])) {
+        $delete_id = $_POST['delete_id']; // Get the id of the row to delete
+    
+        // SQL query to delete the specific record
+        $delete_query = "DELETE FROM product_tbl WHERE p_id = '$delete_id'";
+
+        // Execute the query and check if it was successful
+        if (mysqli_query($con, $delete_query)) {
+            echo "<script>confirm('Record deleted successfully');</script>";
+        } else {
+            echo "<script>confirm('Error deleting record');</script>";
+        }
+
+        // Redirect to refresh the page after deletion
+        echo "<script>window.location.href = 'product.php';</script>";
+    }
     ?>

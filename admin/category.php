@@ -106,7 +106,6 @@ include_once '../conn.php';
                             </td>
                             <td><button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow<?php echo $r['c_id']; ?>"><i
                                         class="fas fa-arrow-down "></button></td>
-                            
                             <td><form method="POST" action="">
                                     <input type="hidden" name="delete_id" value="<?php echo $r['c_id']; ?>">
                                     <button type="submit" name="delete" class="btn btn-danger btn-sm"
