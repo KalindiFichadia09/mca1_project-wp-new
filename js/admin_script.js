@@ -1,4 +1,4 @@
-// Manage user - show & update button click event
+// Manage show & update button click event of table
 document.addEventListener("DOMContentLoaded", function () {
   // Show detailed info
   document.querySelectorAll(".show-btn").forEach((button) => {

@@ -182,7 +182,8 @@ include_once '../conn.php';
                                 <td><?php echo $r['p_code']; ?></td>
                                 <td><?php echo $r['p_name']; ?></td>
                                 <td>₹ <?php echo $r['p_total_price']; ?></td>
-                                <td><?php echo $r['p_status']; ?></td>
+                                <td><span class="status-text <?php echo ($r['p_status'] == 'Inactive') ? 'text-danger' : 'text-success'; ?>"><?php echo $r['p_status']; ?>
+                                </td>
                                 <td>
                                     <button class="btn btn-info btn-sm show-btn"
                                         data-target="#detailRow<?php echo $r['p_id']; ?>"><i
@@ -244,6 +245,7 @@ include_once '../conn.php';
                                                 <form id="update" action="product.php" method="post"
                                                     onsubmit="return productUpdateValidation(this);"
                                                     enctype="multipart/form-data">
+                                                    <input type="hidden" name="p_codeU" value="<?php echo $r['p_code']; ?>">
                                                     <div class="row">
                                                         <div class="col-md-4 product-image">
                                                             <img src="<?php echo
@@ -263,17 +265,30 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="productCategoryCode">Product Category
                                                                     Code</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="productCategoryCodeU" name="product_category_code"
-                                                                    value="<?php echo $r['p_c_code']; ?>">
-                                                                <span id="productCategoryCodeMsgU"></span>
-                                                            </div>
+                                                                <select name="p_c_codeU" id="productCategoryCode"
+                                                                    class="form-select">
+                                                                    <option value="none">--Select product category code--
+                                                                    </option>
+                                                                    <?php
+                                                                        $q1 = "select c_code,c_name from category_tbl where c_status='Active' ";
+                                                                        $result1 = mysqli_query($con, $q1);
+                                                                        while ($r1 = mysqli_fetch_assoc($result1)) {
+                                                                            ?>
+                                                                        <option value="<?php echo $r1['c_code']; ?>" <?php echo ($r['p_c_code'] == $r1['c_code']) ? 'selected' : ''; ?>>
+                                                                            <?php echo $r1['c_name']; ?>
+                                                                        </option>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                </select>
+                                                                <span id="productCategoryCodeMsg"></span>
+                                                                </div>
 
                                                             <!-- Diamond Weight -->
                                                             <div class="form-group mb-3">
                                                                 <label for="grossWeight">Diamond Weight (in grams)</label>
-                                                                <input type="text" class="form-control" id="diamondWeightU"
-                                                                    name="gross_weight"
+                                                                <input type="text" class="form-control" id="diamondWeightU" 
+                                                                    name="p_diamond_weightU" 
                                                                     value="<?php echo $r['p_diamond_weight']; ?>">
                                                                 <span id="diamondWeightMsgU"></span>
                                                             </div>
@@ -282,7 +297,7 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="diamondPieces">Diamond Pieces</label>
                                                                 <input type="number" class="form-control"
-                                                                    id="diamondPiecesU" name="diamond_pieces"
+                                                                    id="diamondPiecesU" name="p_diamond_piecesU"
                                                                     value="<?php echo $r['p_diamond_pices']; ?>">
                                                                 <span id="diamondPiecesMsgU"></span>
                                                             </div>
@@ -291,7 +306,7 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="diamondColor">Diamond Color</label>
                                                                 <input type="text" class="form-control" id="diamondColorU"
-                                                                    name="diamond_color"
+                                                                    name="p_diamond_colorU"
                                                                     value="<?php echo $r['p_diamond_color']; ?>">
                                                                 <span id="diamondColorMsgU"></span>
                                                             </div>
@@ -300,7 +315,7 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="productImage">Product Image</label>
                                                                 <input type="file" class="form-control" id="productImageU"
-                                                                    name="product_image">
+                                                                    name="p_imageU">
                                                                 <span id="productImageMsgU"></span>
                                                             </div>
                                                         </div>
@@ -309,12 +324,16 @@ include_once '../conn.php';
                                                             <!-- Product Type -->
                                                             <div class="form-group mb-3">
                                                                 <label for="productType">Product Type</label>
-                                                                <select name="type" id="productTypeU" class="form-select">
+                                                                <select name="p_typeU" id="productTypeU" class="form-select">
                                                                     <option value="none">--Select product type--</option>
-                                                                    <option value="Yellow Gold">Yellow Gold</option>
-                                                                    <option value="Rose Gold">Rose Gold</option>
-                                                                    <option value="Platinum">Platinum</option>
-                                                                    <option value="Silver">Silver</option>
+                                                                    <option value="Yellow Gold" <?php echo ($r['p_type'] == 'Yellow Gold') ? 'selected' : ''; ?>>
+                                                                        Yellow Gold</option>
+                                                                    <option value="Rose Gold" <?php echo ($r['p_type'] == 'Rose Gold') ? 'selected' : ''; ?>>
+                                                                        Rose Gold</option>
+                                                                    <option value="Platinum" <?php echo ($r['p_type'] == 'Platinum') ? 'selected' : ''; ?>>
+                                                                        Platinum</option>
+                                                                    <option value="Silver" <?php echo ($r['p_type'] == 'Silver') ? 'selected' : ''; ?>>
+                                                                        Silver</option>
                                                                 </select>
                                                                 <span id="productTypeMsgU"></span>
                                                             </div>
@@ -323,7 +342,7 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="grossWeight">Gross Weight (in grams)</label>
                                                                 <input type="text" class="form-control" id="grossWeightU"
-                                                                    name="gross_weight"
+                                                                    name="p_gross_weightU"
                                                                     value="<?php echo $r['p_gross_weight']; ?>">
                                                                 <span id="grossWeightMsgU"></span>
                                                             </div>
@@ -331,23 +350,23 @@ include_once '../conn.php';
                                                             <!-- Overhead charges -->
                                                             <div class="form-group mb-3">
                                                                 <label for="grossWeight">Overhead charges</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="overheadChargesU" name="gross_weight"
-                                                                    value="<?php echo $r['p_overhead_charges']; ?>">
+                                                                <input type="text" class="form-control" 
+                                                                id="overheadChargesU" name="p_overhead_chargesU" 
+                                                                value="<?php echo $r['p_overhead_charges']; ?>">
                                                                 <span id="overheadChargesMsgU"></span>
                                                             </div>
 
                                                             <!-- Purity -->
                                                             <div class="form-group mb-3">
                                                                 <label for="purity">Purity</label>
-                                                                <select name="purity" id="purityU" class="form-select">
+                                                                <select name="p_purityU" id="purityU" class="form-select">
                                                                     <option value="none">-- Select product purity --
                                                                     </option>
-                                                                    <option value="22K">22 Karat (91.67% gold)</option>
-                                                                    <option value="20K">20 Karat (83.33% gold)</option>
-                                                                    <option value="18K">18 Karat (75% gold)</option>
-                                                                    <option value="16K">16 Karat (66.70% gold)</option>
-                                                                    <option value="14K">14 Karat (58.30% gold)</option>
+                                                                    <option value="22K" <?php echo ($r['p_purity'] == '22K') ? 'selected' : ''; ?>>22 Karat (91.67% gold)</option>
+                                                                    <option value="20K" <?php echo ($r['p_purity'] == '20K') ? 'selected' : ''; ?>>20 Karat (83.33% gold)</option>
+                                                                    <option value="18K" <?php echo ($r['p_purity'] == '18K') ? 'selected' : ''; ?>>18 Karat (75% gold)</option>
+                                                                    <option value="16K" <?php echo ($r['p_purity'] == '16K') ? 'selected' : ''; ?>>16 Karat (66.70% gold)</option>
+                                                                    <option value="14K" <?php echo ($r['p_purity'] == '14K') ? 'selected' : ''; ?>>14 Karat (58.30% gold)</option>
                                                                 </select>
                                                                 <span id="purityMsgU"></span>
                                                             </div>
@@ -356,7 +375,7 @@ include_once '../conn.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="stock">Stock</label>
                                                                 <input type="number" class="form-control" id="stockU"
-                                                                    name="stock" value="<?php echo $r['p_stock']; ?>">
+                                                                    name="p_stockU" value="<?php echo $r['p_stock']; ?>">
                                                                 <span id="stockMsgU"></span>
                                                             </div>
 
@@ -381,15 +400,15 @@ include_once '../conn.php';
                                                                             for="inactiveu">Inactive</label>
                                                                     </div>
                                                                 </div>
-                                                                <span id="productStatusMsg"></span>
+                                                                <span id="productStatusMsgU"></span>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <!-- Submit Button -->
-                                                    <div class="d-flex justify-content-end mt-3">
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <input type="submit" value="Update Category" name="update" class="btn btn-success">
+                                                    </div> 
                                                 </form>
                                             </div>
                                         </div>
@@ -410,8 +429,6 @@ include_once '../conn.php';
     <?php
 
     if (isset($_POST['add'])) {
-
-
         $Gold_Price = 6000;
         $Diamond_Price = 20;//per pices
         $Making_Charge = 500;//per gram
@@ -478,33 +495,71 @@ include_once '../conn.php';
         }
     }
 
-    // if (isset($_POST['update'])) {
-//     // Extract form data
-//     $c_code = $_POST['c_codeU'];
-//     $c_name = $_POST['c_nameU'];
-//     $c_gender = $_POST['c_genderU'];
-//     $c_status = $_POST['c_statusU'];
+    if (isset($_POST['update'])) {
+        $Gold_Price = 6000;
+        $Diamond_Price = 20;//per pices
+        $Making_Charge = 500;//per gram
+        $P_T_Gold_Price;
+
+        $P_Code = $_POST['p_codeU'];
+        $P_Name = $_POST['p_nameU'];
+        // $P_Size=$_POST['P_Size'];
+        $P_Purity = $_POST['p_purityU'];
+
+        if ($P_Purity == '22K') {
+            $P_T_Gold_Price = (($Gold_Price * 91.67) / 100);
+        } elseif ($P_Purity == '20K') {
+            $P_T_Gold_Price = (($Gold_Price * 83.33) / 100);
+        } elseif ($P_Purity == '18K') {
+            $P_T_Gold_Price = (($Gold_Price * 75) / 100);
+        } elseif ($P_Purity == '16K') {
+            $P_T_Gold_Price = (($Gold_Price * 66.67) / 100);
+        } elseif ($P_Purity == '14K') {
+            $P_T_Gold_Price = (($Gold_Price * 58.33) / 100);
+        }
+
+        $P_C_Code = $_POST['p_c_codeU'];
+        // $P_Category_Type=$_POST['P_Category_Type'];
+        $P_Type = $_POST['p_typeU'];
+        $P_Gross_Weight = $_POST['p_gross_weightU'];
+        $P_Diamond_Weight = $_POST['p_diamond_weightU'];
+        $P_Diamond_Pices = $_POST['p_diamond_piecesU'];
+        $P_Diamond_Color = $_POST['p_diamond_colorU'];
+        $P_Stock = $_POST['p_stockU'];
+        $p_overhead_charges = $_POST['p_overhead_chargesU'];
+
+        $P_Gold_Weight = ($P_Gross_Weight - $P_Diamond_Weight);
+        $P_Gold_Price = ($P_T_Gold_Price * $P_Gold_Weight);
+        $P_Diamond_Price = ($Diamond_Price * $P_Diamond_Pices);
+        $P_Making_Charge = ($Making_Charge * $P_Gross_Weight);
+        $P_Base_Price = ($P_Gold_Price + $P_Diamond_Price + $P_Making_Charge + $p_overhead_charges);
+        $P_Tax = (($P_Base_Price * 3) / 100);
+        $P_Total_Price = ($P_Base_Price + $P_Tax);
+
+
+        $P_Status = $_POST['p_statusU'];
+
+        // Check if a new image is uploaded
+        if ($_FILES['p_imageU']['name']) {
+            // Image upload
+            $P_Image = "../images/product_image/" . $_FILES['p_imageU']['name'];
+            move_uploaded_file($_FILES['p_imageU']['tmp_name'], $P_Image);  // Upload the new image
     
-    //     // Check if a new image is uploaded
-//     if ($_FILES['c_imageU']['name']) {
-//         // Image upload
-//         $c_image = "../images/category_image/" . $_FILES['c_imageU']['name'];
-//         move_uploaded_file($_FILES['c_imageU']['tmp_name'], $c_image);  // Upload the new image
-    
-    //         // Update query with the new image
-//         $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$c_image', `c_status`='$c_status' WHERE `c_code`='$c_code'";
-//     } else {
-//         // Update without changing the image
-//         $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_status`='$c_status' WHERE `c_code`='$c_code'";
-//     }
-    
-    //     // Execute the query
-//     if (mysqli_query($con, $q)) {
-//         echo "<script>alert('Category Updated !!'); window.location.href = 'category.php';</script>";
-//     } else {
-//         echo "<script>alert('Category not Updated'); window.location.href = 'category.php';</script>";
-//     }
-// }
+            // Update query with the new image
+            $q = "update product_tbl set p_name='$P_Name',p_c_code='$P_C_Code',p_gross_weight='$P_Gross_Weight',p_diamond_weight='$P_Diamond_Weight',p_diamond_pices='$P_Diamond_Pices',p_purity='$P_Purity',p_gold_weight='$P_Gold_Weight',p_gold_price='$P_Gold_Price',p_diamond_price='$P_Diamond_Price',p_making_charge='$P_Making_Charge',p_overhead_charges='$p_overhead_charges',p_base_price='$P_Base_Price',p_tax='$P_Tax',p_total_price='$P_Total_Price',p_diamond_color='$P_Diamond_Color',p_stock='$P_Stock',p_image='$P_Image',p_status='$P_Status' where p_code='$P_Code' ";
+            echo $q;
+        } else {
+            // Update without changing the image
+            $q = "update product_tbl set p_name='$P_Name',p_c_code='$P_C_Code',p_gross_weight='$P_Gross_Weight',p_diamond_weight='$P_Diamond_Weight',p_diamond_pices='$P_Diamond_Pices',p_purity='$P_Purity',p_gold_weight='$P_Gold_Weight',p_gold_price='$P_Gold_Price',p_diamond_price='$P_Diamond_Price',p_making_charge='$P_Making_Charge',p_overhead_charges='$p_overhead_charges',p_base_price='$P_Base_Price',p_tax='$P_Tax',p_total_price='$P_Total_Price',p_diamond_color='$P_Diamond_Color',p_stock='$P_Stock',p_status='$P_Status' where p_code='$P_Code' ";
+            echo $q;
+        }
+
+        if (mysqli_query($con, $q)) {
+            echo "<script>alert('Product Updated !!'); window.location.href = 'product.php';</script>";
+        } else {
+            echo "<script>alert('Product not Updated'); window.location.href = 'product.php';</script>";
+        }
+    }
     
     if (isset($_POST['delete'])) {
         $delete_id = $_POST['delete_id']; // Get the id of the row to delete
