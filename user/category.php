@@ -12,7 +12,7 @@ include_once '../conn.php';
     $result = mysqli_query($con, $q);
     while ($r = mysqli_fetch_assoc($result)) {
       ?>
-    <a href="product.php">
+    <a href="product.php?c_code=<?php echo $r['c_code']; ?>">
       <div class="category">
           <img src="<?php echo
             $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>">

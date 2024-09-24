@@ -156,7 +156,6 @@ include_once '../conn.php';
         <div class="col-12">
             <div class="table-responsive">
                 <?php
-                // error_reporting((0));
                 $q = "select * from product_tbl";
                 $result = mysqli_query($con, $q);
                 ?>
@@ -226,7 +225,7 @@ include_once '../conn.php';
                                             <p><strong>Diamond Weight:</strong> <?php echo $r['p_diamond_weight']; ?> Grams
                                             <p><strong>Diamond Pieces:</strong> ₹ <?php echo $r['p_diamond_pices']; ?></p>
                                             <p><strong>Diamond Color:</strong> <?php echo $r['p_diamond_color']; ?></p>
-                                            <p><strong>Overhead Charges:</strong> ₹ <?php echo $r['p_making_charge']; ?></p>
+                                            <p><strong>Making Charges:</strong> ₹ <?php echo $r['p_making_charge']; ?></p>
                                             <p><strong>Overhead Charges:</strong> ₹ <?php echo $r['p_overhead_charges']; ?>
                                             </p>
                                             <p><strong>Base Price:</strong> ₹ <?php echo $r['p_base_price']; ?></p>

@@ -50,7 +50,7 @@ include_once '../conn.php';
     $result = mysqli_query($con, $q);
     while ($r = mysqli_fetch_assoc($result)) {
       ?>
-      <a href="product.php">
+      <a href="product.php?c_code=<?php echo $r['c_code']; ?>">
         <div class="category">
           <img src="<?php echo
             $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>">
@@ -68,38 +68,31 @@ include_once '../conn.php';
 <section class="new-arrivals">
   <h2>New Arrivals</h2>
   <div class="arrivals-container">
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg1.jpg" alt="New Arrival 1">
-        <h3>Product 1</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg2.jpg" alt="New Arrival 1">
-        <h3>Product 2</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg3.jpg" alt="New Arrival 1">
-        <h3>Product 3</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
-    <a href="single-product.php">
+    <?php
+    $q = "select * from product_tbl where p_status='Active' ORDER BY p_id DESC LIMIT 4";
+    $result = mysqli_query($con, $q);
+    while ($r = mysqli_fetch_assoc($result)) {
+      ?>
+      <a href="single-product.php">
+        <div class="arrival-item">
+          <img src="<?php echo $r['p_image']; ?>" alt="<?php echo $r['p_name']; ?>">
+          <h3><?php echo $r['p_name']; ?></h3>
+          <p class="price">₹ <?php echo $r['p_total_price']; ?></p>
+          <button class="buy-now">Buy Now</button>
+        </div>
+      </a>
+      <?php
+    }
+    ?>
+    
+    <!-- <a href="single-product.php">
       <div class="arrival-item">
         <img src="../images/newArrivalImg4.jpg" alt="New Arrival 1">
         <h3>Product 4</h3>
         <p class="price">₹ 49.99</p>
         <button class="buy-now">Buy Now</button>
       </div>
-    </a>
+    </a> -->
   </div>
 </section>
 <!-- new arrival - end -->
