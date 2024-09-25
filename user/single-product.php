@@ -39,8 +39,6 @@ $result = mysqli_query($con, $q);
                         <h2><?php echo $r['p_name']; ?></h2>
                         <p class="text-muted"><?php echo $r['c_name']; ?></p>
                         <h3 class="text-danger">&#8377; <?php echo $r['p_total_price']; ?></h3>
-                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at lorem vel nisi faucibus
-                                                    commodo.</p> -->
 
                         <div class="mt-4">
                             <h6>Weight Details</h6>

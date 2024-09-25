@@ -275,7 +275,7 @@ function userInsertValidation() {
     document.querySelector("#fullNameMsg")
   );
   genderValidate(
-    document.querySelectorAll('input[name="gender"]'),
+    document.querySelectorAll('input[name="u_gender"]'),
     document.querySelector("#genderMsg")
   );
   emailValidate(

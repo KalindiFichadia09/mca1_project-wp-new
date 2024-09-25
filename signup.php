@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +29,8 @@
             border: none;
             border-radius: 15px;
             background: rgba(255, 255, 255, 1);
-            margin-top: 50px; 
-            margin-bottom: 50px; 
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
 
         .btn-primary {
@@ -46,6 +47,7 @@
             background-color: #D4AF37;
             color: #fff;
         }
+
         .input-group {
             position: relative;
         }
@@ -62,6 +64,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Signup Form -->
     <div class="container">
@@ -72,71 +75,83 @@
                     <form onsubmit="return userInsertValidation()" method="POST">
                         <div class="form-group">
                             <label for="name">Full Name</label>
-                            <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your full name">
+                            <input type="text" class="form-control" name="u_fullName" id="fullName"
+                                placeholder="Enter your full name">
                             <span id="fullNameMsg"></span>
                         </div>
                         <div class="form-group">
                             <label>Gender</label><br>
                             <div class="form-control">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                    <input class="form-check-input" type="radio" name="u_gender" id="male" value="male">
                                     <label class="form-check-label" for="male">Male</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                    <input class="form-check-input" type="radio" name="u_gender" id="female"
+                                        value="female">
                                     <label class="form-check-label" for="female">Female</label>
                                 </div>
                             </div>
-                           <span id="genderMsg"></span>
+                            <span id="genderMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email">
+                            <input type="email" class="form-control" name="email" id="u_email"
+                                placeholder="Enter your email">
                             <span id="emailMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="mobile">Mobile Number</label>
-                            <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Enter your mobile number">
+                            <input type="tel" class="form-control" name="mobile" id="u_mobile"
+                                placeholder="Enter your mobile number">
                             <span id="mobileMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input type="text" class="form-control" name="address" id="address" placeholder="Enter your address">
+                            <input type="text" class="form-control" name="address" id="u_address"
+                                placeholder="Enter your address">
                             <span id="addressMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" class="form-control" name="city" id="city" placeholder="Enter your city">
+                            <input type="text" class="form-control" name="city" id="u_city"
+                                placeholder="Enter your city">
                             <span id="cityMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="state">State</label>
-                            <input type="text" class="form-control" name="state" id="state" placeholder="Enter your state">
+                            <input type="text" class="form-control" name="state" id="u_state"
+                                placeholder="Enter your state">
                             <span id="stateMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="pincode">Pincode</label>
-                            <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Enter your pincode">
+                            <input type="text" class="form-control" name="pincode" id="u_pincode"
+                                placeholder="Enter your pincode">
                             <span id="pincodeMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="country">Profile Photo</label>
-                            <input type="file" class="form-control" id="profilePhoto" name="profilePhoto" id="file">
-                            <span id="profilePhotoMsg"></span> 
+                            <input type="file" class="form-control" id="profilePhoto" name="u_profilePhoto" id="file">
+                            <span id="profilePhotoMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
-                                <button type="button" class="view-button" onclick="showPassword('password')">👁️</button>
+                                <input type="password" class="form-control" name="u_password" id="password"
+                                    placeholder="Enter your password">
+                                <button type="button" class="view-button"
+                                    onclick="showPassword('password')">👁️</button>
                             </div>
                             <span id="passwordMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">Confirm Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" name="confirmpassword" id="confirmPassword" placeholder="Confirm your password">
-                                <button type="button" class="view-button" onclick="showPassword('confirmPassword')">👁️</button>
+                                <input type="password" class="form-control" name="u_confirmpassword"
+                                    id="confirmPassword" placeholder="Confirm your password">
+                                <button type="button" class="view-button"
+                                    onclick="showPassword('confirmPassword')">👁️</button>
                             </div>
                             <span id="confirmPasswordMsg"></span>
                         </div>
@@ -151,4 +166,41 @@
         </div>
     </div>
 </body>
+
 </html>
+<?php
+
+if (isset($_POST['signup'])) {
+    $u_fullname = $_POST['u_fullname'];
+    $u_gender = $_POST['u_gender'];
+    $u_address = $_POST['u_address'];
+    $u_email = $_POST['u_email'];
+    $u_phone = $_POST['u_phone'];
+    $u_password = $_POST['u_password'];
+    $c_status = $_POST['c_status'];
+    $c_image = "../images/profile_image/" . $_FILES['p_image']['name'];
+
+    $q = "INSERT INTO `category_tbl`(`c_name`, `c_gender`, `c_image`,`c_status`) VALUES ('$c_name','$c_gender','$c_image','$c_status')";
+
+    if (mysqli_query($con, $q)) {
+        if (!is_dir("../images/profile_image")) {
+            mkdir("../images/profile_image");
+        }
+        move_uploaded_file($_FILES['c_image']['tmp_name'], $c_image);
+        ?>
+        <script>
+            alert("Category inserted !!");
+            window.location.href = "category.php";
+        </script>
+        <?php
+    } else {
+        ?>
+
+        <script>
+            alert("Category not inserted");
+            window.location.href = "category.php";
+        </script>
+        <?php
+    }
+}
+?>

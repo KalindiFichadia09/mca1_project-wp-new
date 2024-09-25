@@ -406,7 +406,7 @@ include_once '../conn.php';
 
                                                     <!-- Submit Button -->
                                                     <div class="d-flex justify-content-end">
-                                                        <input type="submit" value="Update Category" name="update" class="btn btn-success">
+                                                        <input type="submit" value="Update Product" name="update" class="btn btn-success">
                                                     </div> 
                                                 </form>
                                             </div>
