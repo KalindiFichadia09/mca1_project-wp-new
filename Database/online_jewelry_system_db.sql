@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2024 at 06:00 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Sep 25, 2024 at 04:40 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,10 +41,12 @@ CREATE TABLE `category_tbl` (
 --
 
 INSERT INTO `category_tbl` (`c_id`, `c_code`, `c_name`, `c_gender`, `c_image`, `c_status`) VALUES
-(1, 'CAT01', 'Gold Chain', 'Male', '../images/category_image/g_chain_m.jpg', 'Active'),
-(2, 'CAT02', 'Gold Chain', 'Female', '../images/category_image/p_chain_m1.jpg', 'Active'),
-(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/bangle.png', 'Active'),
-(4, 'CAT04', 'Ring', 'Male', '../images/category_image/g_ring_m.jpg', 'Active');
+(1, 'CAT01', 'Gold Chain', 'Male', '../images/category_image/c12.jpg', 'Active'),
+(2, 'CAT02', 'Gold Chain', 'Female', '../images/category_image/c10.jpg', 'Active'),
+(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/c18.jpg', 'Active'),
+(4, 'CAT04', 'Ring', 'Male', '../images/category_image/c4.jpg', 'Active'),
+(7, 'CAT05', 'Earings', 'Female', '../images/category_image/c8.jpg', 'Active'),
+(8, 'CAT06', 'Mangalsutra', 'Female', '../images/category_image/m1.jpg', 'Active');
 
 --
 -- Triggers `category_tbl`
@@ -100,9 +102,12 @@ CREATE TABLE `product_tbl` (
 --
 
 INSERT INTO `product_tbl` (`p_id`, `p_code`, `p_name`, `p_c_code`, `p_type`, `p_gross_weight`, `p_diamond_weight`, `p_diamond_pices`, `p_purity`, `p_gold_weight`, `p_gold_price`, `p_diamond_price`, `p_making_charge`, `p_overhead_charges`, `p_base_price`, `p_tax`, `p_total_price`, `p_diamond_color`, `p_stock`, `p_image`, `p_status`) VALUES
-(1, 'PRO01', 'Cross Chain', 'CAT01', 'Yellow Gold', 25.000, 0.000, 0, '20K', 25.00, 124995.00, 0.00, 12500.00, 2250.00, 139745.00, 4192.35, 143937.35, 'NA ', 3, '../images/product_image/g_chain_m.jpg', 'Active'),
-(3, 'PRO02', 'Ring', 'CAT04', 'Rose Gold', 2.000, 0.350, 10, '20K', 1.65, 8249.67, 200.00, 1000.00, 1050.00, 10499.67, 314.99, 10814.66, 'White', 6, '../images/product_image/g_ring_f.jpg', 'Active'),
-(4, 'PRO03', 'Bangles', 'CAT03', 'Yellow Gold', 30.000, 0.000, 0, '22K', 30.00, 165006.00, 0.00, 15000.00, 5420.00, 185426.00, 5562.78, 190988.78, 'NA ', 1, '../images/product_image/bangle.png', 'Active');
+(1, 'PRO01', 'Cross Chain', 'CAT01', 'Yellow Gold', '25.000', '0.000', 0, '20K', '25.00', '124995.00', '0.00', '12500.00', '2250.00', '139745.00', '4192.35', '143937.35', 'NA ', 3, '../images/product_image/c5.jpg', 'Active'),
+(3, 'PRO02', 'Ring', 'CAT04', 'Rose Gold', '2.000', '0.350', 10, '20K', '1.65', '8249.67', '200.00', '1000.00', '1050.00', '10499.67', '314.99', '10814.66', 'White', 6, '../images/product_image/r2.jpg', 'Active'),
+(4, 'PRO03', 'Bangles', 'CAT03', 'Yellow Gold', '30.000', '0.000', 0, '22K', '30.00', '165006.00', '0.00', '15000.00', '5420.00', '185426.00', '5562.78', '190988.78', 'NA ', 1, '../images/product_image/c13.jpg', 'Active'),
+(5, 'PRO04', 'Earings', 'CAT05', 'Yellow Gold', '5.000', '0.010', 14, '22K', '4.99', '27446.00', '280.00', '2500.00', '2410.00', '32636.00', '979.08', '33615.08', 'Silver', 2, '../images/product_image/c8.jpg', 'Active'),
+(6, 'PRO05', 'Gold Plated Mangalsutra', 'CAT06', 'Yellow Gold', '2.000', '0.000', 0, '20K', '2.00', '9999.60', '0.00', '1000.00', '1001.00', '12000.60', '360.02', '12360.62', 'NA', 3, '../images/product_image/m1.jpg', 'Active'),
+(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', '7.000', '0.000', 0, '20K', '7.00', '34998.60', '0.00', '3500.00', '1950.00', '40448.60', '1213.46', '41662.06', 'NA', 4, '../images/product_image/rg1.jpg', 'Active');
 
 --
 -- Triggers `product_tbl`
@@ -148,13 +153,13 @@ ALTER TABLE `product_tbl`
 -- AUTO_INCREMENT for table `category_tbl`
 --
 ALTER TABLE `category_tbl`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product_tbl`
 --
 ALTER TABLE `product_tbl`
-  MODIFY `p_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `p_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
