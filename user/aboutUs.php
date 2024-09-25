@@ -9,7 +9,7 @@
         <!-- Our Story -->
         <div class="row">
             <div class="col-md-6">
-                <img src="../images/aboutUsImg1.jpg" alt="Our Story" class="img-fluid mb-3">
+                <img src="../images/aboutus1.jpg" alt="Our Story" class="img-fluid mb-3">
             </div>
             <div class="col-md-6">
                 <p><strong>Our Story</strong></p>
@@ -25,7 +25,7 @@
                 <p>At Jaysheree Jewels, craftsmanship is at the heart of everything we do. Our skilled artisans combine traditional techniques with modern innovation to create jewelry that is both timeless and contemporary. From selecting the finest gemstones to shaping precious metals with precision, every step in our process reflects our commitment to quality and excellence. We believe that true beauty lies in the details, and it is this dedication to perfection that sets us apart.</p>
             </div>
             <div class="col-md-6">
-                <img src="../images/aboutUsImg2.jpg" alt="Craftsmanship" class="img-fluid mb-3">
+                <img src="../images/aboutus5.png" alt="Craftsmanship" class="img-fluid mb-3">
             </div>
         </div>
         <br/><br/>
@@ -33,7 +33,7 @@
         <!-- Our Commitment to Quality -->
         <div class="row">
             <div class="col-md-6">
-                <img src="../images/aboutUsImg3.jpg" alt="Quality Commitment" class="img-fluid mb-3">
+                <img src="../images/aboutus3.jpg" alt="Quality Commitment" class="img-fluid mb-3">
             </div>
             <div class="col-md-6">
                 <p><strong>Our Commitment to Quality</strong></p>
@@ -49,7 +49,7 @@
                 <p>Choosing Jaysheree Jewels means choosing a partner who understands that jewelry is more than just an accessory—it’s an expression of who you are. Whether you are marking a special occasion or simply indulging in something beautiful, we are here to help you find the perfect piece that speaks to your heart. Our team is dedicated to providing an exceptional customer experience, from personalized consultations to after-sales support, ensuring that your journey with us is as memorable as the jewelry you wear.</p>
             </div>
             <div class="col-md-6">
-                <img src="../images/aboutUsImg4.jpg" alt="Why Choose Us" class="img-fluid mb-3">
+                <img src="../images/aboutus4.png" alt="Why Choose Us" class="img-fluid mb-3">
             </div>
         </div>
         <br/><br/>
@@ -57,7 +57,7 @@
         <!-- Our Collections -->
         <div class="row">
             <div class="col-md-6">
-                <img src="../images/aboutUsImg5.jpg" alt="Collections" class="img-fluid mb-3">
+                <img src="../images/aboutus7.png" alt="Collections" class="img-fluid mb-3">
             </div>
             <div class="col-md-6">
                 <p><strong>Our Collections</strong></p>
