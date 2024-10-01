@@ -208,7 +208,7 @@ if (isset($_POST['signup'])) {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'fichadiyakalindi@gmail.com';
-            $mail->Password = 'wlin csir thyj suho';
+            $mail->Password = 'Your password';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
