@@ -605,10 +605,10 @@ function carouselValidation() {
 // signin validation (user)
 function signin_validation() {
   resetValidation();
-  emailValidate(
-    document.querySelector("#eml"),
-    document.querySelector("#eml_msg")
-  );
+  // emailValidate(
+  //   document.querySelector("#eml"),
+  //   document.querySelector("#eml_msg")
+  // );
   passwordValidate(
     document.querySelector("#pwd"),
     document.querySelector("#pwd_msg")

@@ -73,7 +73,7 @@ include_once '../conn.php';
     $result = mysqli_query($con, $q);
     while ($r = mysqli_fetch_assoc($result)) {
       ?>
-      <a href="single-product.php">
+      <a href="single-product.php?p_code=<?php echo $r['p_code']; ?>">
         <div class="arrival-item">
           <img src="<?php echo $r['p_image']; ?>" alt="<?php echo $r['p_name']; ?>">
           <h3><?php echo $r['p_name']; ?></h3>
@@ -84,8 +84,9 @@ include_once '../conn.php';
       <?php
     }
     ?>
-    
-    <!-- <a href="single-product.php">
+  </div>
+
+  <!-- <a href="single-product.php">
       <div class="arrival-item">
         <img src="../images/newArrivalImg4.jpg" alt="New Arrival 1">
         <h3>Product 4</h3>
@@ -93,7 +94,6 @@ include_once '../conn.php';
         <button class="buy-now">Buy Now</button>
       </div>
     </a> -->
-  </div>
 </section>
 <!-- new arrival - end -->
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Jaysheree Jewels</title>
@@ -45,6 +46,7 @@
             background-color: #D4AF37;
             color: #fff;
         }
+
         .input-group {
             position: relative;
         }
@@ -61,6 +63,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sign-In Form -->
     <div class="container">
@@ -71,13 +74,15 @@
                     <form onsubmit="return signin_validation()" method="POST">
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" name="email" id="eml" class="form-control" placeholder="Enter your email">
+                            <input type="email" name="email" id="eml" class="form-control"
+                                placeholder="Enter your email">
                             <span id="eml_msg"></span>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="input-group">
-                                <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter your password">
+                                <input type="password" name="password" class="form-control" id="pwd"
+                                    placeholder="Enter your password">
                                 <button type="button" class="view-button" onclick="showPassword('pwd')">👁️</button>
                             </div>
                             <span id="pwd_msg"></span>
@@ -95,4 +100,67 @@
         </div>
     </div>
 </body>
+
 </html>
+
+<?php
+include_once 'conn.php';
+
+session_start();
+if (isset($_POST['signin'])) {
+    $em = $_POST['email'];
+    $pwd = $_POST['password'];
+
+    $q = "SELECT * FROM `user_tbl` WHERE `u_email`='$em'";
+    $result = mysqli_query($con, $q);
+    $count = mysqli_num_rows($result);
+    if ($count == 1) {
+        while ($r = mysqli_fetch_assoc($result)) {
+            if ($r['u_password'] == $pwd) {
+                if ($r['u_status'] == 'Active') {
+                    if ($r['u_role'] == 'Admin') {
+                        $_SESSION['username'] = $em;
+                        setcookie('success', 'Login Successful', time() + 5, "/");
+                        ?>
+                        <script>
+                            window.location.href = "admin/index.php";
+                        </script>
+                        <?php
+                    } else {
+                        $_SESSION['username'] = $em;
+                        setcookie('success', 'Login Successful', time() + 5, "/");
+                        ?>
+                        <script>
+                            window.location.href = "user/index.php";
+                        </script>
+                        <?php
+                    }
+                } else {
+                    setcookie("error", "Email is not verified", time() + 5, "/");
+                    ?>
+                    <script>
+                        window.location.href = "signin.php";
+                    </script>
+                    <?php
+                }
+            } else {
+                setcookie("error", "Incorrect Password", time() + 5, "/");
+                ?>
+                <script>
+                    window.location.href = "signin.php";
+                </script>
+                <?php
+            }
+        }
+    } else {
+        setcookie("error", "Email is not registered", time() + 5, "/");
+        ?>
+        <script>
+            window.location.href = "signin.php";
+        </script>
+
+        <?php
+    }
+    $row = mysqli_fetch_array($result);
+}
+?>
