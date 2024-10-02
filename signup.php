@@ -1,3 +1,13 @@
+<?php
+include("conn.php");
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,15 +179,6 @@
 
 </html>
 <?php
-include("conn.php");
-
-require 'PHPMailer/Exception.php';
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 if (isset($_POST['signup'])) {
     $u_fullName = $_POST['u_fullName'];
     $u_gender = $_POST['u_gender'];
@@ -195,7 +196,7 @@ if (isset($_POST['signup'])) {
 
     $q = "INSERT INTO `user_tbl`(`u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`,`u_role`) 
                         VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$u_image','$u_status','$u_role')";
-    echo $q;
+    // echo $q;
     if (mysqli_query($con, $q)) {
         if (!is_dir("images/profile_image")) {
             mkdir("images/profile_image");
@@ -208,7 +209,7 @@ if (isset($_POST['signup'])) {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'fichadiyakalindi@gmail.com';
-            $mail->Password = 'Your password';
+            $mail->Password = 'wlin csir thyj suho';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
@@ -244,11 +245,9 @@ if (isset($_POST['signup'])) {
 
             $mail->send();
         } catch (Exception $e) {
-            // $_SESSION['error'] = "Error in sending email: ". $mail->ErrorInfo;
             setcookie('error', "Error in sending email: " . $mail->ErrorInfo, time() + 5);
         }
 
-        // $_SESSION['success'] = "Registration Successfull. VErify your Email using verification link sent to registered Email Address";
         setcookie('success', 'Registration Successfull. Verify your Email using verification link sent to registered Email Address', time() + 5, "/");
         ?>
         <script>

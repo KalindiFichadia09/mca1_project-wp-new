@@ -636,21 +636,21 @@ function updateProfileValidation() {
     document.querySelector("#fullNameMsg")
   );
   genderValidate(
-    document.querySelectorAll('input[name="gender"]'),
+    document.querySelectorAll('input[name="u_gender"]'),
     document.querySelector("#genderMsg")
   );
-  emailValidate(
-    document.querySelector("#email"),
-    document.querySelector("#emailMsg")
-  );
+  // emailValidate(
+  //   document.querySelector("#email"),
+  //   document.querySelector("#emailMsg")
+  // );
   mobileValidate(
     document.querySelector("#mobile"),
     document.querySelector("#mobileMsg")
   );
-  fileValidate(
-    document.querySelector("#profilePhoto"),
-    document.querySelector("#profilePhotoMsg")
-  );
+  // fileValidate(
+  //   document.querySelector("#profilePhoto"),
+  //   document.querySelector("#profilePhotoMsg")
+  // );
   addressValidate(
     document.querySelector("#address"),
     document.querySelector("#addressMsg")

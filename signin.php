@@ -119,7 +119,7 @@ if (isset($_POST['signin'])) {
             if ($r['u_password'] == $pwd) {
                 if ($r['u_status'] == 'Active') {
                     if ($r['u_role'] == 'Admin') {
-                        $_SESSION['username'] = $em;
+                        $_SESSION['admin_username'] = $em;
                         setcookie('success', 'Login Successful', time() + 5, "/");
                         ?>
                         <script>
@@ -127,7 +127,7 @@ if (isset($_POST['signin'])) {
                         </script>
                         <?php
                     } else {
-                        $_SESSION['username'] = $em;
+                        $_SESSION['user_username'] = $em;
                         setcookie('success', 'Login Successful', time() + 5, "/");
                         ?>
                         <script>

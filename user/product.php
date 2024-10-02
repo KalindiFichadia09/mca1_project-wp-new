@@ -17,10 +17,9 @@ include_once '../conn.php';
         <div class="arrival-item">
           <img src="<?php echo
             $r['p_image']; ?>" alt="<?php echo $r['p_name']; ?>">
-          <h3><?php echo $r['p_name']; ?></h3>
-          <p class="price">₹ <?php echo $r['p_total_price']; ?></p>
-          <!-- <button class="buy-now">Buy Now</button> -->
-          <a href="single-product.php?p_code=<?php echo $r['p_code']; ?>"><input type='submit' name='buy' value='Buy Now'
+          <h3 class="card-title text-truncate"><?php echo $r['p_name']; ?></h3>
+          <p class="price mb-auto">₹ <?php echo $r['p_total_price']; ?></p>
+          <a href="single-product.php?p_code=<?php echo $r['p_code']; ?>"><input type='submit' name='buy' value='View'
               class='buy-now'></a>
         </div>
         <?php

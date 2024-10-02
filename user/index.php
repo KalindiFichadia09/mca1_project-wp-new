@@ -76,25 +76,24 @@ include_once '../conn.php';
       <a href="single-product.php?p_code=<?php echo $r['p_code']; ?>">
         <div class="arrival-item">
           <img src="<?php echo $r['p_image']; ?>" alt="<?php echo $r['p_name']; ?>">
-          <h3><?php echo $r['p_name']; ?></h3>
-          <p class="price">₹ <?php echo $r['p_total_price']; ?></p>
-          <button class="buy-now">Buy Now</button>
+          <h3 class="card-title text-truncate"><?php echo $r['p_name']; ?></h3>
+          <p class="price mb-auto">₹ <?php echo $r['p_total_price']; ?></p>
+          <button class="buy-now">View</button>
         </div>
       </a>
       <?php
     }
     ?>
   </div>
-
-  <!-- <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg4.jpg" alt="New Arrival 1">
-        <h3>Product 4</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a> -->
 </section>
+<!-- <a href="single-product.php">
+    <div class="arrival-item">
+      <img src="../images/newArrivalImg4.jpg" alt="New Arrival 1">
+      <h3>Product 4</h3>
+      <p class="price">₹ 49.99</p>
+      <button class="buy-now">Buy Now</button>
+    </div>
+  </a> -->
 <!-- new arrival - end -->
 
 <!-- featured product - start -->
