@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2024 at 04:44 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Generation Time: Oct 09, 2024 at 05:14 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -102,12 +102,12 @@ CREATE TABLE `product_tbl` (
 --
 
 INSERT INTO `product_tbl` (`p_id`, `p_code`, `p_name`, `p_c_code`, `p_type`, `p_gross_weight`, `p_diamond_weight`, `p_diamond_pices`, `p_purity`, `p_gold_weight`, `p_gold_price`, `p_diamond_price`, `p_making_charge`, `p_overhead_charges`, `p_base_price`, `p_tax`, `p_total_price`, `p_diamond_color`, `p_stock`, `p_image`, `p_status`) VALUES
-(1, 'PRO01', 'Cross Chain', 'CAT01', 'Yellow Gold', '25.000', '0.000', 0, '20K', '25.00', '124995.00', '0.00', '12500.00', '2250.00', '139745.00', '4192.35', '143937.35', 'NA ', 3, '../images/product_image/c5.jpg', 'Active'),
-(3, 'PRO02', 'Ring', 'CAT04', 'Rose Gold', '2.000', '0.350', 10, '20K', '1.65', '8249.67', '200.00', '1000.00', '1050.00', '10499.67', '314.99', '10814.66', 'White', 6, '../images/product_image/r2.jpg', 'Active'),
-(4, 'PRO03', 'Bangles', 'CAT03', 'Yellow Gold', '30.000', '0.000', 0, '22K', '30.00', '165006.00', '0.00', '15000.00', '5420.00', '185426.00', '5562.78', '190988.78', 'NA ', 1, '../images/product_image/c13.jpg', 'Active'),
-(5, 'PRO04', 'Earings', 'CAT05', 'Yellow Gold', '5.000', '0.010', 14, '22K', '4.99', '27446.00', '280.00', '2500.00', '2410.00', '32636.00', '979.08', '33615.08', 'Silver', 2, '../images/product_image/c8.jpg', 'Active'),
-(6, 'PRO05', 'Gold Plated Mangalsutra', 'CAT06', 'Yellow Gold', '2.000', '0.000', 0, '20K', '2.00', '9999.60', '0.00', '1000.00', '1001.00', '12000.60', '360.02', '12360.62', 'NA', 3, '../images/product_image/m1.jpg', 'Active'),
-(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', '7.000', '0.000', 0, '20K', '7.00', '34998.60', '0.00', '3500.00', '1950.00', '40448.60', '1213.46', '41662.06', 'NA', 4, '../images/product_image/rg1.jpg', 'Active');
+(1, 'PRO01', 'Cross Chain', 'CAT01', 'Yellow Gold', 25.000, 0.000, 0, '20K', 25.00, 124995.00, 0.00, 12500.00, 2250.00, 139745.00, 4192.35, 143937.35, 'NA ', 3, '../images/product_image/c5.jpg', 'Active'),
+(3, 'PRO02', 'Ring', 'CAT04', 'Rose Gold', 2.000, 0.350, 10, '20K', 1.65, 8249.67, 200.00, 1000.00, 1050.00, 10499.67, 314.99, 10814.66, 'White', 6, '../images/product_image/r2.jpg', 'Active'),
+(4, 'PRO03', 'Bangles', 'CAT03', 'Yellow Gold', 30.000, 0.000, 0, '22K', 30.00, 165006.00, 0.00, 15000.00, 5420.00, 185426.00, 5562.78, 190988.78, 'NA ', 1, '../images/product_image/c13.jpg', 'Active'),
+(5, 'PRO04', 'Earings', 'CAT05', 'Yellow Gold', 5.000, 0.010, 14, '22K', 4.99, 27446.00, 280.00, 2500.00, 2410.00, 32636.00, 979.08, 33615.08, 'Silver', 2, '../images/product_image/c8.jpg', 'Active'),
+(6, 'PRO05', 'Gold Plated Mangalsutra', 'CAT06', 'Yellow Gold', 2.000, 0.000, 0, '20K', 2.00, 9999.60, 0.00, 1000.00, 1001.00, 12000.60, 360.02, 12360.62, 'NA', 3, '../images/product_image/m1.jpg', 'Active'),
+(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', 7.000, 0.000, 0, '20K', 7.00, 34998.60, 0.00, 3500.00, 1950.00, 40448.60, 1213.46, 41662.06, 'NA', 4, '../images/product_image/rg1.jpg', 'Active');
 
 --
 -- Triggers `product_tbl`
@@ -128,6 +128,35 @@ END
 $$
 DELIMITER ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_tbl`
+--
+
+CREATE TABLE `user_tbl` (
+  `u_id` int(5) NOT NULL,
+  `u_fullname` varchar(100) NOT NULL,
+  `u_gender` varchar(10) NOT NULL,
+  `u_email` varchar(100) NOT NULL,
+  `u_mobile` varchar(10) NOT NULL,
+  `u_address` varchar(500) NOT NULL,
+  `u_city` varchar(30) NOT NULL,
+  `u_state` varchar(30) NOT NULL,
+  `u_pincode` varchar(6) NOT NULL,
+  `u_password` varchar(12) NOT NULL,
+  `u_image` varchar(200) NOT NULL,
+  `u_status` varchar(20) NOT NULL,
+  `u_role` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_tbl`
+--
+
+INSERT INTO `user_tbl` (`u_id`, `u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`, `u_role`) VALUES
+(1, 'Kalindi', 'female', 'kfichadiya849@rku.ac.in', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Kalindi@12', '', 'Active', 'User');
+
 --
 -- Indexes for dumped tables
 --
@@ -146,6 +175,12 @@ ALTER TABLE `product_tbl`
   ADD PRIMARY KEY (`p_id`);
 
 --
+-- Indexes for table `user_tbl`
+--
+ALTER TABLE `user_tbl`
+  ADD PRIMARY KEY (`u_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -160,6 +195,12 @@ ALTER TABLE `category_tbl`
 --
 ALTER TABLE `product_tbl`
   MODIFY `p_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `user_tbl`
+--
+ALTER TABLE `user_tbl`
+  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
