@@ -18,9 +18,9 @@ if (isset($_SESSION['user_username'])) {
                     <!-- Profile Picture and Basic Info -->
                     <div class="col-md-4 text-center">
                         <div class="profile-picture mb-3">
-                            <img src="../<?php echo
+                            <img src="<?php echo
                                 $r['u_image']; ?>" alt="<?php echo $r['u_fullname']; ?>"
-                                class="img-fluid rounded-circle" style="max-width: 350px;">
+                                class="img-fluid rounded-circle" style="max-width: 300px; max-height: 250px;">
                         </div>
                         <h4 class="user-name"><?php echo $r['u_fullname']; ?></h4>
                         <p class="text-muted"><?php echo $r['u_email']; ?></p>

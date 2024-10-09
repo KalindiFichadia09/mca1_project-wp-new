@@ -1,5 +1,6 @@
 <?php
 include_once "../conn.php";
+ob_start();
 session_start();
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);

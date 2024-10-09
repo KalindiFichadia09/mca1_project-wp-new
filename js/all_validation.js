@@ -326,7 +326,7 @@ function userUpdateValidation(form) {
     form.querySelector(".fullNameMsgU")
   );
   genderValidate(
-    form.querySelectorAll('input[name="genderU"]'),
+    form.querySelectorAll('input[name="u_genderU"]'),
     form.querySelector(".genderMsgU")
   );
   emailValidate(
@@ -347,10 +347,10 @@ function userUpdateValidation(form) {
     form.querySelector(".pincodeU"),
     form.querySelector(".pincodeMsgU")
   );
-  fileValidate(
-    form.querySelector(".profilePhotoU"),
-    form.querySelector(".profilePhotoUMsg")
-  );
+  // fileValidate(
+  //   form.querySelector(".profilePhotoU"),
+  //   form.querySelector(".profilePhotoUMsg")
+  // );
   passwordValidate(
     form.querySelector(".passwordU"),
     form.querySelector(".passwordMsgU")
@@ -751,16 +751,16 @@ function changePassword_validation() {
   resetValidation();
 
   passwordValidate(
-    document.querySelector("#currentPassword"),
-    document.querySelector("#currentPasswordMsg")
+    document.querySelector("#oldPassword"),
+    document.querySelector("#oldPasswordMsg")
   );
   passwordValidate(
     document.querySelector("#newPassword"),
     document.querySelector("#newPasswordMsg")
   );
   confirmPasswordValidate(
-    document.querySelector("#confirmPassword"),
-    document.querySelector("#confirmPasswordMsg")
+    document.querySelector("#confirmNewPassword"),
+    document.querySelector("#confirmNewPasswordMsg")
   );
 
   return validate;
