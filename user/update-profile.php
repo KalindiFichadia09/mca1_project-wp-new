@@ -19,6 +19,7 @@ if (isset($_SESSION['user_username'])) {
                     <div class="col-md-6">
                         <fieldset>
                             <legend>Personal Information</legend>
+                            <input type="hidden" name="u_id" value="<?php echo $r['u_id']; ?>">
                             <div class="form-group mb-3">
                                 <label for="full-name">Full Name</label>
                                 <input type="text" id="fullName" name="u_fullname" value="<?php echo $r['u_fullname']; ?>"
@@ -58,7 +59,7 @@ if (isset($_SESSION['user_username'])) {
                             <div class="form-group mb-3">
                                 <label for="phone">Profile Photo</label>
                                 <input type="file" id="profilePhoto" name="u_image" class="form-control">
-                                <span id="profilePhotoMsg"></span>
+                                <!-- <span id="profilePhotoMsg"></span> -->
                             </div>
                         </fieldset>
                     </div>
@@ -109,6 +110,8 @@ if (isset($_SESSION['user_username'])) {
     <?php
     include_once 'footer.php';
     if (isset($_POST['update'])) {
+        $profile_picture;
+        $u_id = $_POST['u_id'];
         $u_fullName = $_POST['u_fullname'];
         $u_gender = $_POST['u_gender'];
         $u_email = $_POST['u_email'];
@@ -129,8 +132,9 @@ if (isset($_SESSION['user_username'])) {
         } else {
             $profile_picture = $r['u_image'];
         }
-
-        $update_query = "UPDATE user_tbl SET u_fullname='$u_fullName', u_gender='$u_gender', u_email='$u_email', u_mobile='$u_mobile', u_address='$u_address', u_city='$u_city', u_state='$u_state', u_pincode='$u_pincode', u_image='$profile_picture' WHERE u_id='$u_id' AND u_role='$u_role' AND u_status='$u_status'";
+        
+        $update_query = "UPDATE user_tbl SET u_fullname='$u_fullName', u_gender='$u_gender', u_email='$u_email', u_mobile='$u_mobile', u_address='$u_address', u_city='$u_city', u_state='$u_state', u_pincode='$u_pincode', u_image='$profile_picture' WHERE u_id='$u_id' AND u_role='$u_role'";
+        echo $update_query;
         if (mysqli_query($con, $update_query)) {
             if ($profile_picture != $r['u_image']) {
                 $old_profile_picture = $r['u_image'];
@@ -140,17 +144,17 @@ if (isset($_SESSION['user_username'])) {
             }
             setcookie("success", "Profile updated successfully", time() + 5, "/");
             ?>
-            <script>
-                window.location.href = 'profile.php';
-            </script>";
-            <?php
+                <script>
+                    window.location.href = 'profile.php';
+                </script>";
+                <?php
         } else {
             setcookie("error", "Error in updating profie", time() + 5, "/");
             ?>
-            <script>
-                window.location.href = 'profile.php';
-            </script>
-            <?php
+                <script>
+                    window.location.href = 'profile.php';
+                </script>
+                <?php
         }
 
     }

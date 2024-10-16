@@ -12,20 +12,21 @@ include_once 'header.php';
             <!-- <button id="toggleFormBtnU" class="btn btn-primary ms-2">Update User</button> -->
         </div>
     </div>
-    
 
-<!-- search form -->
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <!-- Search Form -->
-    <form method="GET" action="" class="d-flex align-items-center">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Search here" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-            <div class="input-group-append">
-                <button class="btn btn-dark" type="submit">Search</button>
+
+    <!-- search form -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Search Form -->
+        <form method="GET" action="" class="d-flex align-items-center">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search here"
+                    value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="submit">Search</button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
     <!-- Form Insert -->
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -35,7 +36,7 @@ include_once 'header.php';
                     <!-- Full Name -->
                     <div class="form-group mb-3">
                         <label for="fullName">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="full_name"
+                        <input type="text" class="form-control" id="fullName" name="u_fullName"
                             placeholder="Enter Full Name">
                         <span id="fullNameMsg"></span>
                     </div>
@@ -45,11 +46,12 @@ include_once 'header.php';
                         <label>Gender</label>
                         <div class="form-control">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male">
+                                <input class="form-check-input" type="radio" name="u_gender" id="genderMale"
+                                    value="Male">
                                 <label class="form-check-label" for="genderMale">Male</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="genderFemale"
+                                <input class="form-check-input" type="radio" name="u_gender" id="genderFemale"
                                     value="Female">
                                 <label class="form-check-label" for="genderFemale">Female</label>
                             </div>
@@ -60,14 +62,14 @@ include_once 'header.php';
                     <!-- Email -->
                     <div class="form-group mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                        <input type="email" class="form-control" id="email" name="u_email" placeholder="Enter Email">
                         <span id="emailMsg"></span>
                     </div>
 
                     <!-- Mobile -->
                     <div class="form-group mb-3">
                         <label for="mobile">Mobile</label>
-                        <input type="tel" class="form-control" id="mobile" name="mobile"
+                        <input type="tel" class="form-control" id="mobile" name="u_mobile"
                             placeholder="Enter Mobile Number">
                         <span id="mobileMsg"></span>
                     </div>
@@ -75,7 +77,7 @@ include_once 'header.php';
                     <!-- Address -->
                     <div class="form-group mb-3">
                         <label for="address">Address</label>
-                        <textarea class="form-control" id="address" name="address"
+                        <textarea class="form-control" id="address" name="u_address"
                             placeholder="Enter Address"></textarea>
                         <span id="addressMsg"></span>
                     </div>
@@ -83,35 +85,36 @@ include_once 'header.php';
                     <!-- City -->
                     <div class="form-group mb-3">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter City">
+                        <input type="text" class="form-control" id="city" name="u_city" placeholder="Enter City">
                         <span id="cityMsg"></span>
                     </div>
 
                     <!-- State -->
                     <div class="form-group mb-3">
                         <label for="state">State</label>
-                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter State">
+                        <input type="text" class="form-control" id="state" name="u_state" placeholder="Enter State">
                         <span id="stateMsg"></span>
                     </div>
 
                     <!-- Pincode -->
                     <div class="form-group mb-3">
                         <label for="pincode">Pincode</label>
-                        <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode">
+                        <input type="text" class="form-control" id="pincode" name="u_pincode"
+                            placeholder="Enter Pincode">
                         <span id="pincodeMsg"></span>
                     </div>
 
                     <!-- Profile Photo -->
                     <div class="form-group mb-3">
                         <label for="pincode">Profile Photo</label>
-                        <input type="file" class="form-control" id="profilePhoto" name="profilePhoto">
+                        <input type="file" class="form-control" id="profilePhoto" name="u_image">
                         <span id="profilePhotoMsg"></span>
                     </div>
 
                     <!-- Password -->
                     <div class="form-group mb-3">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
+                        <input type="password" class="form-control" id="password" name="u_password"
                             placeholder="Enter Password">
                         <span id="passwordMsg"></span>
                     </div>
@@ -125,7 +128,8 @@ include_once 'header.php';
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success">Insert</button>
+                        <input type="submit" value="Insert" name="insert" class="btn btn-success">
+                        <!-- <button type="submit" class="btn btn-success">Insert</button> -->
                     </div>
                 </form>
             </div>
@@ -134,7 +138,7 @@ include_once 'header.php';
     <?php
     $q = "select * from user_tbl";
     $result = mysqli_query($con, $q);
-    $r = mysqli_fetch_assoc($result);
+    // $r = mysqli_fetch_assoc($result);
     ?>
     <!-- Table for Users -->
     <div class="row mt-5">
@@ -157,39 +161,40 @@ include_once 'header.php';
                     </thead>
                     <tbody>
                         <?php
-                             $search = isset($_GET['search']) ? $_GET['search'] : '';
+                        
+                            $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-                             // SQL query to include the search condition
-                             $search_query = '';
-                             if (!empty($search)) {
-                                 $search_query = "WHERE u_fullname LIKE '%$search%' OR u_status LIKE '%$search%'";
-                             }
-                             // Adding search_query into SQL query
-                             $q = "Select * from user_tbl $search_query";
-                             $result = mysqli_query($con, $q);
-     
-                             // Determine the total number of records
-                             $q = "SELECT * FROM user_tbl $search_query";
-                             $result = mysqli_query($con, $q);
-                             $total_records = mysqli_num_rows($result);
-     
-                             // Set the number of records per page
-                             $records_per_page = 2;
-     
-                             // Calculate the total number of pages
-                             $total_pages = ceil($total_records / $records_per_page);
-     
-                             // Get the current page number
-                             $page = isset($_GET['page']) ? $_GET['page'] : 1;
-     
-                             // Calculate the start record for the current page
-                             $start_from = ($page - 1) * $records_per_page;
-     
-                             // Fetch the records for the current page
-                             $q = "SELECT * FROM user_tbl $search_query LIMIT $start_from, $records_per_page";
-                             $result = mysqli_query($con, $q);
-                             $result = mysqli_query($con, $q);
-                             
+                            // SQL query to include the search condition
+                            $search_query = '';
+                            if (!empty($search)) {
+                                $search_query = "WHERE u_fullname LIKE '%$search%' OR u_status LIKE '%$search%'";
+                            }
+                            // Adding search_query into SQL query
+                            $q = "Select * from user_tbl $search_query";
+                            $result = mysqli_query($con, $q);
+
+                            // Determine the total number of records
+                            $q1 = "SELECT * FROM user_tbl $search_query";
+                            $result1 = mysqli_query($con, $q1);
+                            $total_records = mysqli_num_rows($result1);
+
+                            // Set the number of records per page
+                            $records_per_page = 2;
+
+                            // Calculate the total number of pages
+                            $total_pages = ceil($total_records / $records_per_page);
+
+                            // Get the current page number
+                            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+                            // Calculate the start record for the current page
+                            $start_from = ($page - 1) * $records_per_page;
+
+                            // Fetch the records for the current page
+                            $q2 = "SELECT * FROM user_tbl $search_query LIMIT $start_from, $records_per_page";
+                            $result2 = mysqli_query($con, $q2);
+                            //  $result = mysqli_query($con, $q);
+                            while ($r = mysqli_fetch_assoc($result)) {
                             ?>
                             <tr>
                                 <td><?php echo $r['u_id']; ?></td>
@@ -380,32 +385,31 @@ include_once 'header.php';
                                     </div>
                                 </td>
                             </tr>
-
                             <?php
-                        
+                        }
                         ?>
                     </tbody>
                 </table>
             </div>
-            <div class="row" >
-                    <div class="col-md-5"></div>
-                <nav class="col-md-2"> 
+            <div class="row">
+                <div class="col-md-5"></div>
+                <nav class="col-md-2">
                     <ul class="pagination">
-                    <?php
-                    if ($page > 1) {
-                        echo "<li class='page-item'><a class='page-link btn-dark' href='?page=" . ($page - 1) . "&search=" . $search . "'><i class='fa fa-chevron-left'></i></a></li>";
-                    }
-                    for ($i = 1; $i <= $total_pages; $i++) {
-                        echo "<li class='page-item " . ($i == $page ? 'active' : '') . "'><a class='page-link' href='?page=" . $i . "&search=" . $search . "'>" . $i . "</a></li>";
-                    }
-                    if ($page < $total_pages) {
-                        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "&search=" . $search . "'><i class='fa fa-chevron-right'></i></a></li>";
-                    }
-                    ?>
+                        <?php
+                        if ($page > 1) {
+                            echo "<li class='page-item'><a class='page-link btn-dark' href='?page=" . ($page - 1) . "&search=" . $search . "'><i class='fa fa-chevron-left'></i></a></li>";
+                        }
+                        for ($i = 1; $i <= $total_pages; $i++) {
+                            echo "<li class='page-item " . ($i == $page ? 'active' : '') . "'><a class='page-link' href='?page=" . $i . "&search=" . $search . "'>" . $i . "</a></li>";
+                        }
+                        if ($page < $total_pages) {
+                            echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "&search=" . $search . "'><i class='fa fa-chevron-right'></i></a></li>";
+                        }
+                        ?>
                     </ul>
                 </nav>
-            <div class="col-md-5"></div>
-        </div>
+                <div class="col-md-5"></div>
+            </div>
         </div>
 
 
@@ -414,7 +418,50 @@ include_once 'header.php';
 
     </html>
     <?php
+    // insert new user
+    if (isset($_POST['insert'])) {
+        $u_fullName = $_POST['u_fullName'];
+        $u_gender = $_POST['u_gender'];
+        $u_email = $_POST['u_email'];
+        $u_mobile = $_POST['u_mobile'];
+        $u_address = $_POST['u_address'];
+        $u_city = $_POST['u_city'];
+        $u_state = $_POST['u_state'];
+        $u_pincode = $_POST['u_pincode'];
+        $u_password = $_POST['u_password'];
+        $u_status = "Active";
+        $u_role = "User";
+        $u_image = "../images/profile_image/" . $_FILES['u_image']['name'];
+
+        $q = "INSERT INTO `user_tbl`(`u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`,`u_role`) 
+                        VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$u_image','$u_status','$u_role')";
+        // echo $q;
+        if (mysqli_query($con, $q)) {
+            if (!is_dir("../images/profile_image")) {
+                mkdir("../images/profile_image");
+            }
+            move_uploaded_file($_FILES['u_profilePhoto']['tmp_name'], $u_image);
+            setcookie('success', 'New user inserted', time() + 5, "/");
+            ?>
+            <script>
+                alert("Inserted !!");
+                window.location.href = "user.php";
+            </script>
+            <?php
+        } else {
+            ?>
+
+            <script>
+                alert("Not Inserted");
+                window.location.href = "user.php";
+            </script>
+            <?php
+        }
+    }
+
+    // update user
     if (isset($_POST['update'])) {
+        $profile_picture;
         $u_id = $_POST['u_id'];
         $u_fullName = $_POST['u_fullname'];
         $u_gender = $_POST['u_genderU'];

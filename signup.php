@@ -189,7 +189,6 @@ if (isset($_POST['signup'])) {
     $u_state = $_POST['u_state'];
     $u_pincode = $_POST['u_pincode'];
     $u_password = $_POST['u_password'];
-    // $u_confirmpassword = $_POST['u_confirmpassword'];
     $u_status = "Inactive";
     $u_role = "User";
     $u_image = "images/profile_image/" . $_FILES['u_image']['name'];
