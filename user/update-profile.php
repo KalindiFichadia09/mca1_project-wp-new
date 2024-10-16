@@ -111,7 +111,7 @@ if (isset($_SESSION['user_username'])) {
     include_once 'footer.php';
     if (isset($_POST['update'])) {
         $profile_picture;
-        $u_id = $_POST['u_id'];
+        $u_id = $_POST['u_id']; 
         $u_fullName = $_POST['u_fullname'];
         $u_gender = $_POST['u_gender'];
         $u_email = $_POST['u_email'];
