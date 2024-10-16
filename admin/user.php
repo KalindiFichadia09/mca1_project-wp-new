@@ -162,37 +162,38 @@ include_once 'header.php';
                     <tbody>
                         <?php
                         
-                            $search = isset($_GET['search']) ? $_GET['search'] : '';
+                        $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-                            // SQL query to include the search condition
-                            $search_query = '';
-                            if (!empty($search)) {
-                                $search_query = "WHERE u_fullname LIKE '%$search%' OR u_status LIKE '%$search%'";
-                            }
-                            // Adding search_query into SQL query
-                            $q = "Select * from user_tbl $search_query";
-                            $result = mysqli_query($con, $q);
+                        // SQL query to include the search condition
+                        $search_query = '';
+                        if (!empty($search)) {
+                            $search_query = "WHERE u_fullname LIKE '%$search%' OR u_status LIKE '%$search%'";
+                        }
+                        // Adding search_query into SQL query
+                        $q = "Select * from user_tbl $search_query";
+                        $result = mysqli_query($con, $q);
 
-                            // Determine the total number of records
-                            $q1 = "SELECT * FROM user_tbl $search_query";
-                            $result1 = mysqli_query($con, $q1);
-                            $total_records = mysqli_num_rows($result1);
+                        // Determine the total number of records
+                        $q = "SELECT * FROM user_tbl $search_query";
+                        $result = mysqli_query($con, $q);
+                        $total_records = mysqli_num_rows($result);
 
-                            // Set the number of records per page
-                            $records_per_page = 2;
+                        // Set the number of records per page
+                        $records_per_page = 2;
 
-                            // Calculate the total number of pages
-                            $total_pages = ceil($total_records / $records_per_page);
+                        // Calculate the total number of pages
+                        $total_pages = ceil($total_records / $records_per_page);
 
-                            // Get the current page number
-                            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        // Get the current page number
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-                            // Calculate the start record for the current page
-                            $start_from = ($page - 1) * $records_per_page;
+                        // Calculate the start record for the current page
+                        $start_from = ($page - 1) * $records_per_page;
 
-                            // Fetch the records for the current page
-                            $q2 = "SELECT * FROM user_tbl $search_query LIMIT $start_from, $records_per_page";
-                            $result2 = mysqli_query($con, $q2);
+                        // Fetch the records for the current page
+                        $q = "SELECT * FROM user_tbl $search_query LIMIT $start_from, $records_per_page";
+                        $result = mysqli_query($con, $q);
+
                             //  $result = mysqli_query($con, $q);
                             while ($r = mysqli_fetch_assoc($result)) {
                             ?>
