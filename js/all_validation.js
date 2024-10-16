@@ -165,7 +165,7 @@ function genderValidate(gender, genderMsg) {
   if (selectedGender) {
     genderMsg.innerHTML = "";
   } else {
-    genderMsg.innerHTML = "Please select a this!";
+    genderMsg.innerHTML = "Please select this!";
     genderMsg.style.color = "red";
     validate = false;
   }

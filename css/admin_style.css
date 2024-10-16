@@ -222,3 +222,16 @@ thead {
   color: #fff;
 }
 /* category css - end */
+.pagination .page-link {
+  color: #343a40; /* Change text color to #343a40 */
+}
+.pagination .page-item.active .page-link {
+      background-color: #343a40; /* Change active background color to #343a40 */
+        border-color: #343a40; /* Change active border color to #343a40 */
+        color: #fff; /* Set active text color to white */
+    }
+    .pagination .page-link:hover {
+        background-color: #6c757d; /* Optional: Change hover background color */
+        border-color: #6c757d; /* Optional: Change hover border color */
+        color: #fff; /* Set hover text color to white */
+    }

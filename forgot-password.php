@@ -1,3 +1,13 @@
+<?php
+include("conn.php");
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,13 +68,13 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm p-4">
                     <h2 class="text-center mb-4">Forgot Password</h2>
-                    <form action="signin.php" onsubmit="return forgotPassword_validation()" method="get">
+                    <form onsubmit="return forgotPassword_validation()" method="post">
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" id="email" placeholder="Enter your email">
+                            <input type="email" id="email" name="femail" class="form-control" placeholder="Enter your email">
                             <span id="emailMsg"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Send Mail</button>
+                        <button type="submit" class="btn btn-primary btn-block" name="frgt_pwd_btn">Send OTP</button>
                         <div class="text-center mt-3">
                             <p>Remembered your password? <a href="signin.php">Sign In</a></p>
                         </div>
@@ -76,3 +86,82 @@
 
 </body>
 </html>
+<?php
+if (isset($_POST['frgt_pwd_btn'])) {
+  $email = $_POST['femail'];
+  $check_query = "SELECT * FROM user_tbl WHERE u_email = '$email'";
+  echo $check_query;
+  $check_result = mysqli_query($con, $check_query);
+  if (mysqli_num_rows($check_result) > 0) {
+    $query = "SELECT * FROM password_token_tbl WHERE Email = '$email'";
+    $result = mysqli_query($con, $query);
+    if (mysqli_num_rows($result) > 0) {
+      setcookie('error', "OTP is already sent to email address. new otp will be generated after old OTP expires.", time() + 5, "/");
+      ?>
+      <script>
+        window.location.href = "otp_form.php";
+      </script>
+      <?php
+      exit;
+    }
+     else 
+     {
+      $otp = rand(100000, 999999);
+
+      // Use PHPMailer to send the OTP
+      $mail = new PHPMailer(true);
+      try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+        $mail->SMTPAuth = true;
+        $mail->Username = 'veloraa1920@gmail.com'; // SMTP username
+        $mail->Password = 'rtep efdy gepi yrqj'; // SMTP password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        //Recipients
+        $mail->setFrom('veloraa1920@gmail.com', 'Veloraa');
+        $mail->addAddress($email, 'Password reset');
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'OTP for Password Reset';
+        $mail->Body = "<p>Your OTP for password reset is: $otp</p>";
+
+        $mail->send();
+
+        // Store the email, OTP, and timestamps in the database
+        $email_time = date("Y-m-d H:i:s");
+        $expiry_time = date("Y-m-d H:i:s", strtotime('+1 minutes')); // OTP valid for 10 minutes
+        $query = "INSERT INTO  password_token_tbl  (Email, Otp, Created_at, Expires_at) VALUES ('$email', '$otp', '$email_time', '$expiry_time')";
+        mysqli_query($con, $query);
+
+        $_SESSION['forgot_email'] = $email;
+        setcookie('success', "OTP for resetting your password is sent to the registered mail address", time() + 2, "/")
+          ?>
+        <script>
+          window.location.href = "otp_form.php";
+        </script>
+        <?php
+        exit;
+      } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        setcookie('error', $mail->ErrorInfo, time() + 2, "/");
+        ?>
+        <script>
+          window.location.href = "Forgot_password.php ";
+        </script>
+        <?php
+      }
+    }
+  } else {
+    setcookie('error', "Email is not registered", time() + 5, "/");
+    ?>
+    <script>
+      window.location.href = "Forgot_password.php";
+    </script>
+    <?php
+  }
+}
+?>

@@ -1,3 +1,18 @@
+<style>
+    .pagination .page-link {
+        color: #343a40; /* Change text color to #343a40 */
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #343a40; /* Change active background color to #343a40 */
+        border-color: #343a40; /* Change active border color to #343a40 */
+        color: #fff; /* Set active text color to white */
+    }
+    .pagination .page-link:hover {
+        background-color: #6c757d; /* Optional: Change hover background color */
+        border-color: #6c757d; /* Optional: Change hover border color */
+        color: #fff; /* Set hover text color to white */
+    }
+</style>
 <?php
 include_once 'header.php';
 include_once '../conn.php';
@@ -12,7 +27,18 @@ include_once '../conn.php';
             <button id="toggleFormBtnI" class="btn btn-success">Insert Product</button>
         </div>
     </div>
+    <!-- search form -->
 
+            <div class="col-4 style=" text-align: right;">
+            <form method="GET" action="">
+                <div class="input-group mb-3">
+                    <input type="text" name="search" class="form-control" placeholder="Search here" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     <!-- Form Insert -->
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -174,6 +200,39 @@ include_once '../conn.php';
                     </thead>
                     <tbody>
                         <?php
+                         $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+                         // SQL query to include the search condition
+                         $search_query = '';
+                         if (!empty($search)) {
+                             $search_query = "WHERE p_name LIKE '%$search%' OR p_status LIKE '%$search%' OR p_code LIKE '%$search%'";
+                         }
+                         // Adding search_query into SQL query
+                         $q = "Select * from product_tbl $search_query";
+                         $result = mysqli_query($con, $q);
+
+                        
+                        // Determine the total number of records
+                        $q = "SELECT * FROM product_tbl $search_query";
+                        $result = mysqli_query($con, $q);
+                        $total_records = mysqli_num_rows($result);
+
+                        // Set the number of records per page
+                        $records_per_page = 2;
+
+                        // Calculate the total number of pages
+                        $total_pages = ceil($total_records / $records_per_page);
+
+                        // Get the current page number
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+                        // Calculate the start record for the current page
+                        $start_from = ($page - 1) * $records_per_page;
+
+                        // Fetch the records for the current page
+                        $q = "SELECT * FROM product_tbl $search_query LIMIT $start_from, $records_per_page";
+                        $result = mysqli_query($con, $q);
+
                         while ($r = mysqli_fetch_assoc($result)) {
                             ?>
                             <tr>
@@ -202,6 +261,7 @@ include_once '../conn.php';
                                     </form>
                                 </td>
                             </tr>
+                            
                             <tr id="detailRow<?php echo $r['p_id']; ?>" class="detail-row" style="display:none;">
                                 <td colspan="9">
                                     <div class="d-flex">
@@ -420,6 +480,25 @@ include_once '../conn.php';
                     </tbody>
                 </table>
             </div>
+            <div class="row" >
+                    <div class="col-md-5"></div>
+                <nav class="col-md-2"> 
+                    <ul class="pagination">
+                    <?php
+                    if ($page > 1) {
+                        echo "<li class='page-item'><a class='page-link btn-dark' href='?page=" . ($page - 1) . "&search=" . $search . "'><i class='fa fa-chevron-left'></i></a></li>";
+                    }
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        echo "<li class='page-item " . ($i == $page ? 'active' : '') . "'><a class='page-link' href='?page=" . $i . "&search=" . $search . "'>" . $i . "</a></li>";
+                    }
+                    if ($page < $total_pages) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "&search=" . $search . "'><i class='fa fa-chevron-right'></i></a></li>";
+                    }
+                    ?>
+                    </ul>
+                </nav>
+            <div class="col-md-5"></div>
+        </div>
         </div>
     </div>
     </body>

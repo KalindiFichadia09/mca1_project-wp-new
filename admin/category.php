@@ -12,6 +12,19 @@ include_once '../conn.php';
             <button id="toggleFormBtnI" class="btn btn-success">Category Insert</button>
         </div>
     </div>
+    
+     <!-- search form -->
+     <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Search Form -->
+    <form method="GET" action="" class="d-flex align-items-center">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search here" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+            <div class="input-group-append">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
 
     <!-- Form Insert -->
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
@@ -93,6 +106,38 @@ include_once '../conn.php';
                         </tr>
                     </thead>
                         <?php
+                        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+                        // SQL query to include the search condition
+                        $search_query = '';
+                        if (!empty($search)) {
+                            $search_query = "WHERE c_name LIKE '%$search%' OR c_status LIKE '%$search%'";
+                        }
+                        // Adding search_query into SQL query
+                        $q = "Select * from category_tbl $search_query";
+                        $result = mysqli_query($con, $q);
+
+                        // Determine the total number of records
+                        $q = "SELECT * FROM category_tbl $search_query";
+                        $result = mysqli_query($con, $q);
+                        $total_records = mysqli_num_rows($result);
+
+                        // Set the number of records per page
+                        $records_per_page = 2;
+
+                        // Calculate the total number of pages
+                        $total_pages = ceil($total_records / $records_per_page);
+
+                        // Get the current page number
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+                        // Calculate the start record for the current page
+                        $start_from = ($page - 1) * $records_per_page;
+
+                        // Fetch the records for the current page
+                        $q = "SELECT * FROM category_tbl $search_query LIMIT $start_from, $records_per_page";
+                        $result = mysqli_query($con, $q);
+
                         while ($r = mysqli_fetch_assoc($result)) {
                         ?>
                         <tr>
@@ -114,6 +159,7 @@ include_once '../conn.php';
                                     </button>
                                 </form></td>
                         </tr>
+                
                         <tr id="updateRow<?php echo $r['c_id']; ?>" class="update-row" style="display:none;">
                             <td colspan="8">
                                 <div id="formBlockUpdate" class="row formBlock mb-3">
@@ -203,6 +249,25 @@ include_once '../conn.php';
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="row" >
+                    <div class="col-md-5"></div>
+                <nav class="col-md-2"> 
+                    <ul class="pagination">
+                    <?php
+                    if ($page > 1) {
+                        echo "<li class='page-item'><a class='page-link btn-dark' href='?page=" . ($page - 1) . "&search=" . $search . "'><i class='fa fa-chevron-left'></i></a></li>";
+                    }
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        echo "<li class='page-item " . ($i == $page ? 'active' : '') . "'><a class='page-link' href='?page=" . $i . "&search=" . $search . "'>" . $i . "</a></li>";
+                    }
+                    if ($page < $total_pages) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "&search=" . $search . "'><i class='fa fa-chevron-right'></i></a></li>";
+                    }
+                    ?>
+                    </ul>
+                </nav>
+            <div class="col-md-5"></div>
         </div>
     </div>
 </div>

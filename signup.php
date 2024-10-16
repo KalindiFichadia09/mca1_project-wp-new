@@ -208,12 +208,12 @@ if (isset($_POST['signup'])) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'fichadiyakalindi@gmail.com';
-            $mail->Password = 'wlin csir thyj suho';
+            $mail->Username = 'veloraa1920@gmail.com';
+            $mail->Password = 'rtep efdy gepi yrqj';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('fichadiyakalindi@gmail.com', 'Jayshree');
+            $mail->setFrom('veloraa1920@gmail.com', 'Jayshree');
             $mail->addAddress($u_email, $fn);
 
             $mail->isHTML(true);
