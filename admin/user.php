@@ -161,8 +161,8 @@ include_once 'header.php';
                                 </td>
                                 <td>
                                     <button class="btn btn-primary btn-sm update-btn"
-                                        data-target-update="#updateRow<?php echo $r['u_id']; ?>"><i
-                                            class="fas fa-arrow-down "></i></button>
+                                        data-target-update="#updateRow<?php echo $r['u_id']; ?>">
+                                        <i class="fas fa-arrow-down "></i></button>
                                 </td>
                                 <td>
                                     <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
