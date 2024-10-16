@@ -40,6 +40,7 @@ include_once '../conn.php';
                     <li><a href="wishlist.php">Wishlist</a></li>
                     <li><a href="order.php">Order</a></li>
                     <li><a href="feedback.php">Feedback</a></li>
+                    <li><a href="carouselimage.php">carouselImage</a></li>
                 </ul>
             </nav>
         </div>
@@ -66,8 +67,10 @@ include_once '../conn.php';
             <li><a href="wishlist.php" class="nav-link"><i class="fas fa-heart"></i> Wishlist</a></li>
             <li><a href="order.php" class="nav-link"><i class="fas fa-receipt"></i> Order</a></li>
             <li><a href="feedback.php" class="nav-link"><i class="fas fa-comments"></i> Feedback</a></li>
+            <li><a href="carouselImage.php" class="nav-link"><i class="fas fa-comments"></i> carouselImage</a></li>
         </ul>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col-12">

@@ -52,7 +52,7 @@ if ($con->connect_error) {
                         <!-- Search Bar -->
                         <form class="d-flex ms-auto" action="search.php" method="GET">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                                name="query">
+                                name="search">
                             <button class="buy-now" type="submit">Search</button>
                         </form>
                         <!-- Icons and Dropdown Menu -->
@@ -76,6 +76,7 @@ if ($con->connect_error) {
                                     John
                                 </a> -->
                                 <?php
+                            
                                 if (isset($_SESSION['user_username'])) {
                                     $email = $_SESSION['user_username'];
                                     $q = "select * from user_tbl where u_email='$email'";
@@ -100,6 +101,7 @@ if ($con->connect_error) {
                                     <a class="nav-link" href="../signin.php" >signin</a>
                                 </li>
                                 <?php
+                                
                                 }
                                 ?>
                             </li>
