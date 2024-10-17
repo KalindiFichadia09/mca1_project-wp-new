@@ -99,7 +99,7 @@ if (isset($_POST['frgt_pwd_btn'])) {
       setcookie('error', "OTP is already sent to email address. new otp will be generated after old OTP expires.", time() + 5, "/");
       ?>
       <script>
-        window.location.href = "otp_form.php";
+        window.location.href = "forgot_password_otp_form.php";
       </script>
       <?php
       exit;
@@ -121,7 +121,7 @@ if (isset($_POST['frgt_pwd_btn'])) {
         $mail->Port = 587;
 
         //Recipients
-        $mail->setFrom('veloraa1920@gmail.com', 'Veloraa');
+        $mail->setFrom('veloraa1920@gmail.com', 'Jayshree');
         $mail->addAddress($email, 'Password reset');
 
         // Content
@@ -141,7 +141,7 @@ if (isset($_POST['frgt_pwd_btn'])) {
         setcookie('success', "OTP for resetting your password is sent to the registered mail address", time() + 2, "/")
           ?>
         <script>
-          window.location.href = "otp_form.php";
+          window.location.href = "forgot_password_otp_form.php";
         </script>
         <?php
         exit;
