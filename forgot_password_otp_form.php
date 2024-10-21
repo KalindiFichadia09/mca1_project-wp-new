@@ -106,11 +106,11 @@ session_start();
                                     sessionStorage.setItem('otpTimer', timeLeft);
                                 }, 1000);
 
-                                // resendButton.onclick = function (event) {
-                                //     event.preventDefault(); // Prevent the default form submission
-                                //     window.location.href = 'resend_otp_forgot_password.php';
-                                // };
-                            </script><br>
+                                resendButton.onclick = function (event) {
+                                    event.preventDefault(); // Prevent the default form submission
+                                    window.location.href = 'resend_otp_forgot_password.php';
+                                };
+                            </script><br><br>
                             <input type="submit" name="otp_btn" id="otp_btn" value="Submit" class="btn btn-primary btn-block">
                         <!-- <button type="submit" class="btn btn-primary btn-block">Submit</button> -->
                         </div>
