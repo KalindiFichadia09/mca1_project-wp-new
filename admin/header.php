@@ -1,5 +1,17 @@
 <?php
-include_once '../conn.php';
+include_once "../conn.php";
+ob_start();
+session_start();
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
+if (!isset($_SESSION['admin_username'])) {
+    ?>
+    <script>
+        window.location.href = "../signin.php";
+    </script>
+    <?php
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +36,7 @@ include_once '../conn.php';
         <button id="toggle-btn" class="toggle-btn">
             <i class="fas fa-bars"></i>
         </button>
-        <div class="header-left ml-4">
+        <div class="header-left ml-3">
             <a href="index.php" class="logo">
                 <img src="../images/logo.png" alt="Jayshree Jewels Logo" class="logo-img">
             </a>
@@ -34,27 +46,45 @@ include_once '../conn.php';
                 <ul class="nav-links">
                     <li><a href="index.php">Dashboard</a></li>
                     <li><a href="user.php">User</a></li>
-                    <li><a href="about_us.php">About Us</a></li>
+                    <li><a href="about_us.php">AboutUs</a></li>
                     <li><a href="category.php">Category</a></li>
                     <li><a href="product.php">Product</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="wishlist.php">Wishlist</a></li>
                     <li><a href="order.php">Order</a></li>
                     <li><a href="feedback.php">Feedback</a></li>
-                    <li><a href="carouselimage.php">carouselImage</a></li>
+                    <li><a href="carouselimage.php">CarouselImage</a></li>
                 </ul>
             </nav>
         </div>
-        <div class="header-right mr-4">
+        <div class="header-right mr-3">
             <div class="dropdown">
-                <a class="text-light dropdown-toggle" href="#" id="adminDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Admin
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-                    <li><a class="dropdown-item" href="admin_setting.php">Admin Settings</a></li>
-                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                </ul>
+                <?php
+                if (isset($_SESSION['admin_username'])) {
+                    $email = $_SESSION['admin_username'];
+                    $q = "select * from user_tbl where u_email='$email'";
+                    $result = mysqli_query($con, $q);
+                    if (mysqli_num_rows($result)) {
+                        $r = mysqli_fetch_assoc($result)
+                            ?>
+                        <a class="text-light dropdown-toggle" href="#" id="adminDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $r['u_fullname']; ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+                            <li><a class="dropdown-item" href="admin_setting.php">Admin Settings</a></li>
+                            <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
+                        </ul>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <!-- <li class="nav-item"> -->
+                    <a class="text-light" href="../signin.php">signin</a>
+                    <!-- </li> -->
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -82,8 +112,8 @@ include_once '../conn.php';
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong></strong> <?php echo $_COOKIE['success']; ?>
-                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-    
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <?php
@@ -92,8 +122,8 @@ include_once '../conn.php';
                     ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong></strong> <?php echo $_COOKIE['error']; ?>
-                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-    
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <?php

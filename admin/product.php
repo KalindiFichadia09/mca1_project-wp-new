@@ -18,27 +18,30 @@ include_once 'header.php';
 include_once '../conn.php';
 ?>
 <div class="container mt-5 pt-2">
-    <!-- Title and Button Row -->
-    <div class="row mt-5 mb-4">
-        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
-            <h2 class="text-center text-md-left">Manage Products</h2>
+    <div class="row mt-5 mb-4 align-items-center">
+        <!-- Title -->
+        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
+            <h2 class="text-center text-md-left">Manage User</h2>
         </div>
-        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
-            <button id="toggleFormBtnI" class="btn btn-success">Insert Product</button>
-        </div>
-    </div>
-    <!-- search form -->
 
-            <div class="col-4 style=" text-align: right;">
-            <form method="GET" action="">
-                <div class="input-group mb-3">
-                    <input type="text" name="search" class="form-control" placeholder="Search here" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+        <!-- Search form -->
+        <div class="col-12 col-md-4 d-flex justify-content-center mb-2 mb-md-0">
+            <form method="GET" action="" class="d-flex w-100">
+                <div class="input-group w-100">
+                    <input type="text" name="search" class="form-control" placeholder="Search here"
+                        value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
                     <div class="input-group-append">
                         <button class="btn btn-dark" type="submit">Search</button>
                     </div>
                 </div>
             </form>
         </div>
+    
+        <!-- Button -->
+        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end">
+            <button id="toggleFormBtnI" class="btn btn-success">Insert User</button>
+        </div>
+    </div>
     <!-- Form Insert -->
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -218,7 +221,7 @@ include_once '../conn.php';
                         $total_records = mysqli_num_rows($result);
 
                         // Set the number of records per page
-                        $records_per_page = 2;
+                        $records_per_page = 3;
 
                         // Calculate the total number of pages
                         $total_pages = ceil($total_records / $records_per_page);

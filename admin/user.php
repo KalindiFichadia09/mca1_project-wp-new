@@ -2,31 +2,32 @@
 include_once 'header.php';
 ?>
 <div class="container mt-5 pt-2">
-    <!-- Title and Button Row -->
-    <div class="row mt-5 mb-4">
-        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
+
+    <div class="row mt-5 mb-4 align-items-center">
+        <!-- Title -->
+        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
             <h2 class="text-center text-md-left">Manage User</h2>
         </div>
-        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+
+        <!-- Search form -->
+        <div class="col-12 col-md-4 d-flex justify-content-center mb-2 mb-md-0">
+            <form method="GET" action="" class="d-flex w-100">
+                <div class="input-group w-100">
+                    <input type="text" name="search" class="form-control" placeholder="Search here"
+                        value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Button -->
+        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end">
             <button id="toggleFormBtnI" class="btn btn-success">Insert User</button>
-            <!-- <button id="toggleFormBtnU" class="btn btn-primary ms-2">Update User</button> -->
         </div>
     </div>
 
-
-    <!-- search form -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <!-- Search Form -->
-        <form method="GET" action="" class="d-flex align-items-center">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Search here"
-                    value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-                <div class="input-group-append">
-                    <button class="btn btn-dark" type="submit">Search</button>
-                </div>
-            </div>
-        </form>
-    </div>
     <!-- Form Insert -->
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -135,11 +136,6 @@ include_once 'header.php';
             </div>
         </div>
     </div>
-    <?php
-    $q = "select * from user_tbl";
-    $result = mysqli_query($con, $q);
-    // $r = mysqli_fetch_assoc($result);
-    ?>
     <!-- Table for Users -->
     <div class="row mt-5">
         <div class="col-12">
@@ -161,13 +157,13 @@ include_once 'header.php';
                     </thead>
                     <tbody>
                         <?php
-                        
+
                         $search = isset($_GET['search']) ? $_GET['search'] : '';
 
                         // SQL query to include the search condition
-                        $search_query = '';
+                        $search_query = "WHERE u_role = 'User' ";
                         if (!empty($search)) {
-                            $search_query = "WHERE u_fullname LIKE '%$search%' OR u_status LIKE '%$search%'";
+                            $search_query .= "AND (u_fullname LIKE '%$search%' OR u_status LIKE '%$search%' OR u_email LIKE '%$search%') ";
                         }
                         // Adding search_query into SQL query
                         $q = "Select * from user_tbl $search_query";
@@ -179,7 +175,7 @@ include_once 'header.php';
                         $total_records = mysqli_num_rows($result);
 
                         // Set the number of records per page
-                        $records_per_page = 2;
+                        $records_per_page = 3;
 
                         // Calculate the total number of pages
                         $total_pages = ceil($total_records / $records_per_page);
@@ -194,8 +190,8 @@ include_once 'header.php';
                         $q = "SELECT * FROM user_tbl $search_query LIMIT $start_from, $records_per_page";
                         $result = mysqli_query($con, $q);
 
-                            //  $result = mysqli_query($con, $q);
-                            while ($r = mysqli_fetch_assoc($result)) {
+                        //  $result = mysqli_query($con, $q);
+                        while ($r = mysqli_fetch_assoc($result)) {
                             ?>
                             <tr>
                                 <td><?php echo $r['u_id']; ?></td>
@@ -213,7 +209,13 @@ include_once 'header.php';
                                         <i class="fas fa-arrow-down "></i></button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="delete_id" value="<?php echo $r['u_id']; ?>">
+                                        <button type="submit" name="delete" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this record?');">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                                 <td>
                                     <button class="btn btn-success btn-sm"><i class="fas fa-shopping-cart"></i></button>
@@ -253,19 +255,25 @@ include_once 'header.php';
                                     <div id="formBlockUpdate" class="row formBlock mb-5">
                                         <div class="col-lg-8 col-md-10 mx-auto">
                                             <div class="form-block p-4">
+                                                <?php
+                                                $id = $r['u_id'];
+                                                $q1 = "select * from user_tbl where u_id=$id";
+                                                $resultselect = mysqli_query($con, $q1);
+                                                $row = mysqli_fetch_assoc($resultselect);
+                                                ?>
                                                 <form action="" id="update" method="post"
                                                     onsubmit="return userUpdateValidation(this);"
                                                     enctype="multipart/form-data">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <input type="hidden" name="u_id"
-                                                                value="<?php echo $r['u_id']; ?>">
+                                                                value="<?php echo $row['u_id']; ?>">
                                                             <!-- Full Name -->
                                                             <div class="form-group mb-3">
                                                                 <label for="fullNameU">Full Name</label>
                                                                 <input type="text" class="form-control fullNameU"
                                                                     id="fullNameU" name="u_fullname"
-                                                                    value="<?php echo $r['u_fullname']; ?>"
+                                                                    value="<?php echo $row['u_fullname']; ?>"
                                                                     placeholder="Enter Full Name">
                                                                 <span class="fullNameMsgU"></span>
                                                             </div>
@@ -274,7 +282,7 @@ include_once 'header.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="mobileU">Mobile</label>
                                                                 <input type="tel" class="form-control mobileU" id="mobileU"
-                                                                    name="u_mobile" value="<?php echo $r['u_mobile']; ?>"
+                                                                    name="u_mobile" value="<?php echo $row['u_mobile']; ?>"
                                                                     placeholder="Enter Mobile Number">
                                                                 <span class="mobileMsgU"></span>
                                                             </div>
@@ -283,7 +291,8 @@ include_once 'header.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="addressU">Address</label>
                                                                 <input type="text" class="form-control stateU" id="addressU"
-                                                                    name="u_address" value="<?php echo $r['u_address']; ?>"
+                                                                    name="u_address"
+                                                                    value="<?php echo $row['u_address']; ?>"
                                                                     placeholder="Enter Address">
                                                                 <!-- <textarea class="form-control addressU" id="addressU"
                                                                                                                                                                                                     name="address" value="<?php echo $r['u_address']; ?>" placeholder="Enter Address"></textarea> -->
@@ -294,7 +303,7 @@ include_once 'header.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="stateU">State</label>
                                                                 <input type="text" class="form-control stateU" id="stateU"
-                                                                    name="u_state" value="<?php echo $r['u_state']; ?>"
+                                                                    name="u_state" value="<?php echo $row['u_state']; ?>"
                                                                     placeholder="Enter State">
                                                                 <span class="stateMsgU"></span>
                                                             </div>
@@ -317,7 +326,7 @@ include_once 'header.php';
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input genderU" type="radio"
                                                                             name="u_genderU" id="genderMaleU" value="male"
-                                                                            <?php if ($r['u_gender'] == "male")
+                                                                            <?php if ($row['u_gender'] == "male")
                                                                                 echo "checked"; ?>>
                                                                         <label class="form-check-label"
                                                                             for="genderMaleU">Male</label>
@@ -325,7 +334,7 @@ include_once 'header.php';
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input genderU" type="radio"
                                                                             name="u_genderU" id="genderFemaleU"
-                                                                            value="female" <?php if ($r['u_gender'] == "female")
+                                                                            value="female" <?php if ($row['u_gender'] == "female")
                                                                                 echo "checked"; ?>>
                                                                         <label class="form-check-label"
                                                                             for="genderFemaleU">Female</label>
@@ -338,7 +347,7 @@ include_once 'header.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="emailU">Email</label>
                                                                 <input type="email" class="form-control emailU" id="emailU"
-                                                                    name="u_email" value="<?php echo $r['u_email']; ?>"
+                                                                    name="u_email" value="<?php echo $row['u_email']; ?>"
                                                                     placeholder="Enter Email">
                                                                 <span class="emailMsgU "></span>
                                                             </div>
@@ -347,7 +356,7 @@ include_once 'header.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="cityU">City</label>
                                                                 <input type="text" class="form-control cityU" id="cityU"
-                                                                    name="u_city" value="<?php echo $r['u_city']; ?>"
+                                                                    name="u_city" value="<?php echo $row['u_city']; ?>"
                                                                     placeholder="Enter City">
                                                                 <span class="cityMsgU "></span>
                                                             </div>
@@ -356,7 +365,7 @@ include_once 'header.php';
                                                             <div class="form-group mb-3">
                                                                 <label for="pincodeU">Pincode</label>
                                                                 <input type="text" class="form-control pincodeU"
-                                                                    id="pincodeU" value="<?php echo $r['u_pincode']; ?>"
+                                                                    id="pincodeU" value="<?php echo $row['u_pincode']; ?>"
                                                                     name="u_pincode" placeholder="Enter Pincode">
                                                                 <span class="pincodeMsgU "></span>
                                                             </div>
@@ -366,7 +375,7 @@ include_once 'header.php';
                                                                 <label for="passwordU">Password</label>
                                                                 <input type="password" class="form-control passwordU"
                                                                     id="passwordU" name="u_password"
-                                                                    value="<?php echo $r['u_password']; ?>"
+                                                                    value="<?php echo $row['u_password']; ?>"
                                                                     placeholder="Enter Password">
                                                                 <span class="passwordMsgU"></span>
                                                             </div>
@@ -432,16 +441,19 @@ include_once 'header.php';
         $u_password = $_POST['u_password'];
         $u_status = "Active";
         $u_role = "User";
-        $u_image = "../images/profile_image/" . $_FILES['u_image']['name'];
+        $u_image = $_FILES['u_image']['name'];
+        $profile_picture = "../images/profile_image/" . uniqid() . $u_image;
 
         $q = "INSERT INTO `user_tbl`(`u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`,`u_role`) 
-                        VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$u_image','$u_status','$u_role')";
+                        VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$profile_picture','$u_status','$u_role')";
         // echo $q;
         if (mysqli_query($con, $q)) {
             if (!is_dir("../images/profile_image")) {
                 mkdir("../images/profile_image");
             }
-            move_uploaded_file($_FILES['u_profilePhoto']['tmp_name'], $u_image);
+            $temp = $_FILES['u_image']['tmp_name'];
+            move_uploaded_file($temp, $profile_picture);
+            // move_uploaded_file($_FILES['u_image']['tmp_name'], $u_image);
             setcookie('success', 'New user inserted', time() + 5, "/");
             ?>
             <script>
@@ -474,6 +486,10 @@ include_once 'header.php';
         $u_pincode = $_POST['u_pincode'];
         $u_role = "User";
 
+        $select = "select * from user_tbl where u_id = '$u_id' ";
+        $results = mysqli_query($con, $q);
+        $rs = mysqli_fetch_assoc($results);
+
         if ($_FILES['u_image']['name'] != "") {
             $profile_picture = $_FILES['u_image']['name'];
 
@@ -485,9 +501,11 @@ include_once 'header.php';
         }
 
         $update_query = "UPDATE user_tbl SET u_fullname='$u_fullName', u_gender='$u_gender', u_email='$u_email', u_mobile='$u_mobile', u_address='$u_address', u_city='$u_city', u_state='$u_state', u_pincode='$u_pincode', u_image='$profile_picture' WHERE u_id='$u_id' AND u_role='$u_role'";
+        echo $update_query;
         if (mysqli_query($con, $update_query)) {
-            if ($profile_picture != $r['u_image']) {
-                $old_profile_picture = $r['u_image'];
+
+            if ($profile_picture != $rs['u_image']) {
+                $old_profile_picture = $rs['u_image'];
                 if (file_exists($old_profile_picture)) {
                     unlink($old_profile_picture);
                 }
@@ -506,5 +524,21 @@ include_once 'header.php';
             </script>
             <?php
         }
+    }
+    if (isset($_POST['delete'])) {
+        $delete_id = $_POST['delete_id']; // Get the id of the row to delete
+    
+        // SQL query to delete the specific record
+        $delete_query = "DELETE FROM user_tbl WHERE u_id = '$delete_id'";
+
+        // Execute the query and check if it was successful
+        if (mysqli_query($con, $delete_query)) {
+            echo "<script>confirm('Record deleted successfully');</script>";
+        } else {
+            echo "<script>confirm('Error deleting record');</script>";
+        }
+
+        // Redirect to refresh the page after deletion
+        echo "<script>window.location.href = 'user.php';</script>";
     }
     ?>

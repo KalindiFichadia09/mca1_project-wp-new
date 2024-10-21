@@ -4,8 +4,14 @@ ob_start();
 session_start();
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
+    if (!isset($_SESSION['admin_username'])) {
+        ?>
+        <script>
+            window.location.href = "../signin.php";
+        </script>
+        <?php
+    }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,12 +77,7 @@ if ($con->connect_error) {
                             </li>
                             <!-- Dropdown Menu -->
                             <li class="nav-item dropdown">
-                                <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    John
-                                </a> -->
                                 <?php
-                            
                                 if (isset($_SESSION['user_username'])) {
                                     $email = $_SESSION['user_username'];
                                     $q = "select * from user_tbl where u_email='$email'";
@@ -98,10 +99,9 @@ if ($con->connect_error) {
                                 } else {
                                     ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../signin.php" >signin</a>
+                                    <a class="nav-link" href="../signin.php">signin</a>
                                 </li>
                                 <?php
-                                
                                 }
                                 ?>
                             </li>
