@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2024 at 03:11 PM
+-- Generation Time: Oct 17, 2024 at 04:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -86,7 +86,7 @@ CREATE TABLE `password_token_tbl` (
 --
 
 INSERT INTO `password_token_tbl` (`Id`, `Email`, `Otp`, `Created_at`, `Expires_at`) VALUES
-(2, 'vibhutichavda4@gmail.com', '466070', '2024-10-16 06:30:56', '2024-10-16 06:31:56');
+(1, 'vibhutichavda4@gmail.com', '629240', '2024-10-17 08:05:03', '2024-10-17 08:06:03');
 
 -- --------------------------------------------------------
 
@@ -209,10 +209,9 @@ CREATE TABLE `user_tbl` (
 --
 
 INSERT INTO `user_tbl` (`u_id`, `u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`, `u_role`) VALUES
-(1, 'Kalindi', 'female', 'kfichadiya849@rku.ac.in', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Kalindi@12', '../images/profile_image/6708aac8503adbhut.jpg', 'Active', 'User'),
-(2, 'Vibhuti Chavda', 'female', 'vibhutichavda4@gmail.com', '8200722807', 'Hudko police choki', 'Rajkot', 'Gujarat', '360002', 'Vibhuti@22', '../images/profile_image/ghost.jpg', 'Active', 'User'),
-(3, '', '', '', '', '', '', '', '', '', 'images/profile_image/', 'Inactive', 'User'),
-(4, '', '', '', '', '', '', '', '', '', 'images/profile_image/', 'Inactive', 'User');
+(1, 'Kalindi', 'female', 'fichadiyakalindi@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Kalindi@12', '../images/profile_image/6708aac8503adbhut.jpg', 'Active', 'User'),
+(2, 'Vibhuti Chavda', 'female', 'vibhutichavda4@gmail.com', '8200722807', 'Hudko police choki', 'Rajkot', 'Gujarat', '360002', 'Vibhuti@12', '../images/profile_image/67109dd825a9bp1.jpg', 'Active', 'user'),
+(5, 'jinal', '', 'jianltraviya@gmail.com', '6834567877', 'ranchod nager ', 'Rajkot', 'Gujarat', '360003', 'Jinal@12', '../images/profile_image/671095df466b5image12.jpg', 'Active', 'User');
 
 --
 -- Indexes for dumped tables
@@ -263,7 +262,7 @@ ALTER TABLE `category_tbl`
 -- AUTO_INCREMENT for table `password_token_tbl`
 --
 ALTER TABLE `password_token_tbl`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_tbl`
@@ -281,7 +280,7 @@ ALTER TABLE `slider_tbl`
 -- AUTO_INCREMENT for table `user_tbl`
 --
 ALTER TABLE `user_tbl`
-  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

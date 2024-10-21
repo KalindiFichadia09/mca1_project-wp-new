@@ -1,5 +1,9 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,26 +53,31 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <div class="card shadow-sm">
                     <h2 class="text-center mb-4">Change Password</h2>
-                    <form action="" onsubmit="return changePassword_validation()" method="post">
+                    <form action="" method="post">
                         <div class="form-group">
                             <label for="new-password">New Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="newPassword" name="password" placeholder="Enter new password">
-                                <button type="button" class="view-button" onclick="showPassword('newPassword')">👁️</button>
+                                <input type="password" class="form-control" id="newPassword" name="password"
+                                    placeholder="Enter new password">
+                                <button type="button" class="view-button"
+                                    onclick="showPassword('newPassword')">👁️</button>
                             </div>
                             <span id="newPasswordMsg"></span>
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">Confirm New Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confirmPassword" name="confirm_password" placeholder="Confirm new password">
-                                <button type="button" class="view-button" onclick="showPassword('confirmPassword')">👁️</button>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirm_password"
+                                    placeholder="Confirm new password">
+                                <button type="button" class="view-button"
+                                    onclick="showPassword('confirmPassword')">👁️</button>
                             </div>
                             <span id="confirmPasswordMsg"></span>
                         </div>
@@ -79,38 +88,37 @@
         </div>
     </div>
 </body>
+
 </html>
 <?php
+include 'conn.php';
 if (isset($_POST['reset_pwd_btn'])) {
     if (isset($_SESSION['forgot_email'])) {
         $email = $_SESSION['forgot_email'];
         $password = $_POST['password'];
 
-
-        // Update the user's password in the users table (assuming the table is named 'users')
         $update_query = "UPDATE user_tbl SET u_password = '$password' WHERE u_email = '$email'";
         if (mysqli_query($con, $update_query)) {
-            // Delete the token from the password_token table
-            $delete_query = "DELETE FROM password_token WHERE Email = '$email'";
+            $delete_query = "DELETE FROM password_token_tbl WHERE Email = '$email'";
             mysqli_query($con, $delete_query);
             unset($_SESSION['forgot_email']);
 
             setcookie('success', 'Password has been reset successfully.', time() + 5, '/');
-?>
+            ?>
 
             <script>
                 window.location.href = 'signin.php';
             </script>
-        <?php
+            <?php
 
         } else {
             setcookie('error', 'Error in resetting Password.', time() + 5, '/');
-        ?>
+            ?>
 
             <script>
                 window.location.href = 'Forgot_password.php';
             </script>
-<?php
+            <?php
 
 
         }

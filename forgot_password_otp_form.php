@@ -1,5 +1,6 @@
 <?php
-session_start();   ?>
+session_start();  
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,16 +63,16 @@ session_start();   ?>
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm p-4">
                     <h2 class="text-center mb-4">Send OTP</h2>
-                    <form action="" onsubmit="" method="post">
+                    <form onsubmit="" method="post">
                         <div class="form-group">
                             <label for="email">Enter OTP</label>
-                            <input type="text" id="email" name="otp" class="form-control" placeholder="Enter otp">
+                            <input type="text" id="otptxt" name="otptxt" class="form-control" placeholder="Enter otp">
                             <span id="emailMsg"></span>
                         </div>
                         <div id="timer" class="text-danger"></div>
                         <div class="text-center mt-3">
                             <input type="submit" value="Resend OTP" id="resend_otp" name="resend"
-                                class="btn btn-primary btn-block">
+                                class="btn btn-primary btn-block" style="display:none;">
                             <script>
                                 let timeLeft = 60; // 1 minute timer
                                 const timerDisplay = document.getElementById('timer');
@@ -105,14 +106,13 @@ session_start();   ?>
                                     sessionStorage.setItem('otpTimer', timeLeft);
                                 }, 1000);
 
-                                resendButton.onclick = function (event) {
-                                    event.preventDefault(); // Prevent the default form submission
-                                    window.location.href = 'resend_otp_forgot_password.php';
-                                };
+                                // resendButton.onclick = function (event) {
+                                //     event.preventDefault(); // Prevent the default form submission
+                                //     window.location.href = 'resend_otp_forgot_password.php';
+                                // };
                             </script><br>
-                            <input type="button" name="otp_btn" value="Submit" class="btn btn-primary btn-block">
+                            <input type="submit" name="otp_btn" id="otp_btn" value="Submit" class="btn btn-primary btn-block">
                         <!-- <button type="submit" class="btn btn-primary btn-block">Submit</button> -->
-
                         </div>
                     </form>
                 </div>
@@ -124,38 +124,37 @@ session_start();   ?>
 
 </html>
 <?php
- 
+include 'conn.php';
 if (isset($_POST['otp_btn'])) {
-
     if (isset($_SESSION['forgot_email'])) {
         $email = $_SESSION['forgot_email'];
-        $otp = $_POST['otp'];
-
+        $otp = $_POST['otptxt'];
+        // echo $otp;
         // Fetch the OTP from the database for the given email
-        $query = "SELECT otp FROM password_token WHERE email = '$email' ";
+        $query = "SELECT Otp FROM password_token_tbl WHERE Email = '$email' ";
         $result = mysqli_query($con, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            $db_otp = $row['otp'];
+            $db_otp = $row['Otp'];
+            echo $row['Otp'];
 
             // Compare the OTPs
             if ($otp == $db_otp) {
                 // Redirect to new password page
-?>
+                ?>
                 <script>
                     window.location.href = 'new_password_form.php';
                 </script>
-            <?php
+                <?php
 
             } else {
                 setcookie('error', 'Incorrect OTP', time() + 5, '/');
-            ?>
-
+                ?>
                 <script>
                     window.location.href = 'otp_form.php';
                 </script>
-            <?php
+                <?php
             }
         } else {
             setcookie('error', 'OTP has expired. Regenerate New OTP', time() + 2, '/');
@@ -163,10 +162,10 @@ if (isset($_POST['otp_btn'])) {
             <script>
                 window.location.href = 'Forgot_password.php';
             </script>
-<?php
+            <?php
         }
-    }else {
-        echo"session no";
     }
 }
+
+
 ?>

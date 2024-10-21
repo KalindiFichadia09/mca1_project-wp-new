@@ -7,6 +7,8 @@ require 'PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+session_start();  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +70,7 @@ use PHPMailer\PHPMailer\Exception;
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm p-4">
                     <h2 class="text-center mb-4">Forgot Password</h2>
-                    <form onsubmit="return forgotPassword_validation()" method="post">
+                    <form method="post">
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input type="email" id="email" name="femail" class="form-control" placeholder="Enter your email">
