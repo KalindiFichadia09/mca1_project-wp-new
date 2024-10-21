@@ -3,15 +3,17 @@ include_once("header.php");
 //include_once("admin_authentication.php");
 ?>
 <br><br><br><br>
+
 <div class="container">
     <div class="row text-center">
-        <div class="col-12 bg-dark text-white p-2 align-center">
-            <h1>About Jaysheree Jewels</h1>
+        <!-- No background for About Jaysheree Jewels -->
+        <div class="col-12 p-2">
+            <h1 style="font-size: calc(1.325rem + 0.9vw);">About Jaysheree Jewels</h1>
         </div>
     </div>
     <br>
 
-    <!-- Section to Display Current Content -->
+    <!-- Section to Display Updated Content -->
     <div class="row">
         <?php
         // Display content from the about_us_tbl
@@ -19,11 +21,10 @@ include_once("header.php");
         $result = mysqli_query($con, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>" . $row['content'] . "</p>";
-            }
+            $row = mysqli_fetch_assoc($result);
+            echo "<div class='col-12 p-2'>" . $row['content'] . "</div>"; // Display updated content here
         } else {
-            echo "<p>No content available.</p>";
+            echo "<div class='col-12 p-2'>No content available.</div>";
         }
         ?>
     </div>
@@ -31,8 +32,9 @@ include_once("header.php");
 
 <div class="container">
     <div class="row text-center">
-        <div class="col-12 bg-dark text-white p-2 align-center">
-            <h1>Change Content</h1>
+        <!-- Change Content with Black Font and No Background -->
+        <div class="col-12 p-2">
+            <h1 style="background-color: #343a40; color: white; padding: 0.5rem">Change Content</h1>
         </div>
     </div>
     <br>
@@ -58,7 +60,7 @@ include_once("header.php");
             </div>
 
             <!-- Hidden textarea to store the HTML content -->
-            <textarea id="editor-content" name="editor_content" style="display:none"></textarea>
+            <textarea id="editor-content" name="editor_content" style="display:none "></textarea>
             <br>
             <input type="submit" value="Update Content" class="btn btn-dark" name="updt_about">
         </form>
