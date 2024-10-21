@@ -13,18 +13,27 @@ include_once("header.php");
     </div>
     <br>
 
-    <!-- Section to Display Updated Content -->
+    <!-- Section to Display Updated Content and Image -->
     <div class="row">
         <?php
-        // Display content from the about_us_tbl
+        // Display content and image from the about_us_tbl
         $query = "SELECT * FROM about_us_tbl LIMIT 1";
         $result = mysqli_query($con, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            echo "<div class='col-12 p-2'>" . $row['content'] . "</div>"; // Display updated content here
+            
+            // Display the content
+            echo "<div class='col-12 p-2'>" . $row['Content'] . "</div>";
+            
+            // Display the image if it exists
+            if (!empty($row['image'])) {
+                echo "<div class='col-12 p-2'>";
+                echo "<img src='uploads/" . $row['image'] . "' alt='About Image' style='max-width:100%; height:auto;'>";
+                echo "</div>";
+            }
         } else {
-            echo "<div class='col-12 p-2'>No content available.</div>";
+            echo "<div class='col-12 p-2'>No Content available.</div>";
         }
         ?>
     </div>
@@ -39,9 +48,9 @@ include_once("header.php");
     </div>
     <br>
 
-    <!-- Form for Editing Content -->
+    <!-- Form for Editing Content and Uploading Image -->
     <div class="row">
-        <form action="about_us.php" method="post">
+        <form action="about_us.php" method="post" enctype="multipart/form-data"> <!-- Added enctype for file upload -->
             <div id="toolbar-container"></div>
 
             <div id="editor">
@@ -52,7 +61,7 @@ include_once("header.php");
 
                 if ($result && mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_assoc($result);
-                    echo $row['content'];
+                    echo $row['Content'];
                 } else {
                     echo "<p>No content available.</p>";
                 }
@@ -60,8 +69,13 @@ include_once("header.php");
             </div>
 
             <!-- Hidden textarea to store the HTML content -->
-            <textarea id="editor-content" name="editor_content" style="display:none "></textarea>
+            <textarea id="editor-content" name="editor_content" style="display:none;"></textarea>
+            
+            <!-- Image Upload Input -->
             <br>
+            <input type="file" name="about_image" accept="image/*" class="form-control">
+            <br>
+
             <input type="submit" value="Update Content" class="btn btn-dark" name="updt_about">
         </form>
 
@@ -107,6 +121,22 @@ include_once("header.php");
 // Handle form submission
 if (isset($_POST['updt_about'])) {
     $about_content = $_POST['editor_content'];
+    
+    // Handle Image Upload
+    $image = $_FILES['about_image']['name'];
+    $target_dir = "uploads/"; // Directory to save the uploaded images
+    $target_file = $target_dir . basename($image);
+    
+    // Check if the file is a valid image and move it to the target directory
+    if ($image && move_uploaded_file($_FILES['about_image']['tmp_name'], $target_file)) {
+        $image_file = $image;
+    } else {
+        // If no new image is uploaded, keep the existing one
+        $existingQuery = "SELECT image FROM about_us_tbl LIMIT 1";
+        $existingResult = mysqli_query($con, $existingQuery);
+        $existingRow = mysqli_fetch_assoc($existingResult);
+        $image_file = $existingRow['image'] ?? null;
+    }
 
     // Check if there's any existing content in about_us_tbl
     $q1 = "SELECT * FROM about_us_tbl";
@@ -115,14 +145,14 @@ if (isset($_POST['updt_about'])) {
 
     // Update if content exists, else insert new content
     if ($count == 0) {
-        $q2 = "INSERT INTO about_us_tbl (content) VALUES ('$about_content')";
+        $q2 = "INSERT INTO about_us_tbl (Content, image) VALUES ('$about_content', '$image_file')";
         if (mysqli_query($con, $q2)) {
             setcookie("success", 'Page Content Added', time() + 5, "/");
         } else {
             setcookie("error", 'Failed to add page content', time() + 5, "/");
         }
     } else {
-        $q = "UPDATE about_us_tbl SET content='$about_content'";
+        $q = "UPDATE about_us_tbl SET Content='$about_content', image='$image_file'";
         if (mysqli_query($con, $q)) {
             setcookie("success", 'Page Content Updated', time() + 5, "/");
         } else {
