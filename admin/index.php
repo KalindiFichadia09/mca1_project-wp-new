@@ -60,6 +60,13 @@
                         <a href="user.php" class="nav-link">User</a>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <a href="about_us.php" class="nav-link">About Us</a>
+                    </div>
+                </div>
             </div>    
             <div class="col-md-4 mb-4">
                 <div class="card text-center">

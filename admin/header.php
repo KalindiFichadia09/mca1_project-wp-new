@@ -34,6 +34,7 @@ include_once '../conn.php';
                 <ul class="nav-links">
                     <li><a href="index.php">Dashboard</a></li>
                     <li><a href="user.php">User</a></li>
+                    <li><a href="about_us.php">About Us</a></li>
                     <li><a href="category.php">Category</a></li>
                     <li><a href="product.php">Product</a></li>
                     <li><a href="cart.php">Cart</a></li>
@@ -61,6 +62,7 @@ include_once '../conn.php';
         <ul>
             <li><a href="index.php" class="nav-link"><i class="fas fa-home"></i> Dashboard</a></li>
             <li><a href="user.php" class="nav-link"><i class="fas fa-user"></i> User</a></li>
+            <li><a href="about_us.php" class="nav-link"><i class="fas fa-user"></i> About Us</a></li>
             <li><a href="category.php" class="nav-link"><i class="fas fa-list"></i> Category</a></li>
             <li><a href="product.php" class="nav-link"><i class="fas fa-box"></i> Product</a></li>
             <li><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i> Cart</a></li>
