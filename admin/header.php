@@ -53,7 +53,7 @@ if (!isset($_SESSION['admin_username'])) {
                     <li><a href="wishlist.php">Wishlist</a></li>
                     <li><a href="order.php">Order</a></li>
                     <li><a href="feedback.php">Feedback</a></li>
-                    <li><a href="carouselimage.php">CarouselImage</a></li>
+                    <li><a href="carouselimage.php">Slider</a></li>
                 </ul>
             </nav>
         </div>
