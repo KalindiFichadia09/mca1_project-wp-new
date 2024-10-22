@@ -151,9 +151,6 @@ include_once 'header.php';
                             <th scope="col">Show</th>
                             <th scope="col">Update</th>
                             <th scope="col">Delete</th>
-                            <th scope="col">Cart</th>
-                            <th scope="col">Wishlist</th>
-                            <th scope="col">Order</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -220,15 +217,6 @@ include_once 'header.php';
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
-                                </td>
-                                <td>
-                                    <button class="btn btn-success btn-sm"><i class="fas fa-shopping-cart"></i></button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm"><i class="fas fa-shopping-bag"></i></button>
                                 </td>
                             </tr>
                             <tr id="detailRow<?php echo $r['u_id']; ?>" class="detail-row" style="display:none;">

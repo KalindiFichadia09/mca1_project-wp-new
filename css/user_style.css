@@ -70,15 +70,17 @@ body {
 /* Carousel-start */
 
 .carousel-item {
-  height: 60vh; /* Responsive height */
+  height: auto; /* Let the height be defined by the image */
   background-color: #f8f9fa; /* Placeholder color */
   text-align: center;
 }
+
 .carousel-item img {
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: auto; /* Maintain the original height of the image */
+  object-fit: contain; /* Ensure the image scales without being cropped */
 }
+
 @media (min-width: 768px) {
   .carousel-caption h5 {
     font-size: 3rem;
@@ -87,16 +89,19 @@ body {
     font-size: 1.5rem;
   }
 }
+
 @media (max-width: 768px) {
   .carousel-item img {
-    object-fit: contain;
-    height: auto;
-    width: 100%;
+    height: auto; /* Keep the full height of the image */
+    width: 100%; /* Scale width to fit the container */
+    object-fit: contain; /* Ensure no cropping */
   }
+
   .carousel-item {
-    height: 16vh; /* Responsive height */
+    height: auto; /* Let the image define the height on smaller screens */
   }
 }
+
 
 /* Carousel-end */
 
