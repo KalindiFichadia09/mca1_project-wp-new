@@ -30,7 +30,7 @@
                 <div class="col-md-3">
                     <h5>Account</h5>
                     <ul class="list-unstyled">
-                        <li><a href="signin.php" class="text-secondary">Sign In</a></li>
+                        <li><a href="../signin.php" class="text-secondary">Sign In</a></li>
                         <li><a href="order-history.php" class="text-secondary">Order Status</a></li>
                         <li><a href="wishlist.php" class="text-secondary">My Wishlist</a></li>
                         <li><a href="profile.php" class="text-secondary">Profile</a></li>   
