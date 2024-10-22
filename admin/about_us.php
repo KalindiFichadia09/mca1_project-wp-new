@@ -1,13 +1,16 @@
-<?php
+<?php 
 include_once("header.php");
-//include_once("admin_authentication.php");
+// include_once("admin_authentication.php");
+
+// Database connection (make sure $con is set properly)
 ?>
+
 <br><br><br><br>
 
 <div class="container">
     <div class="row text-center">
         <div class="col-12 p-2">
-            <h1 style="font-size: calc(1.325rem + 0.9vw);">About Jaysheree Jewels</h1>
+            <h1 style="font-size: calc(1.325rem + 0.9vw);">About Jayshree Jewels</h1>
         </div>
     </div>
     <br>
@@ -23,12 +26,12 @@ include_once("header.php");
             $row = mysqli_fetch_assoc($result);
             
             // Display the content
-            echo "<div class='col-12 p-2'>" . $row['Content'] . "</div>";
+            echo "<div class='col-md-6 p-2'>" . $row['Content'] . "</div>";
             
             // Display the image if it exists
             if (!empty($row['image'])) {
-                echo "<div class='col-12 p-2'>";
-                echo "<img src='uploads/" . $row['image'] . "' alt='About Image' style='max-width:100%; height:auto;'>";
+                echo "<div class='col-md-6 p-2 text-center'>";
+                echo "<img src='../images/about_img/" . $row['image'] . "' alt='About Image' style='max-width:100%; height:auto; max-height:400px;'>";
                 echo "</div>";
             }
         } else {
@@ -41,13 +44,13 @@ include_once("header.php");
 <div class="container">
     <div class="row text-center">
         <div class="col-12 p-2">
-            <h1 style="background-color: #343a40; color: white; padding: 0.5rem">Change Content</h1>
+            <h1 style="background-color: #343a40; color: white; font-size: 30px; padding: 0rem">Change Content</h1>
         </div>
     </div>
     <br>
 
-    <!-- Form for Editing Content and Uploading Image -->
-    <div class="row">
+    <!-- Form for Editing Content -->
+    <div class="row ">
         <form action="about_us.php" method="post" enctype="multipart/form-data">
             <div id="toolbar-container"></div>
 
@@ -69,11 +72,7 @@ include_once("header.php");
             <!-- Hidden textarea to store the HTML content -->
             <textarea id="editor-content" name="editor_content" style="display:none;"></textarea>
             
-            <!-- Image Upload Input -->
             <br>
-            <input type="file" name="about_image" accept="image/*" style="width:30%" class="form-control">
-            <br>
-
             <input type="submit" value="Update Content" class="btn btn-dark" name="updt_about">
         </form>
 
@@ -91,7 +90,7 @@ include_once("header.php");
                             { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
                             { model: "heading1", view: "h1", title: "Heading 1", class: "ck-heading_heading1" },
                             { model: "heading2", view: "h2", title: "Heading 2", class: "ck-heading_heading2" },
-                            { model: "heading3", view: "h3", title: "Heading 3", class: "ck-heading_heading3" }
+                            { model: "heading3 ", view: "h3", title: "Heading 3", class: "ck-heading_heading3" }
                         ]
                     }
                 })
@@ -113,66 +112,89 @@ include_once("header.php");
     </div>
 </div>
 
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12 p-2">
+            <h1 style="background-color: #343a40; color: white; font-size: 30px; padding: 0rem">Update Image</h1>
+        </div>
+    </div>
+    <br>
+
+    <!-- Image Upload Section -->
+    <div class="row">
+        <form action="about_us.php" method="post" enctype="multipart/form-data">
+            <div class="col-12 text-center">
+                <?php
+                // Display the current image preview if it exists
+                $query = "SELECT image FROM about_us_tbl LIMIT 1";
+                $result = mysqli_query($con, $query);
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    if (!empty($row['image'])) {
+                        echo "<img src='../images/about_img/" . $row['image'] . "' alt='Current Image' style='max-width:300px; height:auto;'>";
+                        echo "<br><br>";
+                    }
+                }
+                ?>
+                <label for="about_image" class="form-label">Upload New Image:</label>
+                <input type="file" name="about_image" accept="image/*" class="form-control" style="width: 30%; margin: 0 auto;">
+                <br>
+
+                <input type="submit" value="Update Image" class="btn btn-dark" name="updt_image">
+            </div>
+        </form>
+    </div>
+</div>
+
 <?php
-// Handle form submission
+// Handle form submission for content update
 if (isset($_POST['updt_about'])) {
     $about_content = $_POST['editor_content'];
-    
-    // Handle Image Upload
-    $image = $_FILES['about_image']['name'];
-    $target_dir = "uploads/"; // Directory to save the uploaded images
-    $target_file = $target_dir . basename($image);
-    
-    // Initialize the variable to hold the image file name
-    $image_file = null;
 
-    // Check if an image file is uploaded and move it to the target directory
-    if (!empty($image)) {
-        if (move_uploaded_file($_FILES['about_image']['tmp_name'], $target_file)) {
-            $image_file = $image; // Successfully uploaded image file
-        } else {
-            // Handle upload error
-            echo "<script>alert('Failed to upload image. Please try again.');</script>";
-        }
+    $q = "UPDATE about_us_tbl SET Content='$about_content'";
+    if (mysqli_query($con, $q)) {
+        setcookie("success", 'Page Content Updated', time() + 5, "/");
     } else {
-        // If no new image is uploaded, keep the existing one from the database
-        $existingQuery = "SELECT image FROM about_us_tbl LIMIT 1";
-        $existingResult = mysqli_query($con, $existingQuery);
-        if ($existingResult && mysqli_num_rows($existingResult) > 0) {
-            $existingRow = mysqli_fetch_assoc($existingResult);
-            $image_file = $existingRow['image'];
-        }
+        setcookie("error", 'Failed to update page content', time() + 5, "/");
     }
 
-    // Ensure $image_file is not null before updating the database
-    if ($image_file !== null) {
-        // Check if there's any existing content in about_us_tbl
-        $q1 = "SELECT * FROM about_us_tbl";
-        $res1 = mysqli_query($con, $q1);
-        $count = mysqli_num_rows($res1);
-
-        // Update if content exists, else insert new content
-        if ($count == 0) {
-            $q2 = "INSERT INTO about_us_tbl (Content, image) VALUES ('$about_content', '$image_file')";
-            if (mysqli_query($con, $q2)) {
-                setcookie("success", 'Page Content Added', time() + 5, "/");
-            } else {
-                setcookie("error", 'Failed to add page content', time() + 5, "/");
-            }
-        } else {
-            $q = "UPDATE about_us_tbl SET Content='$about_content', image='$image_file'";
-            if (mysqli_query($con, $q)) {
-                setcookie("success", 'Page Content Updated', time() + 5, "/");
-            } else {
-                setcookie("error", 'Failed to update page content', time() + 5, "/");
-            }
-        }
-    } else {
-        // If $image_file is null, it means there was an issue with the image upload or retrieval
-        echo "<script>alert('Image is missing or failed to upload. Content not updated.');</script>";
-    }
-    
-    // Redirect to the page after successful update
     echo '<script>window.location.href = "about_us.php";</script>';
+}
+
+// Handle form submission for image update
+if (isset($_POST['updt_image'])) {
+    $image = $_FILES['about_image']['name'];
+    $target_dir = "../images/about_img/";
+    $target_file = $target_dir . basename($image);
+    $uploadError = $_FILES['about_image']['error'];
+
+    // Debugging: Check upload directory
+    if (!is_writable($target_dir)) {
+        echo "<script>alert('Upload directory is not writable: " . $target_dir . "');</script>";
+    } else {
+        if ($uploadError === UPLOAD_ERR_OK) {
+            // Check if the file type is allowed
+            $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+            if (!in_array($fileType, $allowedTypes)) {
+                echo "<script>alert('Invalid file type. Only JPG, JPEG, PNG & GIF files are allowed.');</script>";
+            } else {
+                // Try to move the file
+                if (move_uploaded_file($_FILES['about_image']['tmp_name'], $target_file)) {
+                    $stmt = $con->prepare("UPDATE about_us_tbl SET image=?");
+                    $stmt->bind_param("s", $image);
+                    if ($stmt->execute()) {
+                        setcookie("success", 'Image Updated', time() + 5, "/");
+                    } else {
+                        setcookie("error", 'Failed to update image in database', time() + 5, "/");
+                    }
+                } else {
+                    echo "<script>alert('Failed to move uploaded file to: " . $target_file . "');</script>";
+                }
+            }
+        } else {
+            echo "<script>alert('Error uploading file: " . $uploadError . "');</script>";
+        }
+    }
 }
 ?>

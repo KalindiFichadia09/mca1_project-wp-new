@@ -1,6 +1,12 @@
 <?php 
-    include_once('header.php');
+include_once('header.php');
+include_once('db_connection.php'); // Ensure you include your database connection file
+
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 ?>
+
 <section class="bg-light py-5">
 <main class="container mt-1">
     <h1 class="mb-5 text-center">Contact Us</h1>
@@ -13,56 +19,23 @@
                 <img src="../images/contactUsImg.jpg" alt="Contact Us" class="img-fluid rounded">
             </div>
             <div class="col-md-6">
-                <form action="index.php" onsubmit="return contactValidaton()" method="get">
+                <form action="index.php" onsubmit="return contactValidation()" method="post">
                     <div class="mb-3">
                         <label for="contactName" class="form-label">Name</label>
-                        <input type="text" id="contactName" name="name" class="form-control">
+                        <input type="text" id="contactName" name="fname" class="form-control" required>
                         <span id="contactNameMsg"></span>
                     </div>
                     <div class="mb-3">
                         <label for="contactEmail" class="form-label">Email</label>
-                        <input type="email" id="contactEmail" name="email" class="form-control">
+                        <input type="email" id="contactEmail" name="email" class="form-control" required>
                         <span id="contactEmailMsg"></span>
                     </div>
                     <div class="mb-3">
                         <label for="contactMessage" class="form-label">Message</label>
-                        <textarea id="contactMessage" name="message" class="form-control" rows="4"></textarea>
-                        <span id="contactMessageMsg"></span>
+                        <textarea id="contactMessage" name="msg" class="form-control" rows="4" required></textarea>
                     </div>
-                    <input type='submit' name='signin' value='Send Message' class="buy-now">
+                    <input type='submit' name='contactSub' value='Send Message' class="buy-now">
                 </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Feedback Form -->
-    <section>
-        <h2 class="mb-4">Feedback</h2>
-        <div class="row">
-           
-            <div class="col-md-6">
-                <form action="index.php" onsubmit="return feedbackValidaton()" method="get">
-                    <div class="mb-3">
-                        <label for="feedbackName" class="form-label">Name</label>
-                        <input type="text" id="feedbackName" name="name" class="form-control">
-                        <span id="feedbackNameMsg"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="feedbackEmail" class="form-label">Email</label>
-                        <input type="email" id="feedbackEmail" name="email" class="form-control">
-                        <span id="feedbackEmailMsg"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="feedbackMessage" class="form-label">Feedback</label>
-                        <textarea id="feedbackMessage" name="feedback" class="form-control" rows="4"></textarea>
-                        <span id="feedbackMessageMsg"></span>
-                    </div>
-                    <input type='submit' name='Submit Feedback' value='Send Message' class="buy-now">
-                    <!-- <button type="submit" class="btn btn-primary">Submit Feedback</button> -->
-                </form>
-            </div>
-            <div class="col-md-6 mb-3">
-                <img src="../images/feedbackImg.jpg" alt="Feedback" class="img-fluid rounded">
             </div>
         </div>
     </section>
@@ -71,5 +44,23 @@
 <br/><br/>
 
 <?php 
-    include_once('footer.php');
+include_once('footer.php');
+
+if (isset($_POST['contactSub'])) {
+    $name = $_POST['fname'];
+    $email = $_POST['email'];
+    $msg = $_POST['msg'];
+
+    // Use prepared statements to prevent SQL injection
+    $stmt = $con->prepare("INSERT INTO contact_tbl (Co_Name, Co_Email, Co_Msg, Co_Reply) VALUES (?, ?, ?, '')");
+    $stmt->bind_param("sss", $name, $email, $msg);
+
+    if ($stmt->execute()) {
+        setcookie('success', 'Query sent successfully.', time() + 5, "/");
+    } else {
+        setcookie('error', 'Error in sending query: ' . $stmt->error, time() + 5, "/");
+    }
+
+    $stmt->close(); // Close the statement
+}
 ?>
