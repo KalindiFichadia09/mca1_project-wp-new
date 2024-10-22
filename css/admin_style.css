@@ -235,3 +235,97 @@ thead {
         border-color: #6c757d; /* Optional: Change hover border color */
         color: #fff; /* Set hover text color to white */
     }
+
+
+    /* Profile Section Styling */
+    .user-profile-details {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px;
+  }
+
+  /* Profile Picture Styling */
+  .profile-picture img {
+      border: 4px solid #6c757d;
+      padding: 5px;
+      border-radius: 50%;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      max-height: 250px;
+  }
+
+  /* Button Styling */
+  .buy-now {
+      background-color: #FF6F61;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-weight: bold;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease-in-out;
+  }
+
+  .buy-now:hover {
+      background-color: #E55D50;
+  }
+
+  /* Typography */
+  h2, h4 {
+      font-family: 'Poppins', sans-serif;
+      color: #343a40;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .user-name {
+      font-size: 24px;
+      font-weight: 600;
+  }
+
+  .form-control-static {
+      font-size: 16px;
+      color: #6c757d;
+  }
+
+  /* Fieldset Styling */
+  fieldset {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 10px;
+  }
+
+  legend {
+      font-size: 18px;
+      font-weight: bold;
+      color: #6c757d;
+  }
+
+  /* Grid Adjustments */
+  .row {
+      margin-bottom: 15px;
+  }
+
+  .col-md-6 {
+      padding: 10px;
+  }
+
+  /* Dark Mode Support */
+  body.dark-mode .user-profile-details {
+      background-color: rgba(40, 40, 40, 0.9);
+      color: #f8f9fa;
+  }
+
+  body.dark-mode fieldset {
+      border: 1px solid #495057;
+  }
+
+  body.dark-mode .buy-now {
+      background-color: #343a40;
+      color: white;
+  }
+
+  body.dark-mode .buy-now:hover {
+      background-color: #495057;
+  }
