@@ -84,7 +84,7 @@ include_once 'header.php';
                             style="max-width: 80px; height: 80px; border-radius: 50%; border: 3px solid white;">
                     </div>
                     <?php
-                    $countQuery = "SELECT COUNT(*) as total FROM user_tbl where u_role='User' AND u_status='Inactive' ";
+                    $countQuery = "SELECT COUNT(*) as total FROM user_tbl where u_role='User' AND u_status='Active' ";
                     $result = mysqli_query($con, $countQuery);
                     $data = mysqli_fetch_assoc($result);
                     $recordCount = $data['total'];
