@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2024 at 06:41 AM
+-- Generation Time: Oct 22, 2024 at 08:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,7 +64,7 @@ INSERT INTO `category_tbl` (`c_id`, `c_code`, `c_name`, `c_gender`, `c_image`, `
 (3, 'CAT03', 'Bangles', 'Female', '../images/category_image/c18.jpg', 'Active'),
 (4, 'CAT04', 'Ring', 'Male', '../images/category_image/c4.jpg', 'Active'),
 (7, 'CAT05', 'Earings', 'Female', '../images/category_image/c8.jpg', 'Active'),
-(8, 'CAT06', 'Mangalsutra', 'Female', '../images/category_image/m1.jpg', 'Inactive');
+(8, 'CAT06', 'Mangalsutra', 'Female', '../images/category_image/m1.jpg', 'Active');
 
 --
 -- Triggers `category_tbl`
@@ -97,27 +97,6 @@ CREATE TABLE `contact_tbl` (
   `Co_Email` varchar(100) NOT NULL,
   `Co_Msg` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `contact_us_tbl`
---
-
-CREATE TABLE `contact_us_tbl` (
-  `c_id` int(11) NOT NULL,
-  `c_name` varchar(100) NOT NULL,
-  `c_email` varchar(150) NOT NULL,
-  `c_msg` varchar(500) NOT NULL,
-  `c_reply_msg` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `contact_us_tbl`
---
-
-INSERT INTO `contact_us_tbl` (`c_id`, `c_name`, `c_email`, `c_msg`, `c_reply_msg`) VALUES
-(2, 'Kalindi Fichadia', 'kfichadiya849@rku.ac.in', 'i want to talk with you', 'yes sure...\r\nwhats your problem ??');
 
 -- --------------------------------------------------------
 
@@ -173,7 +152,7 @@ INSERT INTO `product_tbl` (`p_id`, `p_code`, `p_name`, `p_c_code`, `p_type`, `p_
 (4, 'PRO03', 'Bangles', 'CAT03', 'Yellow Gold', 30.000, 0.000, 0, '22K', 30.00, 165006.00, 0.00, 15000.00, 5420.00, 185426.00, 5562.78, 190988.78, 'NA ', 1, '../images/product_image/c13.jpg', 'Active'),
 (5, 'PRO04', 'Earings', 'CAT05', 'Yellow Gold', 5.000, 0.010, 14, '22K', 4.99, 27446.00, 280.00, 2500.00, 2410.00, 32636.00, 979.08, 33615.08, 'Silver', 2, '../images/product_image/c8.jpg', 'Active'),
 (6, 'PRO05', 'Gold Plated Mangalsutra', 'CAT06', 'Yellow Gold', 2.000, 0.000, 0, '20K', 2.00, 9999.60, 0.00, 1000.00, 1001.00, 12000.60, 360.02, 12360.62, 'NA', 3, '../images/product_image/m1.jpg', 'Active'),
-(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', 7.000, 0.000, 0, '20K', 7.00, 34998.60, 0.00, 3500.00, 1950.00, 40448.60, 1213.46, 41662.06, 'NA', 4, '../images/product_image/rg1.jpg', 'Inactive');
+(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', 7.000, 0.000, 0, '20K', 7.00, 34998.60, 0.00, 3500.00, 1950.00, 40448.60, 1213.46, 41662.06, 'NA', 4, '../images/product_image/rg1.jpg', 'Active');
 
 --
 -- Triggers `product_tbl`
@@ -242,17 +221,16 @@ CREATE TABLE `user_tbl` (
 --
 
 INSERT INTO `user_tbl` (`u_id`, `u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`, `u_role`) VALUES
-(1, 'Kalindi Fichadia', 'female', 'kfichadiya849@rku.ac.in', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Kalindi@09', '../images/profile_image/67186780e4f066712af29ea827_5453-dragon-age-inquisition.jpg', 'Active', 'User'),
+(1, 'Kalindi Fichadia', 'female', 'kfichadiya849@rku.ac.in', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Kalindi@12', '../images/profile_image/67165c4d4cdc35453-dragon-age-inquisition.jpg', 'Active', 'User'),
 (2, 'Vibhuti Chavda', 'male', 'vchavda123@gmail.com', '8200722088', 'hudko police choki', 'Rajkot', 'Gujarat', '360005', 'Vibhuti@12', '../images/profile_image/6712af06308ea_07f29316d02c2f03864e94c388ed6b1834341364.jpg', 'Active', 'User'),
-(3, 'Jinal Taraviya', 'female', 'jinal123@gmail.com', '6534675433', 'Ranchod nager', 'Rajkot', 'Gujarat', '360001', 'Jinal@12', '../images/profile_image/6718675baacea3x2_one_women_seeing_the_minimal_gol (3).png', 'Active', 'User'),
+(3, 'Jinal Taraviya', 'female', 'jinal123@gmail.com', '6534675433', 'Ranchod nager', 'Rajkot', 'Gujarat', '360001', 'Jinal@12', '../images/profile_image/67165c3ee3ea934951_big.jpg', 'Active', 'User'),
 (4, 'Khushi Hapaliya', 'female', 'khushihapaliya@gmail.com', '5667748833', 'Behind Nirmala convent school', 'Rajkot', 'Gujarat', '360005', 'Khushi@12', '../images/profile_image/6712af36bb306_5453-dragon-age-inquisition.jpg', 'Active', 'User'),
 (5, 'Angel Raiyani', 'female', 'angel123@gmail.com', '3344889966', 'kasturbadham tramba', 'Rajkot', 'Gujarat', '360028', 'Angel@12', '../images/profile_image/6712af46667ce_23322-DAI-01.jpg', 'Active', 'User'),
 (6, 'Kishan Vekariya', 'male', 'kishan789@gmail.com', '9925567344', 'kotdapitha sardhar', 'Amreli', 'Gujarat', '360012', 'Kishan@12', '../images/profile_image/6712af56c14fb_34951_big.jpg', 'Active', 'User'),
-(8, 'alien', 'male', 'veloraa1920@gmail.com', '9408136373', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Alien@12', '', 'Active', 'Admin'),
+(8, 'alien', 'Female', 'alien@gmail.com', '9408136373', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Alien@12', '../images/profile_image/671664f1d8cdf6926247-crysis-3-game.jpg', 'Active', 'Admin'),
 (9, 'ghost', 'Male', 'ghost@gmail.com', '9408136373', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Ghost@12', '../images/profile_image/6716667c94904435366.png', 'Active', 'User'),
 (10, 'hello', 'Female', 'hello@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Hello@12', '../images/profile_image/671667ab78995547265.jpg', 'Active', 'User'),
-(11, 'marce', 'Male', 'marce@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Marce@12', '../images/profile_image/67166812cb5392374_battlefield_4.jpg', 'Active', 'User'),
-(13, 'Ghost', 'Male', 'ghost@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Ghost@12', '../images/profile_image/admin6718659b354c73x2_one_women_seeing_the_minimal_gol.png', 'Active', 'Admin');
+(11, 'marce', 'Male', 'marce@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Marce@12', '../images/profile_image/67166812cb5392374_battlefield_4.jpg', 'Active', 'User');
 
 --
 -- Indexes for dumped tables
@@ -276,12 +254,6 @@ ALTER TABLE `category_tbl`
 --
 ALTER TABLE `contact_tbl`
   ADD PRIMARY KEY (`Co_Id`);
-
---
--- Indexes for table `contact_us_tbl`
---
-ALTER TABLE `contact_us_tbl`
-  ADD PRIMARY KEY (`c_id`);
 
 --
 -- Indexes for table `password_token_tbl`
@@ -330,16 +302,10 @@ ALTER TABLE `contact_tbl`
   MODIFY `Co_Id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `contact_us_tbl`
---
-ALTER TABLE `contact_us_tbl`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `password_token_tbl`
 --
 ALTER TABLE `password_token_tbl`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_tbl`
@@ -357,7 +323,7 @@ ALTER TABLE `slider_tbl`
 -- AUTO_INCREMENT for table `user_tbl`
 --
 ALTER TABLE `user_tbl`
-  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
