@@ -4,7 +4,7 @@ ob_start();
 session_start();
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
-    if (!isset($_SESSION['admin_username'])) {
+    if (!isset($_SESSION['user_username'])) {
         ?>
         <script>
             window.location.href = "../signin.php";

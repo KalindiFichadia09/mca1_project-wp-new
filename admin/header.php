@@ -47,6 +47,7 @@ if (!isset($_SESSION['admin_username'])) {
                     <li><a href="index.php">Dashboard</a></li>
                     <li><a href="user.php">User</a></li>
                     <li><a href="about_us.php">AboutUs</a></li>
+                    <li><a href="contact.php">contactUs</a></li>
                     <li><a href="category.php">Category</a></li>
                     <li><a href="product.php">Product</a></li>
                     <li><a href="cart.php">Cart</a></li>
@@ -106,31 +107,24 @@ if (!isset($_SESSION['admin_username'])) {
     <div class="container">
         <div class="row">
             <div class="col-12">
+
                 <?php
-                error_reporting(0);
-                if (isset($_COOKIE['success'])) {
+                if (isset($_COOKIE['success']) && !empty($_COOKIE['success'])) {
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong></strong> <?php echo $_COOKIE['success']; ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <strong>Success: </strong> <?php echo $_COOKIE['success']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
                 }
-                if (isset($_COOKIE['error'])) {
+                if (isset($_COOKIE['error']) && !empty($_COOKIE['error'])) {
                     ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong></strong> <?php echo $_COOKIE['error']; ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <strong>Error: </strong> <?php echo $_COOKIE['error']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
                 }
-
-                setcookie('success', '', time() - 3600, '/');
-                setcookie('error', '', time() - 3600, '/');
                 ?>
             </div>
         </div>

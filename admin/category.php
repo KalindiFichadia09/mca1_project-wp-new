@@ -6,7 +6,7 @@ include_once '../conn.php';
     <div class="row mt-5 mb-4 align-items-center">
         <!-- Title -->
         <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
-            <h2 class="text-center text-md-left">Manage User</h2>
+            <h2 class="text-center text-md-left">Manage Category</h2>
         </div>
 
         <!-- Search form -->
@@ -24,7 +24,7 @@ include_once '../conn.php';
     
         <!-- Button -->
         <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end">
-            <button id="toggleFormBtnI" class="btn btn-success">Insert User</button>
+            <button id="toggleFormBtnI" class="btn btn-success">Insert Category</button>
         </div>
     </div>
 

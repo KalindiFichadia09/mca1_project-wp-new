@@ -1,18 +1,3 @@
-<style>
-    .pagination .page-link {
-        color: #343a40; /* Change text color to #343a40 */
-    }
-    .pagination .page-item.active .page-link {
-        background-color: #343a40; /* Change active background color to #343a40 */
-        border-color: #343a40; /* Change active border color to #343a40 */
-        color: #fff; /* Set active text color to white */
-    }
-    .pagination .page-link:hover {
-        background-color: #6c757d; /* Optional: Change hover background color */
-        border-color: #6c757d; /* Optional: Change hover border color */
-        color: #fff; /* Set hover text color to white */
-    }
-</style>
 <?php
 include_once 'header.php';
 include_once '../conn.php';
@@ -21,7 +6,7 @@ include_once '../conn.php';
     <div class="row mt-5 mb-4 align-items-center">
         <!-- Title -->
         <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
-            <h2 class="text-center text-md-left">Manage User</h2>
+            <h2 class="text-center text-md-left">Manage Product</h2>
         </div>
 
         <!-- Search form -->
@@ -39,7 +24,7 @@ include_once '../conn.php';
     
         <!-- Button -->
         <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end">
-            <button id="toggleFormBtnI" class="btn btn-success">Insert User</button>
+            <button id="toggleFormBtnI" class="btn btn-success">Insert Product</button>
         </div>
     </div>
     <!-- Form Insert -->

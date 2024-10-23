@@ -9,8 +9,6 @@ include_once("header.php");
         </div>
     </div>
 
-    <br>
-
     <div class="row p-4 align-items-center">
         <div class="col-md-6">
             <?php
@@ -27,7 +25,7 @@ include_once("header.php");
         </div>
 
         <div class="col-md-6">
-            <h2>About us</h2><br>
+            <!-- <h2>About us</h2><br> -->
             <?php
             // Fetch and display content
             $result = mysqli_query($con, $q);
