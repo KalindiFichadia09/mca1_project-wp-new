@@ -2,60 +2,61 @@
 include_once 'header.php';
 include_once '../conn.php';
 session_start();
-if (isset($_SESSION['user_username'])) {
-    $email = $_SESSION['user_username'];
-    $q = "select * from user_tbl where u_email='$email'";
-    $result = mysqli_query($con, $q);
-    if (mysqli_num_rows($result)) {
-        $r = mysqli_fetch_assoc($result);
-        ?>
-
-        <!-- Change Password Section -->
-        <section class="change-password bg-light py-5">
-            <div class="container">
-                <h2 class="mb-4 text-center">Change Password</h2>
-                <form action="change-password.php" method="post" onsubmit="return changePassword_validation()">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <fieldset>
-                                <legend>Password Information</legend>
-
-                                <!-- Old Password -->
-                                <div class="form-group mb-3">
-                                    <label for="old-password">Old Password</label>
-                                    <input type="password" id="oldPassword" name="old_password" class="form-control">
-                                    <span id="oldPasswordMsg"></span>
-                                </div>
-
-                                <!-- New Password -->
-                                <div class="form-group mb-3">
-                                    <label for="new-password">New Password</label>
-                                    <input type="password" id="newPassword" name="new_password" class="form-control">
-                                    <span id="newPasswordMsg"></span>
-                                </div>
-
-                                <!-- Confirm New Password -->
-                                <div class="form-group mb-3">
-                                    <label for="confirm-new-password">Confirm New Password</label>
-                                    <input type="password" id="confirmNewPassword" name="confirm_new_password"
-                                        class="form-control">
-                                    <span id="confirmNewPasswordMsg"></span>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <br />
-                    <div style="text-align: center;">
-                        <input type='submit' name='change_password' value='Change Password' class="buy-now">
-                    </div>
-                </form>
-            </div>
-        </section>
-        <?php
-    }
+if (!isset($_SESSION['user_username'])) {
+    ?>
+    <script>
+        window.location.href = "../signin.php";
+    </script>
+    <?php
+    exit();
 }
+?>
+
+<!-- Change Password Section -->
+<section class="change-password bg-light py-5">
+    <div class="container">
+        <h2 class="mb-4 text-center">Change Password</h2>
+        <form action="change-password.php" method="post" onsubmit="return changePassword_validation()">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <fieldset>
+
+                        <!-- Old Password -->
+                        <div class="form-group mb-3">
+                            <label for="old-password">Old Password</label>
+                            <input type="password" id="oldPassword" name="old_password" class="form-control">
+                            <span id="oldPasswordMsg"></span>
+                        </div>
+
+                        <!-- New Password -->
+                        <div class="form-group mb-3">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="newPassword" name="new_password" class="form-control">
+                            <span id="newPasswordMsg"></span>
+                        </div>
+
+                        <!-- Confirm New Password -->
+                        <div class="form-group mb-3">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" name="confirm_new_password"
+                                class="form-control">
+                            <span id="confirmNewPasswordMsg"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <br />
+            <div style="text-align: center;">
+                <input type='submit' name='change_password' value='Change Password' class="buy-now">
+            </div>
+        </form>
+    </div>
+</section>
+<?php
+//     }
+// }
 ?>
 <br /><br />
 <?php

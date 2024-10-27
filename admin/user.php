@@ -316,6 +316,29 @@ include_once 'header.php';
                                                                 <span class="profilePhotoUMsg"></span>
                                                             </div>
 
+                                                            <!-- Gender -->
+                                                            <div class="form-group mb-3">
+                                                                <label>Status</label>
+                                                                <div class="form-control">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input genderU" type="radio"
+                                                                            name="u_statusU" id="statusU" value="Active"
+                                                                            <?php if ($row['u_status'] == "Active")
+                                                                                echo "checked"; ?>>
+                                                                        <label class="form-check-label"
+                                                                            for="genderMaleU">Active</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input genderU" type="radio"
+                                                                            name="u_statusU" id="statusU" value="Inactive"
+                                                                            <?php if ($row['u_status'] == "Inactive")
+                                                                                echo "checked"; ?>>
+                                                                        <label class="form-check-label"
+                                                                            for="genderFemaleU">Inactive</label>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="genderMsgU"></span>
+                                                            </div>
                                                         </div>
 
                                                         <div class="col-md-6">
@@ -453,7 +476,6 @@ include_once 'header.php';
             }
             $temp = $_FILES['u_image']['tmp_name'];
             move_uploaded_file($temp, $profile_picture);
-            // move_uploaded_file($_FILES['u_image']['tmp_name'], $u_image);
             setcookie('success', 'New user inserted', time() + 5, "/");
             ?>
             <script>
@@ -472,7 +494,7 @@ include_once 'header.php';
         }
     }
 
-    // update user
+    // Update user
     if (isset($_POST['update'])) {
         $profile_picture;
         $u_id = $_POST['u_id'];
@@ -484,40 +506,55 @@ include_once 'header.php';
         $u_city = $_POST['u_city'];
         $u_state = $_POST['u_state'];
         $u_pincode = $_POST['u_pincode'];
+        $u_password = $_POST['u_password'];
+        $u_status = $_POST['u_statusU'];
         $u_role = "User";
 
-        $select = "select * from user_tbl where u_id = '$u_id' ";
-        $results = mysqli_query($con, $q);
+        $select = "SELECT * FROM user_tbl WHERE u_id = '$u_id' ";
+        $results = mysqli_query($con, $select);
         $rs = mysqli_fetch_assoc($results);
 
         if ($_FILES['u_image']['name'] != "") {
             $profile_picture = $_FILES['u_image']['name'];
-
             $temp = $_FILES['u_image']['tmp_name'];
             $profile_picture = "../images/profile_image/" . uniqid() . $profile_picture;
             move_uploaded_file($temp, $profile_picture);
         } else {
-            $profile_picture = $r['u_image'];
+            $profile_picture = $rs['u_image'];
         }
 
-        $update_query = "UPDATE user_tbl SET u_fullname='$u_fullName', u_gender='$u_gender', u_email='$u_email', u_mobile='$u_mobile', u_address='$u_address', u_city='$u_city', u_state='$u_state', u_pincode='$u_pincode', u_image='$profile_picture' WHERE u_id='$u_id' AND u_role='$u_role'";
-        echo $update_query;
-        if (mysqli_query($con, $update_query)) {
+        $update_query = "UPDATE user_tbl SET 
+                        u_fullname='$u_fullName', 
+                        u_gender='$u_gender', 
+                        u_email='$u_email', 
+                        u_mobile='$u_mobile', 
+                        u_address='$u_address', 
+                        u_city='$u_city', 
+                        u_state='$u_state', 
+                        u_pincode='$u_pincode',
+                        u_password='$u_password', 
+                        u_status='$u_status', 
+                        u_image='$profile_picture' 
+                    WHERE u_id='$u_id' AND u_role='$u_role'";
 
+        echo $update_query;
+
+        if (mysqli_query($con, $update_query)) {
             if ($profile_picture != $rs['u_image']) {
                 $old_profile_picture = $rs['u_image'];
                 if (file_exists($old_profile_picture)) {
                     unlink($old_profile_picture);
                 }
             }
+
             setcookie("success", "Profile updated successfully", time() + 5, "/");
             ?>
             <script>
                 window.location.href = 'user.php';
-            </script>";
+            </script>
             <?php
         } else {
-            setcookie("error", "Error in updating profie", time() + 5, "/");
+            setcookie("error", "Error in updating profile", time() + 5, "/");
             ?>
             <script>
                 window.location.href = 'user.php';
@@ -525,20 +562,19 @@ include_once 'header.php';
             <?php
         }
     }
+
+    // delete user
     if (isset($_POST['delete'])) {
-        $delete_id = $_POST['delete_id']; // Get the id of the row to delete
-    
-        // SQL query to delete the specific record
+        $delete_id = $_POST['delete_id'];
+
         $delete_query = "DELETE FROM user_tbl WHERE u_id = '$delete_id'";
 
-        // Execute the query and check if it was successful
         if (mysqli_query($con, $delete_query)) {
             echo "<script>confirm('Record deleted successfully');</script>";
         } else {
             echo "<script>confirm('Error deleting record');</script>";
         }
 
-        // Redirect to refresh the page after deletion
         echo "<script>window.location.href = 'user.php';</script>";
     }
     ?>

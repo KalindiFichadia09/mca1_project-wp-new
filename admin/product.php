@@ -493,7 +493,7 @@ include_once '../conn.php';
 
     </html>
     <?php
-
+    // insert product
     if (isset($_POST['add'])) {
         $Gold_Price = 6000;
         $Diamond_Price = 20;//per pices
@@ -517,7 +517,6 @@ include_once '../conn.php';
         }
 
         $P_C_Code = $_POST['p_c_code'];
-        // $P_Category_Type=$_POST['P_Category_Type'];
         $P_Type = $_POST['p_type'];
         $P_Gross_Weight = $_POST['p_gross_weight'];
         $P_Diamond_Weight = $_POST['p_diamond_weight'];
@@ -561,17 +560,19 @@ include_once '../conn.php';
         }
     }
 
+    // update product
+    // Update product
     if (isset($_POST['update'])) {
         $Gold_Price = 6000;
-        $Diamond_Price = 20;//per pices
-        $Making_Charge = 500;//per gram
+        $Diamond_Price = 20; // per piece
+        $Making_Charge = 500; // per gram
         $P_T_Gold_Price;
 
         $P_Code = $_POST['p_codeU'];
         $P_Name = $_POST['p_nameU'];
-        // $P_Size=$_POST['P_Size'];
         $P_Purity = $_POST['p_purityU'];
 
+        // Calculate total gold price based on purity
         if ($P_Purity == '22K') {
             $P_T_Gold_Price = (($Gold_Price * 91.67) / 100);
         } elseif ($P_Purity == '20K') {
@@ -585,62 +586,86 @@ include_once '../conn.php';
         }
 
         $P_C_Code = $_POST['p_c_codeU'];
-        // $P_Category_Type=$_POST['P_Category_Type'];
         $P_Type = $_POST['p_typeU'];
         $P_Gross_Weight = $_POST['p_gross_weightU'];
         $P_Diamond_Weight = $_POST['p_diamond_weightU'];
-        $P_Diamond_Pices = $_POST['p_diamond_piecesU'];
+        $P_Diamond_Pieces = $_POST['p_diamond_piecesU'];
         $P_Diamond_Color = $_POST['p_diamond_colorU'];
         $P_Stock = $_POST['p_stockU'];
         $p_overhead_charges = $_POST['p_overhead_chargesU'];
 
+        // Calculations for price
         $P_Gold_Weight = ($P_Gross_Weight - $P_Diamond_Weight);
         $P_Gold_Price = ($P_T_Gold_Price * $P_Gold_Weight);
-        $P_Diamond_Price = ($Diamond_Price * $P_Diamond_Pices);
+        $P_Diamond_Price = ($Diamond_Price * $P_Diamond_Pieces);
         $P_Making_Charge = ($Making_Charge * $P_Gross_Weight);
         $P_Base_Price = ($P_Gold_Price + $P_Diamond_Price + $P_Making_Charge + $p_overhead_charges);
         $P_Tax = (($P_Base_Price * 3) / 100);
         $P_Total_Price = ($P_Base_Price + $P_Tax);
 
-
         $P_Status = $_POST['p_statusU'];
 
-        // Check if a new image is uploaded
-        if ($_FILES['p_imageU']['name']) {
-            // Image upload
-            $P_Image = "../images/product_image/" . $_FILES['p_imageU']['name'];
-            move_uploaded_file($_FILES['p_imageU']['tmp_name'], $P_Image);  // Upload the new image
-    
-            // Update query with the new image
-            $q = "update product_tbl set p_name='$P_Name',p_c_code='$P_C_Code',p_gross_weight='$P_Gross_Weight',p_diamond_weight='$P_Diamond_Weight',p_diamond_pices='$P_Diamond_Pices',p_purity='$P_Purity',p_gold_weight='$P_Gold_Weight',p_gold_price='$P_Gold_Price',p_diamond_price='$P_Diamond_Price',p_making_charge='$P_Making_Charge',p_overhead_charges='$p_overhead_charges',p_base_price='$P_Base_Price',p_tax='$P_Tax',p_total_price='$P_Total_Price',p_diamond_color='$P_Diamond_Color',p_stock='$P_Stock',p_image='$P_Image',p_status='$P_Status' where p_code='$P_Code' ";
-            echo $q;
+        // Fetch existing product details
+        $select = "SELECT * FROM product_tbl WHERE p_code = '$P_Code'";
+        $results = mysqli_query($con, $select);
+        $rs = mysqli_fetch_assoc($results);
+
+        // Check if a new image was uploaded
+        if ($_FILES['p_imageU']['name'] != "") {
+            $image = $_FILES['p_imageU']['name'];
+            $temp = $_FILES['p_imageU']['tmp_name'];
+            $image = "../images/product_image/" . uniqid() . $image;
+            move_uploaded_file($temp, $image);
         } else {
-            // Update without changing the image
-            $q = "update product_tbl set p_name='$P_Name',p_c_code='$P_C_Code',p_gross_weight='$P_Gross_Weight',p_diamond_weight='$P_Diamond_Weight',p_diamond_pices='$P_Diamond_Pices',p_purity='$P_Purity',p_gold_weight='$P_Gold_Weight',p_gold_price='$P_Gold_Price',p_diamond_price='$P_Diamond_Price',p_making_charge='$P_Making_Charge',p_overhead_charges='$p_overhead_charges',p_base_price='$P_Base_Price',p_tax='$P_Tax',p_total_price='$P_Total_Price',p_diamond_color='$P_Diamond_Color',p_stock='$P_Stock',p_status='$P_Status' where p_code='$P_Code' ";
-            echo $q;
+            $image = $rs['p_image'];
         }
 
-        if (mysqli_query($con, $q)) {
+        // Update query
+        $update_query = "UPDATE product_tbl SET 
+                        p_name='$P_Name',
+                        p_c_code='$P_C_Code',
+                        p_gross_weight='$P_Gross_Weight',
+                        p_diamond_weight='$P_Diamond_Weight',
+                        p_diamond_pices='$P_Diamond_Pieces',
+                        p_purity='$P_Purity',
+                        p_gold_weight='$P_Gold_Weight',
+                        p_gold_price='$P_Gold_Price',
+                        p_diamond_price='$P_Diamond_Price',
+                        p_making_charge='$P_Making_Charge',
+                        p_overhead_charges='$p_overhead_charges',
+                        p_base_price='$P_Base_Price',
+                        p_tax='$P_Tax',
+                        p_total_price='$P_Total_Price',
+                        p_diamond_color='$P_Diamond_Color',
+                        p_stock='$P_Stock',
+                        p_image='$image',
+                        p_status='$P_Status' 
+                    WHERE p_code='$P_Code'";
+
+        if (mysqli_query($con, $update_query)) {
+            // Delete old image if a new one was uploaded
+            if ($image != $rs['p_image']) {
+                $old_image = $rs['p_image'];
+                if (file_exists($old_image)) {
+                    unlink($old_image);
+                }
+            }
             echo "<script>alert('Product Updated !!'); window.location.href = 'product.php';</script>";
         } else {
             echo "<script>alert('Product not Updated'); window.location.href = 'product.php';</script>";
         }
     }
-    
-    if (isset($_POST['delete'])) {
-        $delete_id = $_POST['delete_id']; // Get the id of the row to delete
-    
-        // SQL query to delete the specific record
-        $delete_query = "DELETE FROM product_tbl WHERE p_id = '$delete_id'";
 
-        // Execute the query and check if it was successful
+
+    // delete product
+    if (isset($_POST['delete'])) {
+        $delete_id = $_POST['delete_id']; 
+        $delete_query = "DELETE FROM product_tbl WHERE p_id = '$delete_id'";
         if (mysqli_query($con, $delete_query)) {
             echo "<script>confirm('Record deleted successfully');</script>";
         } else {
             echo "<script>confirm('Error deleting record');</script>";
         }
-
-        // Redirect to refresh the page after deletion
         echo "<script>window.location.href = 'product.php';</script>";
     }
     ?>

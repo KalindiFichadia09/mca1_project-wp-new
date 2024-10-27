@@ -1,4 +1,4 @@
-    <footer class=" bg-footer text-dark pt-5">
+    <footer class=" bg-footer text-dark mt-auto pt-5">
         <div class="container">
             <div class="row">
                 <!-- About Us -->

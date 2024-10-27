@@ -177,7 +177,8 @@ if (isset($_POST['reply'])) {
     $id = $_POST['id'];
     $email = $_POST['email'];
     $name = $_POST['name'];
-    $reply_msg = $_POST['reply_msg'];
+    $reply_msg = mysqli_real_escape_string($con,$_POST['reply_msg']);
+    
 
     $q = "UPDATE `contact_us_tbl` set `c_reply_msg`='$reply_msg' where `c_id` = '$id' ";
 
@@ -192,14 +193,14 @@ if (isset($_POST['reply'])) {
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('veloraa1920@gmail.com', 'Veloraa');
+            $mail->setFrom('veloraa1920@gmail.com', 'Jayshree');
             $mail->addAddress($email, $name);
 
+            $formatted_reply = str_replace(array("\r\n", "\n", "\r"), '</br>', $reply_msg);
             $mail->isHTML(true);
             $mail->Subject = 'Contact Us';
             $mail->Body = "Hello, $name</br>
-                    Thank you for reaching us...</br>
-                    $reply_msg";
+                    Thank you for reaching us...</br>$formatted_reply";
 
             $mail->send();
         } catch (Exception $e) {

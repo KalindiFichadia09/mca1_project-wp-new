@@ -32,8 +32,7 @@ include_once 'header.php';
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
         <div class="col-lg-8 col-md-10 mx-auto">
             <div class="form-block p-4">
-                <form method="post" id="insert" onsubmit="return userInsertValidation();"
-                    enctype="multipart/form-data">
+                <form method="post" id="insert" onsubmit="return userInsertValidation();" enctype="multipart/form-data">
                     <!-- Full Name -->
                     <div class="form-group mb-3">
                         <label for="fullName">Full Name</label>
@@ -136,7 +135,7 @@ include_once 'header.php';
             </div>
         </div>
     </div>
-    
+
     <!-- Table for Users -->
     <div class="row mt-5">
         <div class="col-12">
@@ -445,7 +444,6 @@ include_once 'header.php';
             }
             $temp = $_FILES['u_image']['tmp_name'];
             move_uploaded_file($temp, $profile_picture);
-            // move_uploaded_file($_FILES['u_image']['tmp_name'], $u_image);
             setcookie('success', 'New Admin inserted', time() + 5, "/");
             ?>
             <script>
@@ -464,7 +462,7 @@ include_once 'header.php';
         }
     }
 
-    // update user
+    // update admin
     if (isset($_POST['update'])) {
         $profile_picture;
         $u_id = $_POST['u_id'];
@@ -476,61 +474,77 @@ include_once 'header.php';
         $u_city = $_POST['u_city'];
         $u_state = $_POST['u_state'];
         $u_pincode = $_POST['u_pincode'];
+        $u_password = $_POST['u_password'];
+        $u_status = $_POST['u_statusU'];
         $u_role = "Admin";
 
-        $select = "select * from user_tbl where u_id = '$u_id' ";
-        $results = mysqli_query($con, $q);
+        $select = "SELECT * FROM user_tbl WHERE u_id = '$u_id'";
+        $results = mysqli_query($con, $select);
         $rs = mysqli_fetch_assoc($results);
 
         if ($_FILES['u_image']['name'] != "") {
             $profile_picture = $_FILES['u_image']['name'];
-
             $temp = $_FILES['u_image']['tmp_name'];
-            $profile_picture = "../images/profile_image/admin" . uniqid() . $profile_picture;
+            $profile_picture = "../images/profile_image/" . uniqid() . $profile_picture;
             move_uploaded_file($temp, $profile_picture);
         } else {
-            $profile_picture = $r['u_image'];
+            $profile_picture = $rs['u_image'];
         }
 
-        $update_query = "UPDATE user_tbl SET u_fullname='$u_fullName', u_gender='$u_gender', u_email='$u_email', u_mobile='$u_mobile', u_address='$u_address', u_city='$u_city', u_state='$u_state', u_pincode='$u_pincode', u_image='$profile_picture' WHERE u_id='$u_id' AND u_role='$u_role'";
-        echo $update_query;
-        if (mysqli_query($con, $update_query)) {
+        $update_query = "UPDATE user_tbl SET 
+                        u_fullname='$u_fullName', 
+                        u_gender='$u_gender', 
+                        u_email='$u_email', 
+                        u_mobile='$u_mobile', 
+                        u_address='$u_address', 
+                        u_city='$u_city', 
+                        u_state='$u_state', 
+                        u_pincode='$u_pincode',
+                        u_password='$u_password', 
+                        u_status='$u_status', 
+                        u_image='$profile_picture' 
+                    WHERE u_id='$u_id' AND u_role='$u_role'";
 
+        echo $update_query;
+
+        if (mysqli_query($con, $update_query)) {
             if ($profile_picture != $rs['u_image']) {
                 $old_profile_picture = $rs['u_image'];
                 if (file_exists($old_profile_picture)) {
                     unlink($old_profile_picture);
                 }
             }
+
             setcookie("success", "Profile updated successfully", time() + 5, "/");
             ?>
             <script>
-                window.location.href = 'admin_setting.php';
-            </script>";
+                alert("Profile updated succesfully !!");
+                window.location.href = 'user.php';
+            </script>
             <?php
         } else {
-            setcookie("error", "Error in updating profie", time() + 5, "/");
+            setcookie("error", "Error in updating profile", time() + 5, "/");
             ?>
             <script>
-                window.location.href = 'admin_setting.php';
+                alert("Profile not updated !!");
+                window.location.href = 'user.php';
             </script>
             <?php
         }
     }
+
+    //delete admin
     if (isset($_POST['delete'])) {
-        $delete_id = $_POST['delete_id']; // Get the id of the row to delete
-    
-        // SQL query to delete the specific record
+        $delete_id = $_POST['delete_id'];
+
         $delete_query = "DELETE FROM user_tbl WHERE u_id = '$delete_id'";
 
-        // Execute the query and check if it was successful
         if (mysqli_query($con, $delete_query)) {
             echo "<script>confirm('Record deleted successfully');</script>";
         } else {
             echo "<script>confirm('Error deleting record');</script>";
         }
 
-        // Redirect to refresh the page after deletion
         echo "<script>window.location.href = 'admin_setting.php';</script>";
     }
     ?>

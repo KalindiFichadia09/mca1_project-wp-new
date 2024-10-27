@@ -2,17 +2,19 @@
 include_once "../conn.php";
 ob_start();
 session_start();
-if ($con->connect_error) {
-    die("Connection failed: " . $con->connect_error);
-}
 if (!isset($_SESSION['admin_username'])) {
     ?>
     <script>
         window.location.href = "../signin.php";
     </script>
     <?php
+    exit();
+}
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,6 +76,7 @@ if (!isset($_SESSION['admin_username'])) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
                             <li><a class="dropdown-item" href="admin_setting.php">Admin Settings</a></li>
+                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                             <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                         </ul>
                         <?php
@@ -107,7 +110,6 @@ if (!isset($_SESSION['admin_username'])) {
     <div class="container">
         <div class="row">
             <div class="col-12">
-
                 <?php
                 if (isset($_COOKIE['success']) && !empty($_COOKIE['success'])) {
                     ?>

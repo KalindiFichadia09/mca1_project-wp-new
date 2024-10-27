@@ -30,9 +30,9 @@ if ($con->connect_error) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <div class="container-fluid">
+        <div class="container flex-grow-1">
             <nav class="navbar navbar-expand-lg navbar-light pt-4">
                 <div class="container">
                     <a href="index.php"><img src="../images/logo1.png" alt="Jayshree Jewels" class="img-fluid"></a>

@@ -120,7 +120,7 @@ if (isset($_POST['signin'])) {
                 if ($r['u_status'] == 'Active') {
                     if ($r['u_role'] == 'Admin') {
                         $_SESSION['admin_username'] = $em;
-                        setcookie('success', 'Login Successful', time() + 5, "/");
+                        setcookie('success', 'Login Successful!', time() + 10, "/");
                         ?>
                         <script>
                             window.location.href = "admin/index.php";
@@ -128,7 +128,7 @@ if (isset($_POST['signin'])) {
                         <?php
                     } else {
                         $_SESSION['user_username'] = $em;
-                        setcookie('success', 'Login Successful', time() + 5, "/");
+                        setcookie('success', 'Login Successful', time() + 10, "/");
                         ?>
                         <script>
                             window.location.href = "user/index.php";
@@ -136,9 +136,10 @@ if (isset($_POST['signin'])) {
                         <?php
                     }
                 } else {
-                    setcookie("error", "Email is not verified", time() + 5, "/");
+                    setcookie("error", "Email is not verified", time() + 10, "/");
                     ?>
                     <script>
+                        alert("Email is not varified !!");
                         window.location.href = "signin.php";
                     </script>
                     <?php
@@ -147,6 +148,7 @@ if (isset($_POST['signin'])) {
                 setcookie("error", "Incorrect Password", time() + 5, "/");
                 ?>
                 <script>
+                    alert("Incorrect username or password !!");
                     window.location.href = "signin.php";
                 </script>
                 <?php
@@ -156,6 +158,7 @@ if (isset($_POST['signin'])) {
         setcookie("error", "Email is not registered", time() + 5, "/");
         ?>
         <script>
+            alert("Email is not registered !!");
             window.location.href = "signin.php";
         </script>
 

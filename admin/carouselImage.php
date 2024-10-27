@@ -202,19 +202,17 @@ include_once 'header.php';
 
 </html>
 <?php
+// insert new slider
 if (isset($_POST['btn_save'])) {
     $name = $_POST['name'];
     $image = $_FILES['image'];
 
-    // Fetch count of records in slider_tbl
     $countQuery = "SELECT COUNT(*) as total FROM slider_tbl";
     $result = mysqli_query($con, $countQuery);
     $data = mysqli_fetch_assoc($result);
     $recordCount = $data['total'];
 
-    // Allow insert only if the total records are less than or equal to 5
     if ($recordCount < 3) {
-        // Picture uploading
         $image_name = $image['name'];
         $image_type = $image['type'];
         $image_tmp_name = $image['tmp_name'];
@@ -224,7 +222,6 @@ if (isset($_POST['btn_save'])) {
             if ($image_size <= 50000000) {
                 $new_image_name = time() . "_" . $image_name;
 
-                // Insert into slider_img table
                 $q = "INSERT INTO slider_tbl (`Name`, `Image`) VALUES ('$name', '$new_image_name')";
                 if (mysqli_query($con, $q)) {
                     if (!is_dir("../images/slider_image")) {
@@ -260,7 +257,6 @@ if (isset($_POST['btn_save'])) {
             <?php
         }
     } else {
-        // Display alert if the number of records is already 5 or more
         ?>
         <script>
             alert("You can only add up to 3 images");
@@ -270,28 +266,23 @@ if (isset($_POST['btn_save'])) {
     }
 }
 
+// update slider
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
     $image = $_FILES['image'];
 
-    // Picture uploading
     $image_name = $image['name'];
     $image_type = $image['type'];
     $image_tmp_name = $image['tmp_name'];
     $image_size = $image['size'];
 
-    // Check if a new image is uploaded
     if ($image_name) {
-        // Validate image type and size
         if ($image_type == "image/jpeg" || $image_type == "image/jpg" || $image_type == "image/png" || $image_type == "image/gif") {
             if ($image_size <= 50000000) {
                 $new_image_name = time() . "_" . $image_name;
 
-                // Update query with the new image
                 $q = "UPDATE slider_tbl SET `Name` = '$name', `Image` = '$new_image_name' WHERE `Id` = '$id'";
-
-                // Execute the query and move the image if successful
                 if (mysqli_query($con, $q)) {
                     move_uploaded_file($image_tmp_name, "../images/slider_image/" . $new_image_name);
                     ?>
@@ -323,10 +314,8 @@ if (isset($_POST['update'])) {
             <?php
         }
     } else {
-        // Update query without changing the image
         $q = "UPDATE slider_tbl SET `Name` = '$name' WHERE `Id` = '$id'";
 
-        // Execute the query
         if (mysqli_query($con, $q)) {
             ?>
             <script>
@@ -345,20 +334,15 @@ if (isset($_POST['update'])) {
     }
 }
 
+// delete slider
 if (isset($_POST['delete'])) {
-    $delete_id = $_POST['delete_id']; // Get the id of the row to delete
-
-    // SQL query to delete the specific record
+    $delete_id = $_POST['delete_id'];
     $delete_query = "DELETE FROM slider_tbl WHERE Id = '$delete_id'";
-
-    // Execute the query and check if it was successful
     if (mysqli_query($con, $delete_query)) {
         echo "<script>confirm('Record deleted successfully');</script>";
     } else {
         echo "<script>confirm('Error deleting record');</script>";
     }
-
-    // Redirect to refresh the page after deletion
     echo "<script>window.location.href = 'carouselImage.php';</script>";
 }
 ?>

@@ -202,7 +202,7 @@ include_once '../conn.php';
                                                                     <input class="form-check-input" type="radio"
                                                                         name="c_genderU" id="genderMaleU"
                                                                         value="Male" <?php if ($r['c_gender'] == "Male")
-                                                                            echo "checked"; ?>>
+                                                                            echo "checked"; ?> >
                                                                     <label class="form-check-label"
                                                                         for="genderMaleU">Male</label>
                                                                 </div>
@@ -278,7 +278,7 @@ include_once '../conn.php';
 </html>
 
 <?php
-
+// insert category
 if (isset($_POST['add'])) {
     $c_name = $_POST['c_name'];
     $c_gender = $_POST['c_gender'];
@@ -309,6 +309,7 @@ if (isset($_POST['add'])) {
     }
 }
 
+// update category
 if (isset($_POST['update'])) {
     // Extract form data
     $c_code = $_POST['c_codeU'];
@@ -316,40 +317,42 @@ if (isset($_POST['update'])) {
     $c_gender = $_POST['c_genderU'];
     $c_status = $_POST['c_statusU'];
 
-    // Check if a new image is uploaded
-    if ($_FILES['c_imageU']['name']) {
-        // Image upload
-        $c_image = "../images/category_image/" . $_FILES['c_imageU']['name'];
-        move_uploaded_file($_FILES['c_imageU']['tmp_name'], $c_image);  // Upload the new image
+    $select = "SELECT * FROM category_tbl WHERE c_code = '$c_code' ";
+    $results = mysqli_query($con, $select);
+    $rs = mysqli_fetch_assoc($results);
 
-        // Update query with the new image
-        $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$c_image', `c_status`='$c_status' WHERE `c_code`='$c_code'";
+    if ($_FILES['c_imageU']['name'] != "") {
+        $image = $_FILES['c_imageU']['name'];
+        $temp = $_FILES['c_imageU']['tmp_name'];
+        $image = "../images/category_image/" . uniqid() . $image;
+        move_uploaded_file($temp, $image);
     } else {
-        // Update without changing the image
-        $q = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_status`='$c_status' WHERE `c_code`='$c_code'";
+        $image = $rs['c_imageU'];
     }
+    $update_query = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$image', `c_status`='$c_status' WHERE `c_code`='$c_code'";
 
-    // Execute the query
-    if (mysqli_query($con, $q)) {
+    if (mysqli_query($con, $update_query)) {
+        if ($image != $rs['c_image']) {
+            $old_image = $rs['c_image'];
+            if (file_exists($old_image)) {
+                unlink($old_image);
+            }
+        }
         echo "<script>alert('Category Updated !!'); window.location.href = 'category.php';</script>";
     } else {
         echo "<script>alert('Category not Updated'); window.location.href = 'category.php';</script>";
     }
 }
+
+// delete category
 if (isset($_POST['delete'])) {
-    $delete_id = $_POST['delete_id']; // Get the id of the row to delete
-
-    // SQL query to delete the specific record
+    $delete_id = $_POST['delete_id'];
     $delete_query = "DELETE FROM category_tbl WHERE c_id = '$delete_id'";
-
-    // Execute the query and check if it was successful
     if (mysqli_query($con, $delete_query)) {
         echo "<script>confirm('Record deleted successfully');</script>";
     } else {
         echo "<script>confirm('Error deleting record');</script>";
     }
-
-    // Redirect to refresh the page after deletion
     echo "<script>window.location.href = 'category.php';</script>";
 }
 ?>

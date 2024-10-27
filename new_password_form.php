@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -119,8 +119,6 @@ if (isset($_POST['reset_pwd_btn'])) {
                 window.location.href = 'Forgot_password.php';
             </script>
             <?php
-
-
         }
     }
 }
