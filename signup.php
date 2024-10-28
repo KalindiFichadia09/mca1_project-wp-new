@@ -21,7 +21,7 @@ use PHPMailer\PHPMailer\Exception;
     <script src="js/all_validation.js"></script>
     <style>
         body {
-            background: url('user/../images/temp3.jpg') no-repeat center center fixed;
+            background: url('user/../images/signin_bg.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Arial', sans-serif;
             align-items: center;

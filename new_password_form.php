@@ -15,7 +15,7 @@ session_start();
 
     <style>
         body {
-            background: url('images/temp5.jpg') no-repeat center center fixed;
+            background: url('images/signin_bg.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Arial', sans-serif;
             display: flex;
