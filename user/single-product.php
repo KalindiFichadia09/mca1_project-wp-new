@@ -85,7 +85,7 @@ $result = mysqli_query($con, $q);
                                     <input type="number" id="quantity" name="quantity" value="1" class="form-control w-25">
                                 </div>
                                 <input type="hidden" name="P_Code" value="<?php echo $r['p_code']; ?>">
-                                <input type="hidden" name="ct_p_tot_price" value="<?php echo $r['p_total_price']; ?>">
+                                <input type="hidden" name="p_tot_price" value="<?php echo $r['p_total_price']; ?>">
 
                                 <div class="form-group mt-3">
                                     <input type="submit" name="cart" value="Add to Cart" class="buy-now">
@@ -109,7 +109,7 @@ include_once 'footer.php';
 if (isset($_POST['cart'])) {
     $username = $_SESSION['user_username'];
     $ct_p_code = $_POST['P_Code'];
-    $ct_p_tot_price = $_POST['ct_p_tot_price'];
+    $ct_p_tot_price = $_POST['p_tot_price'];
 
     $sql = "INSERT INTO `cart_tbl`(`ct_username`, `ct_p_code`, `ct_p_tot_price`) VALUES ('$username', '$ct_p_code', '$ct_p_tot_price')";
     $data = mysqli_query($con, $sql);
@@ -119,6 +119,21 @@ if (isset($_POST['cart'])) {
         window.location.href = 'cart.php';</script>";
     } else {
         echo "<script>alert('Error adding product to cart.');</script>";
+    }
+}
+if (isset($_POST['wishlist'])) {
+    $username = $_SESSION['user_username'];
+    $w_p_code = $_POST['P_Code'];
+    $w_p_tot_price = $_POST['p_tot_price'];
+
+    $sql = "INSERT INTO `wishlist_tbl`(`w_username`, `w_p_code`, `w_p_tot_price`) VALUES ('$username', '$w_p_code', '$w_p_tot_price')";
+    $data = mysqli_query($con, $sql);
+
+    if ($data) {
+        echo "<script>alert('Product added to Wishlist!');
+        window.location.href = 'wishlist.php';</script>";
+    } else {
+        echo "<script>alert('Error adding product to wishlist.');</script>";
     }
 }
 ?>
