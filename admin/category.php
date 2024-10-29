@@ -327,7 +327,7 @@ if (isset($_POST['update'])) {
         $image = "../images/category_image/" . uniqid() . $image;
         move_uploaded_file($temp, $image);
     } else {
-        $image = $rs['c_imageU'];
+        $image = $rs['c_image'];
     }
     $update_query = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$image', `c_status`='$c_status' WHERE `c_code`='$c_code'";
 

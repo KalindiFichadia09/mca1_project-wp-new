@@ -66,7 +66,7 @@ if (isset($_GET['remove_id'])) {
                                 <td class="row-total">₹ <?php echo number_format($rowTotal, 2); ?></td>
                                 <td>
                                     <a href="single-product.php?p_code=<?php echo $r['p_code']; ?>"
-                                        class="btn btn-primary btn-sm">View Pr  oduct</a>
+                                        class="btn btn-primary btn-sm">View Product</a>
                                     <a href="cart.php?remove_id=<?php echo $r['p_code']; ?>" class="btn btn-danger btn-sm mt-2"
                                         onclick="return confirm('Are you sure you want to remove this item?');">Remove</a>
                                 </td>

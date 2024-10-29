@@ -40,15 +40,15 @@ if (isset($_GET['remove_id'])) {
                     ?>
                     <div class="col-md-4">
                         <div class="product-item card mb-4">
-                            <img src="../images/product1.jpeg" class="card-img-top img-fluid" alt="Wishlisted Product">
+                            <img src="<?php echo $r['p_image']; ?>" class="card-img-top img-fluid" alt="<?php echo $r['p_name']; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $r['p_name']; ?></h5>
                                 <p class="text-muted"><?php echo $r['c_name']; ?></p>
                                 <h4 class="text-danger">₹<?php echo $r['p_total_price']; ?></h4>
                                 <form method="GET">
-                                <a href="single-product.php" class="btn btn-primary btn-sm">View Product</a>
-
-                                <!-- Remove from Wishlist Form -->
+                                    <a href="single-product.php?p_code=<?php echo $r['p_code']; ?>"
+                                        class="btn btn-primary btn-sm">View Product</a>
+                                    <!-- Remove from Wishlist Form -->
                                     <input type="hidden" name="remove_id" value="<?php echo $r['p_code']; ?>">
                                     <button type="submit" class="btn btn-danger btn-sm mt-2">Remove from Wishlist</button>
                                     <!-- <input type="submit" name="remove_id" value="Remove from Wishlist" class="btn btn-danger btn-sm mt-2"> -->

@@ -561,7 +561,6 @@ include_once '../conn.php';
     }
 
     // update product
-    // Update product
     if (isset($_POST['update'])) {
         $Gold_Price = 6000;
         $Diamond_Price = 20; // per piece

@@ -1,5 +1,12 @@
 <?php
 include_once 'header.php';
+
+require '../PHPMailer/Exception.php';
+require '../PHPMailer/PHPMailer.php';
+require '../PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ?>
 <div class="container mt-5 pt-2">
 
@@ -197,7 +204,9 @@ include_once 'header.php';
                                 <td><?php echo $r['u_id']; ?></td>
                                 <td><?php echo $r['u_fullname']; ?></td>
                                 <td><?php echo $r['u_email']; ?></td>
-                                <td><span class="status-text text-success"><?php echo $r['u_status']; ?></span></td>
+                                <td><span
+                                        class="status-text <?php echo ($r['u_status'] == 'Inactive') ? 'text-danger' : 'text-success'; ?>"><?php echo $r['u_status']; ?></span>
+                                </td>
                                 <td>
                                     <button class="btn btn-info btn-sm show-btn"
                                         data-target="#detailRow<?php echo $r['u_id']; ?>"><i
@@ -462,7 +471,7 @@ include_once 'header.php';
         $u_state = $_POST['u_state'];
         $u_pincode = $_POST['u_pincode'];
         $u_password = $_POST['u_password'];
-        $u_status = "Active";
+        $u_status = "Inactive";
         $u_role = "User";
         $u_image = $_FILES['u_image']['name'];
         $profile_picture = "../images/profile_image/" . uniqid() . $u_image;
@@ -476,10 +485,56 @@ include_once 'header.php';
             }
             $temp = $_FILES['u_image']['tmp_name'];
             move_uploaded_file($temp, $profile_picture);
+            // Send verification email
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'veloraa1920@gmail.com';
+                $mail->Password = 'rtep efdy gepi yrqj';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                $mail->setFrom('veloraa1920@gmail.com', 'Jayshree');
+                $mail->addAddress($u_email, $u_fullName);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Email Verification';
+                $activation_link = "http://localhost/mca1_project(wp)new/verify_email.php?em=" . $u_email;
+                $mail->Body = "<html>
+            <head>
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+                    h1 { color: black; }
+                    .button { display: inline-block; padding: 10px 20px; background-color: gray; color: black; text-decoration: none; border-radius: 5px; }
+                    .footer { margin-top: 20px; font-size: 0.8em; color: #777; }
+                    a { text-decoration: none; color: white; }
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h1>Welcome, $u_fullName!</h1>
+                    <p>Thank you for registering. Please click the button below to activate your account:</p>
+                    <p><a href='$activation_link' class='button'>Activate Your Account</a></p>
+                    <p>If you didn't register on our website, please ignore this email.</p>
+                    <div class='footer'>
+                        <p>This is an automated message, please do not reply to this email.</p>
+                    </div>
+                </div>
+            </body>
+            </html>";
+
+                $mail->send();
+            } catch (Exception $e) {
+                setcookie('error', "Error in sending email: " . $mail->ErrorInfo, time() + 5);
+            }
+
             setcookie('success', 'New user inserted', time() + 5, "/");
             ?>
             <script>
-                alert("Inserted !!");
+                confirm("Inserted !!");
                 window.location.href = "user.php";
             </script>
             <?php
@@ -487,7 +542,7 @@ include_once 'header.php';
             ?>
 
             <script>
-                alert("Not Inserted");
+                confirm("Not Inserted");
                 window.location.href = "user.php";
             </script>
             <?php

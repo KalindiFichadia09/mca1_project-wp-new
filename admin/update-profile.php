@@ -125,7 +125,7 @@ if (isset($_POST['update'])) {
         $profile_picture = $_FILES['u_image']['name'];
 
         $temp = $_FILES['u_image']['tmp_name'];
-        $profile_picture = "../images/profile_image/" . uniqid() . $profile_picture;
+        $profile_picture = "../images/profile_image/admin/" . uniqid() . $profile_picture;
         move_uploaded_file($temp, $profile_picture);
     } else {
         $profile_picture = $r['u_image'];

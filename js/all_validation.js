@@ -122,12 +122,12 @@ function passwordValidate(password, passwordMsg) {
     validate = false;
   } else {
     let passwordReg =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
     if (passwordReg.test(password.value)) {
       passwordMsg.innerHTML = "";
     } else {
       passwordMsg.innerHTML =
-        "Password must be 8 to 10 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.";
+        "Password must be 8 to 15 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.";
       passwordMsg.style.color = "red";
       validate = false;
     }

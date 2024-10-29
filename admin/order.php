@@ -1,13 +1,28 @@
 <?php
-    include_once 'header.php';
+include_once 'header.php';
 ?>
 <div class="container mt-5 pt-2">
-    <!-- Title and Button Row -->
-    <div class="row mt-5 mb-4">
-        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
-            <h2 class="text-center text-md-left">Manage Order</h2>
+    <div class="row mt-5 mb-4 align-items-center">
+        <!-- Title -->
+        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start mb-2 mb-md-0">
+            <h2 class="text-center text-md-left">Manage Orders</h2>
         </div>
-        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+
+        <!-- Search form -->
+        <div class="col-12 col-md-4 d-flex justify-content-center mb-2 mb-md-0">
+            <form method="GET" action="" class="d-flex w-100">
+                <div class="input-group w-100">
+                    <input type="text" name="search" class="form-control" placeholder="Search here"
+                        value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Button -->
+        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end">
             <button id="toggleFormBtnI" class="btn btn-success">Insert Order</button>
         </div>
     </div>
@@ -16,61 +31,66 @@
     <div id="formBlockInsert" class="row formBlock" style="display: none;">
         <div class="col-lg-8 col-md-10 mx-auto">
             <div class="form-block p-4">
-                <form action="order.php" method="post" id="insert" onsubmit="return orderInsertValidation();" enctype="multipart/form-data">
-                    
+                <form action="order.php" method="post" id="insert" onsubmit="return orderInsertValidation();"
+                    enctype="multipart/form-data">
+
                     <!-- Product Id -->
                     <div class="form-group mb-3">
                         <label for="productId">Product Id</label>
-                        <input type="text" class="form-control" id="productId" name="productId" placeholder="Enter Full Name" >
+                        <input type="text" class="form-control" id="productId" name="productId"
+                            placeholder="Enter Full Name">
                         <span id="productIdMsg"></span>
                     </div>
 
                     <!-- Full Name -->
                     <div class="form-group mb-3">
                         <label for="fullName">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="full_name" placeholder="Enter Full Name" >
+                        <input type="text" class="form-control" id="fullName" name="full_name"
+                            placeholder="Enter Full Name">
                         <span id="fullNameMsg"></span>
                     </div>
 
                     <!-- Email -->
                     <div class="form-group mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" >
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
                         <span id="emailMsg"></span>
                     </div>
 
                     <!-- Mobile -->
                     <div class="form-group mb-3">
                         <label for="mobile">Mobile</label>
-                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile Number" >
+                        <input type="tel" class="form-control" id="mobile" name="mobile"
+                            placeholder="Enter Mobile Number">
                         <span id="mobileMsg"></span>
                     </div>
 
                     <!-- Address -->
                     <div class="form-group mb-3">
                         <label for="address">Address</label>
-                        <textarea class="form-control" id="address" name="address" placeholder="Enter Address" ></textarea>
+                        <textarea class="form-control" id="address" name="address"
+                            placeholder="Enter Address"></textarea>
                         <span id="addressMsg"></span>
                     </div>
 
                     <!-- City -->
                     <div class="form-group mb-3">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter City" >
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter City">
                         <span id="cityMsg"></span>
                     </div>
 
                     <!-- State -->
                     <div class="form-group mb-3">
                         <label for="state">State</label>
-                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter State" >
+                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter State">
                         <span id="stateMsg"></span>
                     </div>
 
                     <!-- Pincode -->
                     <div class="form-group mb-3">
                         <label for="pincode">Pincode</label>
-                        <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode" >
+                        <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode">
                         <span id="pincodeMsg"></span>
                     </div>
 
@@ -111,10 +131,12 @@
                             <td>₹ 50000</td>
                             <td><span class="status-text text-success">Completed</span></td>
                             <td>
-                                <button class="btn btn-info btn-sm show-btn" data-target="#detailRow1"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-info btn-sm show-btn" data-target="#detailRow1"><i
+                                        class="fas fa-eye"></i></button>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow1"><i class="fas fa-arrow-down "></i></button>
+                                <button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow1"><i
+                                        class="fas fa-arrow-down "></i></button>
                             </td>
                             <td>
                                 <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
@@ -178,34 +200,40 @@
                                 <div id="formBlockUpdate" class="row formBlock mb-5">
                                     <div class="col-lg-8 col-md-10 mx-auto">
                                         <div class="form-block p-4">
-                                            <form action="order.php" id="update" method="post" onsubmit="return orderUpdateValidation(this);" enctype="multipart/form-data">
+                                            <form action="order.php" id="update" method="post"
+                                                onsubmit="return orderUpdateValidation(this);"
+                                                enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <!-- Product Id -->
                                                         <div class="form-group mb-3">
                                                             <label for="productId">Product Id</label>
-                                                            <input type="text" class="form-control" id="productIdU" name="productId" placeholder="Enter Full Name" >
+                                                            <input type="text" class="form-control" id="productIdU"
+                                                                name="productId" placeholder="Enter Full Name">
                                                             <span id="productIdMsgU"></span>
                                                         </div>
 
                                                         <!-- Email -->
                                                         <div class="form-group mb-3">
                                                             <label for="email">Email</label>
-                                                            <input type="email" class="form-control" id="emailU" name="email" placeholder="Enter Email" >
+                                                            <input type="email" class="form-control" id="emailU"
+                                                                name="email" placeholder="Enter Email">
                                                             <span id="emailMsgU"></span>
                                                         </div>
 
                                                         <!-- Address -->
                                                         <div class="form-group mb-3">
                                                             <label for="address">Address</label>
-                                                            <textarea class="form-control" id="addressU" name="address" placeholder="Enter Address" ></textarea>
+                                                            <textarea class="form-control" id="addressU" name="address"
+                                                                placeholder="Enter Address"></textarea>
                                                             <span id="addressMsgU"></span>
                                                         </div>
 
                                                         <!-- State -->
                                                         <div class="form-group mb-3">
                                                             <label for="state">State</label>
-                                                            <input type="text" class="form-control" id="stateU" name="state" placeholder="Enter State" >
+                                                            <input type="text" class="form-control" id="stateU"
+                                                                name="state" placeholder="Enter State">
                                                             <span id="stateMsgU"></span>
                                                         </div>
                                                     </div>
@@ -213,37 +241,41 @@
                                                         <!-- Full Name -->
                                                         <div class="form-group mb-3">
                                                             <label for="fullName">Full Name</label>
-                                                            <input type="text" class="form-control" id="fullNameU" name="full_name" placeholder="Enter Full Name" >
+                                                            <input type="text" class="form-control" id="fullNameU"
+                                                                name="full_name" placeholder="Enter Full Name">
                                                             <span id="fullNameMsgU"></span>
                                                         </div>
 
                                                         <!-- Mobile -->
                                                         <div class="form-group mb-3">
                                                             <label for="mobile">Mobile</label>
-                                                            <input type="tel" class="form-control" id="mobileU" name="mobile" placeholder="Enter Mobile Number" >
+                                                            <input type="tel" class="form-control" id="mobileU"
+                                                                name="mobile" placeholder="Enter Mobile Number">
                                                             <span id="mobileMsgU"></span>
                                                         </div>
 
                                                         <!-- City -->
                                                         <div class="form-group mb-3">
                                                             <label for="city">City</label>
-                                                            <input type="text" class="form-control" id="cityU" name="city" placeholder="Enter City" >
+                                                            <input type="text" class="form-control" id="cityU"
+                                                                name="city" placeholder="Enter City">
                                                             <span id="cityMsgU"></span>
                                                         </div>
 
                                                         <!-- Pincode -->
                                                         <div class="form-group mb-3">
                                                             <label for="pincodeU">Pincode</label>
-                                                            <input type="text" class="form-control" id="pincodeU" name="pincode" placeholder="Enter Pincode">
+                                                            <input type="text" class="form-control" id="pincodeU"
+                                                                name="pincode" placeholder="Enter Pincode">
                                                             <span id="pincodeMsgU"></span>
                                                         </div>
                                                     </div>
-                                                    
 
-                                                <!-- Submit Button -->
-                                                <div class="d-flex justify-content-end mt-3">
-                                                    <button type="submit" class="btn btn-success">Update</button>
-                                                </div>
+
+                                                    <!-- Submit Button -->
+                                                    <div class="d-flex justify-content-end mt-3">
+                                                        <button type="submit" class="btn btn-success">Update</button>
+                                                    </div>
                                             </form>
                                         </div>
                                     </div>
@@ -259,10 +291,12 @@
                             <td>₹ 50000</td>
                             <td><span class="status-text text-success">Completed</span></td>
                             <td>
-                                <button class="btn btn-info btn-sm show-btn" data-target="#detailRow2"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-info btn-sm show-btn" data-target="#detailRow2"><i
+                                        class="fas fa-eye"></i></button>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow2"><i class="fas fa-arrow-down "></i></button>
+                                <button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow2"><i
+                                        class="fas fa-arrow-down "></i></button>
                             </td>
                             <td>
                                 <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
@@ -326,34 +360,40 @@
                                 <div id="formBlockUpdate" class="row formBlock mb-5">
                                     <div class="col-lg-8 col-md-10 mx-auto">
                                         <div class="form-block p-4">
-                                            <form action="order.php" id="update" method="post" onsubmit="return orderUpdateValidation(this);" enctype="multipart/form-data">
+                                            <form action="order.php" id="update" method="post"
+                                                onsubmit="return orderUpdateValidation(this);"
+                                                enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <!-- Product Id -->
                                                         <div class="form-group mb-3">
                                                             <label for="productId">Product Id</label>
-                                                            <input type="text" class="form-control" id="productIdU" name="productId" placeholder="Enter Full Name" >
+                                                            <input type="text" class="form-control" id="productIdU"
+                                                                name="productId" placeholder="Enter Full Name">
                                                             <span id="productIdMsgU"></span>
                                                         </div>
 
                                                         <!-- Email -->
                                                         <div class="form-group mb-3">
                                                             <label for="email">Email</label>
-                                                            <input type="email" class="form-control" id="emailU" name="email" placeholder="Enter Email" >
+                                                            <input type="email" class="form-control" id="emailU"
+                                                                name="email" placeholder="Enter Email">
                                                             <span id="emailMsgU"></span>
                                                         </div>
 
                                                         <!-- Address -->
                                                         <div class="form-group mb-3">
                                                             <label for="address">Address</label>
-                                                            <textarea class="form-control" id="addressU" name="address" placeholder="Enter Address" ></textarea>
+                                                            <textarea class="form-control" id="addressU" name="address"
+                                                                placeholder="Enter Address"></textarea>
                                                             <span id="addressMsgU"></span>
                                                         </div>
 
                                                         <!-- State -->
                                                         <div class="form-group mb-3">
                                                             <label for="state">State</label>
-                                                            <input type="text" class="form-control" id="stateU" name="state" placeholder="Enter State" >
+                                                            <input type="text" class="form-control" id="stateU"
+                                                                name="state" placeholder="Enter State">
                                                             <span id="stateMsgU"></span>
                                                         </div>
                                                     </div>
@@ -361,37 +401,41 @@
                                                         <!-- Full Name -->
                                                         <div class="form-group mb-3">
                                                             <label for="fullName">Full Name</label>
-                                                            <input type="text" class="form-control" id="fullNameU" name="full_name" placeholder="Enter Full Name" >
+                                                            <input type="text" class="form-control" id="fullNameU"
+                                                                name="full_name" placeholder="Enter Full Name">
                                                             <span id="fullNameMsgU"></span>
                                                         </div>
 
                                                         <!-- Mobile -->
                                                         <div class="form-group mb-3">
                                                             <label for="mobile">Mobile</label>
-                                                            <input type="tel" class="form-control" id="mobileU" name="mobile" placeholder="Enter Mobile Number" >
+                                                            <input type="tel" class="form-control" id="mobileU"
+                                                                name="mobile" placeholder="Enter Mobile Number">
                                                             <span id="mobileMsgU"></span>
                                                         </div>
 
                                                         <!-- City -->
                                                         <div class="form-group mb-3">
                                                             <label for="city">City</label>
-                                                            <input type="text" class="form-control" id="cityU" name="city" placeholder="Enter City" >
+                                                            <input type="text" class="form-control" id="cityU"
+                                                                name="city" placeholder="Enter City">
                                                             <span id="cityMsgU"></span>
                                                         </div>
 
                                                         <!-- Pincode -->
                                                         <div class="form-group mb-3">
                                                             <label for="pincodeU">Pincode</label>
-                                                            <input type="text" class="form-control" id="pincodeU" name="pincode" placeholder="Enter Pincode">
+                                                            <input type="text" class="form-control" id="pincodeU"
+                                                                name="pincode" placeholder="Enter Pincode">
                                                             <span id="pincodeMsgU"></span>
                                                         </div>
                                                     </div>
-                                                    
 
-                                                <!-- Submit Button -->
-                                                <div class="d-flex justify-content-end mt-3">
-                                                    <button type="submit" class="btn btn-success">Update</button>
-                                                </div>
+
+                                                    <!-- Submit Button -->
+                                                    <div class="d-flex justify-content-end mt-3">
+                                                        <button type="submit" class="btn btn-success">Update</button>
+                                                    </div>
                                             </form>
                                         </div>
                                     </div>
@@ -402,6 +446,7 @@
                 </table>
             </div>
         </div>
-</div>
-</body>
-</html>
+    </div>
+    </body>
+
+    </html>

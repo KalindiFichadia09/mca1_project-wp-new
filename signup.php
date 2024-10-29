@@ -191,17 +191,28 @@ if (isset($_POST['signup'])) {
     $u_password = $_POST['u_password'];
     $u_status = "Inactive";
     $u_role = "User";
-    $u_image = "images/profile_image/" . $_FILES['u_image']['name'];
 
-    $q = "INSERT INTO `user_tbl`(`u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`,`u_role`) 
-                        VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$u_image','$u_status','$u_role')";
-    // echo $q;
+    // Path for database and file upload
+    $u_image = "../images/profile_image/" . $_FILES['u_image']['name'];
+    $uploadPath = "images/profile_image/" . $_FILES['u_image']['name']; // Path for moving the file
+
+    $q = "INSERT INTO `user_tbl`(`u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`, `u_role`) 
+          VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$u_image','$u_status','$u_role')";
+
     if (mysqli_query($con, $q)) {
+        // Ensure the directory exists before moving the file
         if (!is_dir("images/profile_image")) {
-            mkdir("images/profile_image");
+            mkdir("images/profile_image", 0777, true);
         }
-        move_uploaded_file($_FILES['u_profilePhoto']['tmp_name'], $u_image);
 
+        // Move the uploaded file to the target directory
+        if (move_uploaded_file($_FILES['u_image']['tmp_name'], $uploadPath)) {
+            echo "Profile image uploaded successfully.";
+        } else {
+            echo "Failed to upload profile image.";
+        }
+
+        // Send verification email
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
@@ -213,7 +224,7 @@ if (isset($_POST['signup'])) {
             $mail->Port = 587;
 
             $mail->setFrom('veloraa1920@gmail.com', 'Jayshree');
-            $mail->addAddress($u_email, $fn);
+            $mail->addAddress($u_email, $u_fullName);
 
             $mail->isHTML(true);
             $mail->Subject = 'Email Verification';
@@ -231,7 +242,7 @@ if (isset($_POST['signup'])) {
             </head>
             <body>
                 <div class='container'>
-                    <h1>Welcome, $fn!</h1>
+                    <h1>Welcome, $u_fullName!</h1>
                     <p>Thank you for registering. Please click the button below to activate your account:</p>
                     <p><a href='$activation_link' class='button'>Activate Your Account</a></p>
                     <p>If you didn't register on our website, please ignore this email.</p>
@@ -247,16 +258,15 @@ if (isset($_POST['signup'])) {
             setcookie('error', "Error in sending email: " . $mail->ErrorInfo, time() + 5);
         }
 
-        setcookie('success', 'Registration Successfull. Verify your Email using verification link sent to registered Email Address', time() + 5, "/");
+        setcookie('success', 'Registration successful. Verify your Email using verification link sent to registered Email Address', time() + 5, "/");
         ?>
         <script>
-            alert("Registered !!");
+            alert("Registered!");
             window.location.href = "signin.php";
         </script>
         <?php
     } else {
         ?>
-
         <script>
             alert("Not Registered");
             window.location.href = "signup.php";

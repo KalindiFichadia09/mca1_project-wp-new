@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2024 at 08:19 PM
+-- Generation Time: Oct 29, 2024 at 07:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,7 +102,7 @@ CREATE TABLE `category_tbl` (
 
 INSERT INTO `category_tbl` (`c_id`, `c_code`, `c_name`, `c_gender`, `c_image`, `c_status`) VALUES
 (2, 'CAT02', 'Gold Chain', 'Female', '../images/category_image/671e4c1f4761fc1.jpg', 'Active'),
-(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/671e784ae2c90c7.jpg', 'Active'),
+(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/67211d6fd2482c7.jpg', 'Active'),
 (4, 'CAT04', 'Ring', 'Female', '../images/category_image/671e4c6544b01g_ring_f.jpg', 'Active'),
 (7, 'CAT05', 'Earings', 'Female', '../images/category_image/671e77f672fd5c8.jpg', 'Active'),
 (8, 'CAT06', 'Mangalsutra', 'Female', '../images/category_image/671e780800ab6m1.jpg', 'Inactive'),
@@ -130,19 +130,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_tbl`
---
-
-CREATE TABLE `contact_tbl` (
-  `Co_Id` int(20) NOT NULL,
-  `Co_Name` varchar(100) NOT NULL,
-  `Co_Email` varchar(100) NOT NULL,
-  `Co_Msg` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `contact_us_tbl`
 --
 
@@ -160,6 +147,70 @@ CREATE TABLE `contact_us_tbl` (
 
 INSERT INTO `contact_us_tbl` (`c_id`, `c_name`, `c_email`, `c_msg`, `c_reply_msg`) VALUES
 (2, 'Kalindi Fichadia', 'kfichadiya849@rku.ac.in', 'i want to talk with you', 'hello \r\nwhats\' an issue ??\r\nshare with us... \r\nwe will try our best to solve your issue...');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items_tbl`
+--
+
+CREATE TABLE `order_items_tbl` (
+  `order_item_id` int(11) NOT NULL,
+  `o_id` int(11) NOT NULL,
+  `p_code` varchar(20) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `item_total_price` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `order_items_tbl`
+--
+DELIMITER $$
+CREATE TRIGGER `reduce_stock_on_order` AFTER INSERT ON `order_items_tbl` FOR EACH ROW BEGIN
+    -- Update stock in product table
+    UPDATE product_tbl
+    SET p_stock = p_stock - NEW.quantity
+    WHERE p_code = NEW.p_code;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_tbl`
+--
+
+CREATE TABLE `order_tbl` (
+  `o_id` int(11) NOT NULL,
+  `o_code` varchar(10) NOT NULL,
+  `o_username` varchar(100) NOT NULL,
+  `o_total_price` decimal(10,2) NOT NULL,
+  `o_status` varchar(50) DEFAULT 'Pending',
+  `o_date` datetime DEFAULT current_timestamp(),
+  `o_delivery_date` datetime DEFAULT NULL,
+  `o_shipping_address` text NOT NULL,
+  `o_payment_method` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `order_tbl`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_order` BEFORE INSERT ON `order_tbl` FOR EACH ROW BEGIN
+    DECLARE new_code INT;
+
+    -- Get the highest existing order code number
+    SELECT COALESCE(MAX(CAST(SUBSTRING(o_code, 4) AS UNSIGNED)), 0) INTO new_code FROM order_tbl;
+
+    -- Increment the code for new entry
+    SET new_code = new_code + 1;
+
+    -- Set the new order code in the format ORD01, ORD02, etc.
+    SET NEW.o_code = CONCAT('ORD', LPAD(new_code, 2, '0'));
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -266,6 +317,7 @@ INSERT INTO `slider_tbl` (`Id`, `Name`, `Image`) VALUES
 
 CREATE TABLE `user_tbl` (
   `u_id` int(5) NOT NULL,
+  `u_code` varchar(10) NOT NULL,
   `u_fullname` varchar(100) NOT NULL,
   `u_gender` varchar(10) NOT NULL,
   `u_email` varchar(100) NOT NULL,
@@ -284,18 +336,28 @@ CREATE TABLE `user_tbl` (
 -- Dumping data for table `user_tbl`
 --
 
-INSERT INTO `user_tbl` (`u_id`, `u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`, `u_role`) VALUES
-(2, 'Vibhuti Chavda', 'female', 'vchavda123@gmail.com', '8200722088', 'hudko police choki', 'Rajkot', 'Gujarat', '360005', 'Vibhuti@12', '../images/profile_image/671e48ed52643257023.jpg', 'Active', 'User'),
-(3, 'Jinal Taraviya', 'female', 'jinal123@gmail.com', '6534675433', 'Ranchod nager', 'Rajkot', 'Gujarat', '360001', 'Jinal@12', '../images/profile_image/671e46ea8f44007f29316d02c2f03864e94c388ed6b1834341364.jpg', 'Active', 'User'),
-(4, 'Khushi Hapaliya', 'female', 'khushihapaliya@gmail.com', '5667748833', 'Behind Nirmala convent school', 'Rajkot', 'Gujarat', '360005', 'Khushi@12', '../images/profile_image/671e4728ed14f5453-dragon-age-inquisition.jpg', 'Active', 'User'),
-(5, 'Angel Raiyani', 'female', 'angel123@gmail.com', '3344889966', 'kasturbadham tramba', 'Rajkot', 'Gujarat', '360028', 'Angel@12', '../images/profile_image/671e474bd581c2374_battlefield_4.jpg', 'Active', 'User'),
-(6, 'Kishan Vekariya', 'male', 'kishan789@gmail.com', '9925567344', 'kotdapitha sardhar', 'Amreli', 'Gujarat', '360012', 'Kishan@12', '../images/profile_image/671e475ad45f823322-DAI-01.jpg', 'Active', 'User'),
-(8, 'alien', 'male', 'veloraa1920@gmail.com', '9408136373', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Alien@123', '../images/profile_image/admin671cf33f6f1555453-dragon-age-inquisition.jpg', 'Active', 'Admin'),
-(9, 'ghost', '', 'ghost@gmail.com', '9408136373', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Ghost@12', '../images/profile_image/671e4772d9e0c34951_big.jpg', 'Active', 'User'),
-(10, 'hello', '', 'hello@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Hello@12', '../images/profile_image/671e4783b891067968.jpg', 'Active', 'User'),
-(11, 'marce', '', 'marce@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Marce@12', '../images/profile_image/671e47939ffc7117324-aleni.jpg', 'Active', 'User'),
-(15, 'kalindi fichadiya', 'female', 'fichadiyakalindi@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Alien@123', '../images/profile_image/671e47c4a249f320617.jpg', 'Active', 'User'),
-(16, 'Hello', '', 'hello123@gmail.com', '0940813637', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Hello@123', '../images/profile_image/admin671cf32e1d85a117324-aleni.jpg', 'Active', 'Admin');
+INSERT INTO `user_tbl` (`u_id`, `u_code`, `u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`, `u_role`) VALUES
+(1, 'USR01', 'Jayshree', 'female', 'veloraa1920@gmail.com', '9408136373', 'sadhuvasvani kunj road railnager', 'Rajkot', 'Gujarat', '360002', 'Jayshree@12', '../images/profile_image/admin/67212323e85625453-dragon-age-inquisition.jpg', 'Active', 'Admin'),
+(2, 'USR02', 'Kalindi Fichadia', 'Female', 'fichadiyakalindi@gmail.com', '9408136373', 'Shree radhekrishna park railnager', 'Rajkot', 'Gujarat', '360002', 'Kalindi@12', '../images/profile_image/67212363e16c8117324-aleni.jpg', 'Active', 'User');
+
+--
+-- Triggers `user_tbl`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_user` BEFORE INSERT ON `user_tbl` FOR EACH ROW BEGIN
+    DECLARE new_code INT;
+
+    -- Get the highest existing order code number
+    SELECT COALESCE(MAX(CAST(SUBSTRING(u_code, 4) AS UNSIGNED)), 0) INTO new_code FROM user_tbl;
+
+    -- Increment the code for new entry
+    SET new_code = new_code + 1;
+
+    -- Set the new order code in the format ORD01, ORD02, etc.
+    SET NEW.u_code = CONCAT('USR', LPAD(new_code, 2, '0'));
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -310,6 +372,13 @@ CREATE TABLE `wishlist_tbl` (
   `w_p_code` varchar(10) NOT NULL,
   `w_p_tot_price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wishlist_tbl`
+--
+
+INSERT INTO `wishlist_tbl` (`w_id`, `w_code`, `w_username`, `w_p_code`, `w_p_tot_price`) VALUES
+(2, 'WISH01', 'vchavda123@gmail.com', 'PRO02', 10814.66);
 
 --
 -- Triggers `wishlist_tbl`
@@ -354,16 +423,23 @@ ALTER TABLE `category_tbl`
   ADD UNIQUE KEY `c_code` (`c_code`);
 
 --
--- Indexes for table `contact_tbl`
---
-ALTER TABLE `contact_tbl`
-  ADD PRIMARY KEY (`Co_Id`);
-
---
 -- Indexes for table `contact_us_tbl`
 --
 ALTER TABLE `contact_us_tbl`
   ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `order_items_tbl`
+--
+ALTER TABLE `order_items_tbl`
+  ADD PRIMARY KEY (`order_item_id`);
+
+--
+-- Indexes for table `order_tbl`
+--
+ALTER TABLE `order_tbl`
+  ADD PRIMARY KEY (`o_id`),
+  ADD UNIQUE KEY `o_code` (`o_code`);
 
 --
 -- Indexes for table `password_token_tbl`
@@ -387,7 +463,8 @@ ALTER TABLE `slider_tbl`
 -- Indexes for table `user_tbl`
 --
 ALTER TABLE `user_tbl`
-  ADD PRIMARY KEY (`u_id`);
+  ADD PRIMARY KEY (`u_id`),
+  ADD KEY `u_code` (`u_code`);
 
 --
 -- Indexes for table `wishlist_tbl`
@@ -418,16 +495,22 @@ ALTER TABLE `category_tbl`
   MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `contact_tbl`
---
-ALTER TABLE `contact_tbl`
-  MODIFY `Co_Id` int(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `contact_us_tbl`
 --
 ALTER TABLE `contact_us_tbl`
   MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_items_tbl`
+--
+ALTER TABLE `order_items_tbl`
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_tbl`
+--
+ALTER TABLE `order_tbl`
+  MODIFY `o_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `password_token_tbl`
@@ -451,13 +534,13 @@ ALTER TABLE `slider_tbl`
 -- AUTO_INCREMENT for table `user_tbl`
 --
 ALTER TABLE `user_tbl`
-  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `u_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wishlist_tbl`
 --
 ALTER TABLE `wishlist_tbl`
-  MODIFY `w_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `w_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

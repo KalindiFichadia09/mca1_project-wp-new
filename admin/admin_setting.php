@@ -430,35 +430,81 @@ include_once 'header.php';
         $u_state = $_POST['u_state'];
         $u_pincode = $_POST['u_pincode'];
         $u_password = $_POST['u_password'];
-        $u_status = "Active";
+        $u_status = "Inactive";
         $u_role = "Admin";
         $u_image = $_FILES['u_image']['name'];
-        $profile_picture = "../images/profile_image/admin" . uniqid() . $u_image;
+        $profile_picture = "../images/profile_image/" . uniqid() . $u_image;
 
         $q = "INSERT INTO `user_tbl`(`u_fullname`, `u_gender`, `u_email`, `u_mobile`, `u_address`, `u_city`, `u_state`, `u_pincode`, `u_password`, `u_image`, `u_status`,`u_role`) 
                         VALUES ('$u_fullName','$u_gender','$u_email','$u_mobile','$u_address','$u_city','$u_state','$u_pincode','$u_password','$profile_picture','$u_status','$u_role')";
-        echo $q;
+        // echo $q;
         if (mysqli_query($con, $q)) {
-            if (!is_dir("../images/profile_image/admin")) {
-                mkdir("../images/profile_image/admin");
+            if (!is_dir("../images/profile_image")) {
+                mkdir("../images/profile_image");
             }
             $temp = $_FILES['u_image']['tmp_name'];
             move_uploaded_file($temp, $profile_picture);
+            // Send verification email
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'veloraa1920@gmail.com';
+                $mail->Password = 'rtep efdy gepi yrqj';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                $mail->setFrom('veloraa1920@gmail.com', 'Jayshree');
+                $mail->addAddress($u_email, $u_fullName);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Email Verification';
+                $activation_link = "http://localhost/mca1_project(wp)new/verify_email.php?em=" . $u_email;
+                $mail->Body = "<html>
+            <head>
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+                    h1 { color: black; }
+                    .button { display: inline-block; padding: 10px 20px; background-color: gray; color: black; text-decoration: none; border-radius: 5px; }
+                    .footer { margin-top: 20px; font-size: 0.8em; color: #777; }
+                    a { text-decoration: none; color: white; }
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h1>Welcome, $u_fullName!</h1>
+                    <p>Thank you for registering. Please click the button below to activate your account:</p>
+                    <p><a href='$activation_link' class='button'>Activate Your Account</a></p>
+                    <p>If you didn't register on our website, please ignore this email.</p>
+                    <div class='footer'>
+                        <p>This is an automated message, please do not reply to this email.</p>
+                    </div>
+                </div>
+            </body>
+            </html>";
+
+                $mail->send();
+            } catch (Exception $e) {
+                setcookie('error', "Error in sending email: " . $mail->ErrorInfo, time() + 5);
+            }
+
             setcookie('success', 'New Admin inserted', time() + 5, "/");
             ?>
-            <script>
-                alert("Inserted !!");
-                window.location.href = "admin_setting.php";
-            </script>
-            <?php
+                    <script>
+                        confirm("Inserted !!");
+                        window.location.href = "admin_setting.php";
+                    </script>
+                    <?php
         } else {
             ?>
 
-            <script>
-                alert("Not Inserted");
-                window.location.href = "admin_setting.php";
-            </script>
-            <?php
+                    <script>
+                        confirm("Not Inserted");
+                        window.location.href = "admin_setting.php";
+                    </script>
+                    <?php
         }
     }
 
@@ -485,7 +531,7 @@ include_once 'header.php';
         if ($_FILES['u_image']['name'] != "") {
             $profile_picture = $_FILES['u_image']['name'];
             $temp = $_FILES['u_image']['tmp_name'];
-            $profile_picture = "../images/profile_image/" . uniqid() . $profile_picture;
+            $profile_picture = "../images/profile_image/admin/" . uniqid() . $profile_picture;
             move_uploaded_file($temp, $profile_picture);
         } else {
             $profile_picture = $rs['u_image'];
@@ -519,7 +565,7 @@ include_once 'header.php';
             ?>
             <script>
                 alert("Profile updated succesfully !!");
-                window.location.href = 'user.php';
+                window.location.href = 'admin_setting.php';
             </script>
             <?php
         } else {
@@ -527,7 +573,7 @@ include_once 'header.php';
             ?>
             <script>
                 alert("Profile not updated !!");
-                window.location.href = 'user.php';
+                window.location.href = 'admin_setting.php';
             </script>
             <?php
         }

@@ -21,6 +21,7 @@ include_once 'header.php';
             </form>
         </div>
     </div>
+    
     <!-- Table for Wishlist -->
     <div class="row mt-5">
         <div class="col-12">
