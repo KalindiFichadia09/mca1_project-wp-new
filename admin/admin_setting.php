@@ -1,5 +1,12 @@
 <?php
 include_once 'header.php';
+
+require '../PHPMailer/Exception.php';
+require '../PHPMailer/PHPMailer.php';
+require '../PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ?>
 <div class="container mt-5 pt-2">
 
@@ -538,17 +545,17 @@ include_once 'header.php';
         }
 
         $update_query = "UPDATE user_tbl SET 
-                        u_fullname='$u_fullName', 
-                        u_gender='$u_gender', 
-                        u_email='$u_email', 
-                        u_mobile='$u_mobile', 
-                        u_address='$u_address', 
-                        u_city='$u_city', 
-                        u_state='$u_state', 
+                        u_fullname='$u_fullName',
+                        u_gender='$u_gender',
+                        u_email='$u_email',
+                        u_mobile='$u_mobile',
+                        u_address='$u_address',
+                        u_city='$u_city',
+                        u_state='$u_state',
                         u_pincode='$u_pincode',
-                        u_password='$u_password', 
-                        u_status='$u_status', 
-                        u_image='$profile_picture' 
+                        u_password='$u_password',
+                        u_status='$u_status',
+                        u_image='$profile_picture'
                     WHERE u_id='$u_id' AND u_role='$u_role'";
 
         echo $update_query;

@@ -136,4 +136,15 @@ if (isset($_POST['wishlist'])) {
         echo "<script>alert('Error adding product to wishlist.');</script>";
     }
 }
+if (isset($_POST['order'])) {
+    $username = $_SESSION['user_username'];
+    $o_p_code = $_POST['P_Code'];
+    $qty = $_POST['quantity'];
+
+    header("location:order.php?p_code=$o_p_code&qty=$qty");
+} else {
+    // echo "Error in submit";
+}
+
+
 ?>

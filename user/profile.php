@@ -81,7 +81,7 @@ if (isset($_SESSION['user_username'])) {
                                     <p id="state" class="form-control-static"><?php echo $r['u_state']; ?></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="zip">ZIP Code</label>
+                                    <label for="zip">Pin Code</label>
                                     <p id="zip" class="form-control-static"><?php echo $r['u_pincode']; ?></p>
                                 </div>
                             </div>
