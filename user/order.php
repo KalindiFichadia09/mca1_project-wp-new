@@ -40,19 +40,50 @@ if (mysqli_num_rows($result)) {
             $paymentMethod = $_POST['payment_method'];
 
             // Prepare to insert the order
-            $orderCode = uniqid('ORD'); // Generate unique order code
+            // $orderCode = uniqid('ORD'); // Generate unique order code
             $orderDate = date('Y-m-d H:i:s');
             $deliveryDate = date('Y-m-d H:i:s', strtotime('+7 days')); // Assuming 7 days delivery
 
             // Insert the order
-            $insertOrder = "INSERT INTO order_tbl (o_code, o_username, o_total_price, o_status, o_date, o_delivery_date, o_shipping_address, o_payment_method)
-                            VALUES ('$orderCode', '$email', '$totalPrice', 'Pending', '$orderDate', '$deliveryDate', '$shippingAddress, $shippingCity, $shippingState, $shippingZip', '$paymentMethod')";
+            // Insert the order into order_tbl
+            $insertOrder = "INSERT INTO order_tbl (o_username, o_total_price, o_status, o_date, o_delivery_date, o_shipping_address, o_payment_method)
+                VALUES ('$email', '$totalPrice', 'Pending', '$orderDate', '$deliveryDate', '$shippingAddress, $shippingCity, $shippingState, $shippingZip', '$paymentMethod')";
 
             if (mysqli_query($con, $insertOrder)) {
-                echo "<script>alert('Order placed successfully!');</script>";
+                // Retrieve the generated o_code using LAST_INSERT_ID()
+                $orderCodeQuery = "SELECT o_code FROM order_tbl ORDER BY o_date DESC LIMIT 1";
+                $resultOrderCode = mysqli_query($con, $orderCodeQuery);
+
+                if ($resultOrderCode && mysqli_num_rows($resultOrderCode) > 0) {
+                    $orderCodeRow = mysqli_fetch_assoc($resultOrderCode);
+                    $orderCode = $orderCodeRow['o_code']; // Use the retrieved o_code
+
+                    $itemTotalPrice = $product['p_total_price'] * $qty;
+                    $insertOrderItem = "INSERT INTO order_items_tbl (o_code, p_code, quantity, item_total_price) 
+                            VALUES ('$orderCode', '$P_Code', '$qty', '$itemTotalPrice')";
+
+                    if (mysqli_query($con, $insertOrderItem)) {
+                        echo "<script>alert('Order placed successfully!');</script>";
+                        ?>
+                        <script>
+                            window.location.href = 'order-history.php';
+                        </script>
+                        <?php
+                    } else {
+                        echo "<script>alert('Failed to insert order items.');</script>";
+                    }
+                } else {
+                    echo "<script>alert('Failed to retrieve order code.');</script>";
+                }
             } else {
                 echo "<script>alert('Failed to place order.');</script>";
+                ?>
+                <script>
+                    window.location.href = 'cateogry.php';
+                </script>
+                <?php
             }
+
         }
         ?>
 
@@ -165,10 +196,10 @@ if (mysqli_num_rows($result)) {
                     <fieldset>
                         <legend>Payment Method</legend>
                         <div class="form-group">
-                            <input type="radio" name="payment_method" value="Credit Card" required> Credit Card
-                            <input type="radio" name="payment_method" value="Debit Card"> Debit Card
                             <input type="radio" name="payment_method" value="Cash on Delivery"> Cash on Delivery
+                            <input type="radio" name="payment_method" value="Credit Card" required> Credit Card
                             <input type="radio" name="payment_method" value="Net Banking"> Net Banking
+                            <input type="radio" name="payment_method" value="Debit Card"> Debit Card
                             <input type="radio" name="payment_method" value="UPI"> UPI
                         </div>
                     </fieldset>
@@ -184,5 +215,8 @@ if (mysqli_num_rows($result)) {
     } else {
         echo "<div class='alert alert-danger'>Product not found.</div>";
     }
-}
+} ?>
+<br>
+<?php
+include_once 'footer.php';
 ?>

@@ -10,9 +10,9 @@ if (!isset($_SESSION['admin_username'])) {
     <?php
     exit();
 }
-if ($con->connect_error) {
-    die("Connection failed: " . $con->connect_error);
-}
+// if ($con->connect_error) {
+//     die("Connection failed: " . $con->connect_error);
+// }
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +27,7 @@ if ($con->connect_error) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="../js/admin_script.js" defer></script>

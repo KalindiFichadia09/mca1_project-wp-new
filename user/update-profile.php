@@ -146,7 +146,7 @@ if (isset($_SESSION['user_username'])) {
             ?>
                 <script>
                     window.location.href = 'profile.php';
-                </script>";
+                </script>
                 <?php
         } else {
             setcookie("error", "Error in updating profie", time() + 5, "/");
