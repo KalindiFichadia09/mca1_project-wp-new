@@ -649,6 +649,7 @@ include_once '../conn.php';
         $update_query = "UPDATE product_tbl SET 
                         p_name='$P_Name',
                         p_c_code='$P_C_Code',
+                        p_type='$P_Type',
                         p_gross_weight='$P_Gross_Weight',
                         p_diamond_weight='$P_Diamond_Weight',
                         p_diamond_pices='$P_Diamond_Pieces',
