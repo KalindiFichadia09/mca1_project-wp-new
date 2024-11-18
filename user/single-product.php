@@ -110,30 +110,41 @@ if (isset($_POST['cart'])) {
     $username = $_SESSION['user_username'];
     $ct_p_code = $_POST['P_Code'];
     $ct_p_tot_price = $_POST['p_tot_price'];
+    $check_product = "SELECT * FROM cart_tbl WHERE ct_p_code='$ct_p_code' AND ct_username='$username'";
+    $result = mysqli_query($con, $check_product);
 
-    $sql = "INSERT INTO `cart_tbl`(`ct_username`, `ct_p_code`, `ct_p_tot_price`) VALUES ('$username', '$ct_p_code', '$ct_p_tot_price')";
-    $data = mysqli_query($con, $sql);
-
-    if ($data) {
-        echo "<script>alert('Product added to cart!');
-        window.location.href = 'cart.php';</script>";
+    if (mysqli_num_rows($result) == 0) {
+        // Insert product into cart
+        $sql = "INSERT INTO cart_tbl (ct_username, ct_p_code, ct_p_tot_price) VALUES ('$username', '$ct_p_code', '$ct_p_tot_price')";
+        if (mysqli_query($con, $sql)) {
+            echo "<script>alert('Product added to cart!');
+      window.location.href = 'cart.php';</script>";
+        } else {
+            echo "<script>alert('Error adding product to cart.');</script>";
+        }
     } else {
-        echo "<script>alert('Error adding product to cart.');</script>";
+        echo "<script>alert('Product already added to cart!');
+      window.location.href = 'cart.php';</script>";
     }
 }
 if (isset($_POST['wishlist'])) {
     $username = $_SESSION['user_username'];
     $w_p_code = $_POST['P_Code'];
     $w_p_tot_price = $_POST['p_tot_price'];
-
-    $sql = "INSERT INTO `wishlist_tbl`(`w_username`, `w_p_code`, `w_p_tot_price`) VALUES ('$username', '$w_p_code', '$w_p_tot_price')";
-    $data = mysqli_query($con, $sql);
-
-    if ($data) {
-        echo "<script>alert('Product added to Wishlist!');
-        window.location.href = 'wishlist.php';</script>";
+    $check_product = "SELECT * FROM wishlist_tbl WHERE w_p_code='$w_p_code' AND w_username='$username'";
+    $result = mysqli_query($con, $check_product);
+    if (mysqli_num_rows($result) == 0) {
+        // Insert product into cart
+        $sql = "INSERT INTO `wishlist_tbl`(`w_username`, `w_p_code`, `w_p_tot_price`) VALUES ('$username', '$w_p_code', '$w_p_tot_price')";
+        if (mysqli_query($con, $sql)) {
+            echo "<script>alert('Product added to wishlist!');
+      window.location.href = 'wishlist.php';</script>";
+        } else {
+            echo "<script>alert('Error adding product to wishlist.');</script>";
+        }
     } else {
-        echo "<script>alert('Error adding product to wishlist.');</script>";
+        echo "<script>alert('Product already added to wishlist!');
+      window.location.href = 'wishlist.php';</script>";
     }
 }
 if (isset($_POST['order'])) {

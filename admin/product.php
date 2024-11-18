@@ -129,8 +129,15 @@ include_once '../conn.php';
                     <!-- Stock -->
                     <div class="form-group mb-3">
                         <label for="stock">Stock</label>
-                        <input type="number" class="form-control" id="stock" name="p_stock" placeholder="Enter Stock">
+                        <input type="number" class="form-control" id="stock" name="p_stock" placeholder="Enter Stock" min="0">
                         <span id="stockMsg"></span>
+                    </div>
+
+                    <!-- Discount -->
+                    <div class="form-group mb-3">
+                        <label for="discount">Discount Percentage</label>
+                        <input type="number" class="form-control" id="discount" name="p_discount" placeholder="Enter Discount percentage" min="0" max="100">
+                        <span id="discountMsg"></span>
                     </div>
 
                     <!-- Product Image -->
@@ -228,7 +235,13 @@ include_once '../conn.php';
                                 <td><?php echo $r['p_code']; ?></td>
                                 <td><?php echo $r['p_name']; ?></td>
                                 <td>₹ <?php echo $r['p_total_price']; ?></td>
-                                <td><span class="status-text <?php echo ($r['p_status'] == 'Inactive') ? 'text-danger' : 'text-success'; ?>"><?php echo $r['p_status']; ?>
+                                <td><span class="status-text 
+                                    <?php
+                                        echo ($r['p_status'] === 'Deleted') ? 'text-danger' :
+                                            (($r['p_status'] === 'Inactive') ? 'text-primary' : 'text-success');
+                                    ?>">
+                                    <?php echo $r['p_status']; ?>
+                                </span>
                                 </td>
                                 <td>
                                     <button class="btn btn-info btn-sm show-btn"
@@ -267,6 +280,7 @@ include_once '../conn.php';
                                             <p><strong>Gross Weight:</strong> <?php echo $r['p_gross_weight']; ?> Grams</p>
                                             <p><strong>Gold Weight:</strong> <?php echo $r['p_gold_weight']; ?></p>
                                             <p><strong>Gold Price:</strong> ₹ <?php echo $r['p_gold_price']; ?></p>
+                                            <p><strong>Discount:</strong> <?php echo $r['p_discount']; ?>%</p>
                                             </p>
                                         </div>
                                         <div class="col-4 product-description" style="width: 65%;">
@@ -357,14 +371,39 @@ include_once '../conn.php';
                                                                     value="<?php echo $r['p_diamond_color']; ?>">
                                                                 <span id="diamondColorMsgU"></span>
                                                             </div>
-
-                                                            <!-- Product Image -->
+    
+                                                            <!-- Discount -->
                                                             <div class="form-group mb-3">
-                                                                <label for="productImage">Product Image</label>
-                                                                <input type="file" class="form-control" id="productImageU"
-                                                                    name="p_imageU">
-                                                                <span id="productImageMsgU"></span>
+                                                                <label for="stock">Discount</label>
+                                                                <input type="number" class="form-control" id="discountU"
+                                                                    name="p_discountU" value="<?php echo $r['p_discount']; ?>">
+                                                                    <span id="discountMsgU" min="0" max="100"></span>
+                                                                </div>
+
+                                                            <!-- product status -->
+                                                            <div class="form-group mb-3">
+                                                                <label>Product Status</label>
+                                                                <div class="form-control">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="p_statusU" id="activeu" value="Active"
+                                                                            <?php if ($r['p_status'] == "Active")
+                                                                                echo "checked"; ?>>
+                                                                        <label class="form-check-label"
+                                                                            for="activeu">Active</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="p_statusU" id="inactiveu" value="Inactive"
+                                                                            <?php if ($r['p_status'] == "Inactive")
+                                                                                echo "checked"; ?>>
+                                                                        <label class="form-check-label"
+                                                                            for="inactiveu">Inactive</label>
+                                                                    </div>
+                                                                </div>
+                                                                <span id="productStatusMsgU"></span>
                                                             </div>
+                                                            
                                                         </div>
 
                                                         <div class="col-md-4">
@@ -425,30 +464,15 @@ include_once '../conn.php';
                                                                     name="p_stockU" value="<?php echo $r['p_stock']; ?>">
                                                                 <span id="stockMsgU"></span>
                                                             </div>
-
-                                                            <!-- product status -->
+                                                            
+                                                            <!-- Product Image -->
                                                             <div class="form-group mb-3">
-                                                                <label>Product Status</label>
-                                                                <div class="form-control">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="p_statusU" id="activeu" value="Active"
-                                                                            <?php if ($r['p_status'] == "Active")
-                                                                                echo "checked"; ?>>
-                                                                        <label class="form-check-label"
-                                                                            for="activeu">Active</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="p_statusU" id="inactiveu" value="Inactive"
-                                                                            <?php if ($r['p_status'] == "Inactive")
-                                                                                echo "checked"; ?>>
-                                                                        <label class="form-check-label"
-                                                                            for="inactiveu">Inactive</label>
-                                                                    </div>
-                                                                </div>
-                                                                <span id="productStatusMsgU"></span>
+                                                                <label for="productImage">Product Image</label>
+                                                                <input type="file" class="form-control" id="productImageU"
+                                                                    name="p_imageU">
+                                                                <span id="productImageMsgU"></span>
                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
 
@@ -523,6 +547,7 @@ include_once '../conn.php';
         $P_Diamond_Pices = $_POST['p_diamond_pieces'];
         $P_Diamond_Color = $_POST['p_diamond_color'];
         $P_Stock = $_POST['p_stock'];
+        $P_Discount = $_POST['p_discount'];
         $p_overhead_charges = $_POST['p_overhead_charges'];
 
         $P_Gold_Weight = ($P_Gross_Weight - $P_Diamond_Weight);
@@ -535,8 +560,8 @@ include_once '../conn.php';
 
         $P_Image = "../images/product_image/" . $_FILES['p_image']['name'];
         $P_Status = $_POST['p_status'];
-        $q = "INSERT INTO `product_tbl`(`p_name`, `p_c_code`, `p_type`, `p_gross_weight`, `p_diamond_weight`, `p_diamond_pices`, `p_purity`, `p_gold_weight`, `p_gold_price`, `p_diamond_price`, `p_making_charge`, `p_overhead_charges`, `p_base_price`, `p_tax`, `p_total_price`, `p_diamond_color`, `p_stock`, `p_image`, `p_status`) 
-                                VALUES ('$P_Name','$P_C_Code','$P_Type','$P_Gross_Weight','$P_Diamond_Weight','$P_Diamond_Pices','$P_Purity','$P_Gold_Weight','$P_Gold_Price','$P_Diamond_Price','$P_Making_Charge','$p_overhead_charges','$P_Base_Price','$P_Tax','$P_Total_Price','$P_Diamond_Color','$P_Stock','$P_Image','$P_Status')";
+        $q = "INSERT INTO `product_tbl`(`p_name`, `p_c_code`, `p_type`, `p_gross_weight`, `p_diamond_weight`, `p_diamond_pices`, `p_purity`, `p_gold_weight`, `p_gold_price`, `p_diamond_price`, `p_making_charge`, `p_overhead_charges`, `p_base_price`, `p_tax`, `p_total_price`, `p_diamond_color`, `p_stock`,`p_discount`, `p_image`, `p_status`) 
+                                VALUES ('$P_Name','$P_C_Code','$P_Type','$P_Gross_Weight','$P_Diamond_Weight','$P_Diamond_Pices','$P_Purity','$P_Gold_Weight','$P_Gold_Price','$P_Diamond_Price','$P_Making_Charge','$p_overhead_charges','$P_Base_Price','$P_Tax','$P_Total_Price','$P_Diamond_Color','$P_Stock','$$P_Discount','$P_Image','$P_Status')";
 
         if (mysqli_query($con, $q)) {
             if (!is_dir("../images/product_image")) {
@@ -591,6 +616,7 @@ include_once '../conn.php';
         $P_Diamond_Pieces = $_POST['p_diamond_piecesU'];
         $P_Diamond_Color = $_POST['p_diamond_colorU'];
         $P_Stock = $_POST['p_stockU'];
+        $P_Discount = $_POST['p_discountU'];
         $p_overhead_charges = $_POST['p_overhead_chargesU'];
 
         // Calculations for price
@@ -623,6 +649,7 @@ include_once '../conn.php';
         $update_query = "UPDATE product_tbl SET 
                         p_name='$P_Name',
                         p_c_code='$P_C_Code',
+                        p_type='$P_Type',
                         p_gross_weight='$P_Gross_Weight',
                         p_diamond_weight='$P_Diamond_Weight',
                         p_diamond_pices='$P_Diamond_Pieces',
@@ -637,6 +664,7 @@ include_once '../conn.php';
                         p_total_price='$P_Total_Price',
                         p_diamond_color='$P_Diamond_Color',
                         p_stock='$P_Stock',
+                        p_discount='$P_Discount',
                         p_image='$image',
                         p_status='$P_Status' 
                     WHERE p_code='$P_Code'";
@@ -658,8 +686,9 @@ include_once '../conn.php';
 
     // delete product
     if (isset($_POST['delete'])) {
-        $delete_id = $_POST['delete_id']; 
-        $delete_query = "DELETE FROM product_tbl WHERE p_id = '$delete_id'";
+        $delete_id = $_POST['delete_id'];
+        $delete_query = "update product_tbl set p_status='Deleted' where p_id = '$delete_id'";
+        // $delete_query = "DELETE FROM product_tbl WHERE p_id = '$delete_id'";
         if (mysqli_query($con, $delete_query)) {
             echo "<script>confirm('Record deleted successfully');</script>";
         } else {

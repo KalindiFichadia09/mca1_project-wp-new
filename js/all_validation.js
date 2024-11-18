@@ -415,10 +415,6 @@ function productInsertValidation() {
     document.querySelector("#productType"),
     document.querySelector("#productTypeMsg")
   );
-  numberValidate(
-    document.querySelector("#stock"),
-    document.querySelector("#stockMsg")
-  );
   dropdownValidate(
     document.querySelector("#productCategoryCode"),
     document.querySelector("#productCategoryCodeMsg")
@@ -447,6 +443,14 @@ function productInsertValidation() {
     document.querySelector("#diamondColor"),
     document.querySelector("#diamondColorMsg")
   );
+  numberValidate(
+    document.querySelector("#stock"),
+    document.querySelector("#stockMsg")
+  );
+  numberValidate(
+    document.querySelector("#discount"),
+    document.querySelector("#discountMsg")
+  );
   fileValidate(
     document.querySelector("#productImage"),
     document.querySelector("#productImageMsg")
@@ -469,10 +473,6 @@ function productUpdateValidation(form) {
   dropdownValidate(
     form.querySelector("#productTypeU"),
     form.querySelector("#productTypeMsgU")
-  );
-  numberValidate(
-    form.querySelector("#stockU"),
-    form.querySelector("#stockMsgU")
   );
   codeValidate(
     form.querySelector("#productCategoryCodeU"),
@@ -501,6 +501,14 @@ function productUpdateValidation(form) {
   nameValidate(
     form.querySelector("#diamondColorU"),
     form.querySelector("#diamondColorMsgU")
+  );
+  numberValidate(
+    form.querySelector("#stockU"),
+    form.querySelector("#stockMsgU")
+  );
+  numberValidate(
+    document.querySelector("#discountU"),
+    document.querySelector("#discountMsgU")
   );
   genderValidate(
     document.querySelectorAll('input[name="p_statusU"]'),

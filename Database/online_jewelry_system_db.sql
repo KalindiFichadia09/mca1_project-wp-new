@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2024 at 06:39 AM
+-- Generation Time: Nov 15, 2024 at 03:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,11 +59,10 @@ CREATE TABLE `cart_tbl` (
 --
 
 INSERT INTO `cart_tbl` (`ct_id`, `ct_code`, `ct_username`, `ct_p_code`, `ct_p_tot_price`) VALUES
-(2, 'CART02', 'vchavda123@gmail.com', 'PRO02', 10814.66),
-(3, 'CART03', 'vchavda123@gmail.com', 'PRO02', 10814.66),
-(4, 'CART04', 'fichadiyakalindi@gmail.com', 'PRO03', 190988.78),
-(5, 'CART05', 'fichadiyakalindi@gmail.com', 'PRO07', 26780.00),
-(6, 'CART06', 'fichadiyakalindi@gmail.com', 'PRO03', 190988.78);
+(1, 'CART01', 'fichadiyakalindi@gmail.com', 'PRO02', 10814.66),
+(4, 'CART02', 'fichadiyakalindi@gmail.com', 'PRO06', 41847.46),
+(5, 'CART03', 'fichadiyakalindi@gmail.com', 'PRO07', 26780.00),
+(6, 'CART04', 'fichadiyakalindi@gmail.com', 'PRO04', 33615.08);
 
 --
 -- Triggers `cart_tbl`
@@ -104,8 +103,8 @@ CREATE TABLE `category_tbl` (
 --
 
 INSERT INTO `category_tbl` (`c_id`, `c_code`, `c_name`, `c_gender`, `c_image`, `c_status`) VALUES
-(2, 'CAT02', 'Gold Chain', 'Female', '../images/category_image/671e4c1f4761fc1.jpg', 'Active'),
-(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/67211d6fd2482c7.jpg', 'Active'),
+(2, 'CAT02', 'Gold Chain', 'Male', '../images/category_image/671e4c1f4761fc1.jpg', 'Deleted'),
+(3, 'CAT03', 'Bangles', 'Female', '../images/category_image/67211d6fd2482c7.jpg', 'Inactive'),
 (4, 'CAT04', 'Ring', 'Female', '../images/category_image/671e4c6544b01g_ring_f.jpg', 'Active'),
 (7, 'CAT05', 'Earings', 'Female', '../images/category_image/671e77f672fd5c8.jpg', 'Active'),
 (8, 'CAT06', 'Mangalsutra', 'Female', '../images/category_image/671e780800ab6m1.jpg', 'Inactive'),
@@ -269,6 +268,7 @@ CREATE TABLE `product_tbl` (
   `p_total_price` decimal(10,2) NOT NULL,
   `p_diamond_color` varchar(30) NOT NULL,
   `p_stock` int(5) NOT NULL,
+  `p_discount` int(5) NOT NULL,
   `p_image` varchar(100) NOT NULL,
   `p_status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -277,14 +277,14 @@ CREATE TABLE `product_tbl` (
 -- Dumping data for table `product_tbl`
 --
 
-INSERT INTO `product_tbl` (`p_id`, `p_code`, `p_name`, `p_c_code`, `p_type`, `p_gross_weight`, `p_diamond_weight`, `p_diamond_pices`, `p_purity`, `p_gold_weight`, `p_gold_price`, `p_diamond_price`, `p_making_charge`, `p_overhead_charges`, `p_base_price`, `p_tax`, `p_total_price`, `p_diamond_color`, `p_stock`, `p_image`, `p_status`) VALUES
-(1, 'PRO01', 'Cross Chain', 'none', 'Yellow Gold', 25.000, 0.000, 0, '20K', 25.00, 124995.00, 0.00, 12500.00, 2250.00, 139745.00, 4192.35, 143937.35, 'NA ', 3, '../images/product_image/671e7a1782e5ag_chain_m.jpg', 'Active'),
-(3, 'PRO02', 'Ring', 'CAT04', 'Rose Gold', 2.000, 0.350, 10, '20K', 1.65, 8249.67, 200.00, 1000.00, 1050.00, 10499.67, 314.99, 10814.66, 'White', 4, '../images/product_image/671e7a24f111bg_ring_f.jpg', 'Active'),
-(4, 'PRO03', 'Bangles', 'CAT03', 'Yellow Gold', 30.000, 0.000, 0, '22K', 30.00, 165006.00, 0.00, 15000.00, 5420.00, 185426.00, 5562.78, 190988.78, 'NA ', 1, '../images/product_image/671e7a2e5b11dc13.jpg', 'Active'),
-(5, 'PRO04', 'Earings', 'CAT05', 'Yellow Gold', 5.000, 0.010, 14, '22K', 4.99, 27446.00, 280.00, 2500.00, 2410.00, 32636.00, 979.08, 33615.08, 'Silver', 2, '../images/product_image/671e79f03dc46c8.jpg', 'Active'),
-(6, 'PRO05', 'Gold Plated Mangalsutra', 'none', 'Yellow Gold', 2.000, 0.000, 0, '20K', 2.00, 9999.60, 0.00, 1000.00, 1001.00, 12000.60, 360.02, 12360.62, 'NA', 3, '../images/product_image/671e7a71160a5m1.jpg', 'Active'),
-(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', 7.000, 0.000, 0, '20K', 7.00, 34998.60, 0.00, 3500.00, 1950.00, 40448.60, 1213.46, 41662.06, 'NA', 4, '../images/product_image/671e7d6a5d007rg1.jpg', 'Active'),
-(8, 'PRO07', 'Anklet', 'CAT07', 'Rose Gold', 5.000, 0.000, 0, '18K', 5.00, 22500.00, 0.00, 2500.00, 1000.00, 26000.00, 780.00, 26780.00, 'not ', 1, '../images/product_image/671e79d50bb9cc6.jpg', 'Active');
+INSERT INTO `product_tbl` (`p_id`, `p_code`, `p_name`, `p_c_code`, `p_type`, `p_gross_weight`, `p_diamond_weight`, `p_diamond_pices`, `p_purity`, `p_gold_weight`, `p_gold_price`, `p_diamond_price`, `p_making_charge`, `p_overhead_charges`, `p_base_price`, `p_tax`, `p_total_price`, `p_diamond_color`, `p_stock`, `p_discount`, `p_image`, `p_status`) VALUES
+(1, 'PRO01', 'Cross Chain', 'none', 'Yellow Gold', 25.000, 0.000, 0, '20K', 25.00, 124995.00, 0.00, 12500.00, 2250.00, 139745.00, 4192.35, 143937.35, 'NA ', 3, 5, '../images/product_image/671e7a1782e5ag_chain_m.jpg', 'Deleted'),
+(3, 'PRO02', 'Ring', 'CAT04', 'Rose Gold', 2.000, 0.350, 10, '20K', 1.65, 8249.67, 200.00, 1000.00, 1050.00, 10499.67, 314.99, 10814.66, 'White', 4, 6, '../images/product_image/671e7a24f111bg_ring_f.jpg', 'Active'),
+(4, 'PRO03', 'Bangles', 'none', 'Yellow Gold', 30.000, 0.000, 0, '22K', 30.00, 165006.00, 0.00, 15000.00, 5420.00, 185426.00, 5562.78, 190988.78, 'NA ', 1, 2, '../images/product_image/671e7a2e5b11dc13.jpg', 'Active'),
+(5, 'PRO04', 'Earings', 'CAT05', 'Yellow Gold', 5.000, 0.010, 14, '22K', 4.99, 27446.00, 280.00, 2500.00, 2410.00, 32636.00, 979.08, 33615.08, 'Silver', 2, 7, '../images/product_image/671e79f03dc46c8.jpg', 'Active'),
+(6, 'PRO05', 'Gold Plated Mangalsutra', 'none', 'Yellow Gold', 2.000, 0.000, 0, '20K', 2.00, 9999.60, 0.00, 1000.00, 1001.00, 12000.60, 360.02, 12360.62, 'NA', 3, 3, '../images/product_image/671e7a71160a5m1.jpg', 'Active'),
+(7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', 7.000, 0.000, 9, '20K', 7.00, 34998.60, 180.00, 3500.00, 1950.00, 40628.60, 1218.86, 41847.46, 'NA', 4, 9, '../images/product_image/671e7d6a5d007rg1.jpg', 'Active'),
+(8, 'PRO07', 'Anklet', 'CAT07', 'Rose Gold', 5.000, 0.000, 0, '18K', 5.00, 22500.00, 0.00, 2500.00, 1000.00, 26000.00, 780.00, 26780.00, 'not ', 1, 2, '../images/product_image/671e79d50bb9cc6.jpg', 'Active');
 
 --
 -- Triggers `product_tbl`
@@ -395,8 +395,8 @@ CREATE TABLE `wishlist_tbl` (
 --
 
 INSERT INTO `wishlist_tbl` (`w_id`, `w_code`, `w_username`, `w_p_code`, `w_p_tot_price`) VALUES
-(2, 'WISH01', 'vchavda123@gmail.com', 'PRO02', 10814.66),
-(3, 'WISH02', 'fichadiyakalindi@gmail.com', 'PRO04', 33615.08);
+(1, 'WISH01', 'fichadiyakalindi@gmail.com', 'PRO02', 10814.66),
+(2, 'WISH02', 'fichadiyakalindi@gmail.com', 'PRO07', 26780.00);
 
 --
 -- Triggers `wishlist_tbl`
@@ -558,7 +558,7 @@ ALTER TABLE `user_tbl`
 -- AUTO_INCREMENT for table `wishlist_tbl`
 --
 ALTER TABLE `wishlist_tbl`
-  MODIFY `w_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `w_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

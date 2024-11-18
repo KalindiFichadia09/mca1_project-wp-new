@@ -149,7 +149,13 @@ include_once '../conn.php';
                             <td><?php echo $r['c_gender']; ?></td>
                             <td><img src="<?php echo
                                                         $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>" width="50"></td>
-                            <td><span class="status-text <?php echo ($r['c_status'] == 'Inactive') ? 'text-danger' : 'text-success'; ?>"><?php echo $r['c_status']; ?></span>
+                            <td><span class="status-text 
+                                <?php
+                                    echo ($r['c_status'] === 'Deleted') ? 'text-danger' :
+                                        (($r['c_status'] === 'Inactive') ? 'text-primary' : 'text-success');
+                                ?>">
+                                <?php echo $r['c_status']; ?>
+                            </span>
                             </td>
                             <td><button class="btn btn-primary btn-sm update-btn" data-target-update="#updateRow<?php echo $r['c_id']; ?>"><i
                                         class="fas fa-arrow-down "></button></td>
@@ -347,7 +353,8 @@ if (isset($_POST['update'])) {
 // delete category
 if (isset($_POST['delete'])) {
     $delete_id = $_POST['delete_id'];
-    $delete_query = "DELETE FROM category_tbl WHERE c_id = '$delete_id'";
+    $delete_query="update category_tbl set c_status='Deleted' where c_id = '$delete_id'";
+    // $delete_query = "DELETE FROM category_tbl WHERE c_id = '$delete_id'";
     if (mysqli_query($con, $delete_query)) {
         echo "<script>confirm('Record deleted successfully');</script>";
     } else {
