@@ -1,0 +1,61 @@
+Major Project
+
+admin 
+
+footer chotelu nthi retu (emp , dashboard)
+search
+view profile(img, block gape), 
+dropdown 
+payroll(show data)
+
+
+user
+
+update profile (block gape)
+working hour(table responsive)
+leave(table responsive, dd, footer)
+task(table, status, )
+holiday(table,)
+salary slip
+
+leave management
+according to leave payroll management
+
+
+crystal report
+
+***********************************
+
+PHP Project
+
+sub category(thai to jjj)
+ 
+user
+
+multiple images in product
+user search
+checkout from cart
+featured product
+discount
+order history
+payment
+order detail design
+coupen code
+category filter
+profile img
+
+admin
+
+product new field (discount, multiple image)
+delete ny deactive
+foreign key in all table
+admin profile responsive
+user table ma cart, wishlist, order
+
+
+
+
+
+
+
+
