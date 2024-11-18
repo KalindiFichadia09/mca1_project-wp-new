@@ -128,7 +128,7 @@ if (isset($_POST['signin'])) {
                         <?php
                     } else {
                         $_SESSION['user_username'] = $em;
-                        setcookie('success', 'Login Successful', time() + 10, "/");
+                        setcookie('success', 'Login Successful!', time() + 10, "/");
                         ?>
                         <script>
                             window.location.href = "user/index.php";

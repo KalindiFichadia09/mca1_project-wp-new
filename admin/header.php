@@ -112,22 +112,30 @@ if (!isset($_SESSION['admin_username'])) {
         <div class="row">
             <div class="col-12">
                 <?php
-                if (isset($_COOKIE['success']) && !empty($_COOKIE['success'])) {
+                error_reporting(0);
+                if (isset($_COOKIE['success'])) {
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Success: </strong> <?php echo $_COOKIE['success']; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong></strong> <?php echo $_COOKIE['success']; ?>
+                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+    
+                        </button>
                     </div>
                     <?php
                 }
-                if (isset($_COOKIE['error']) && !empty($_COOKIE['error'])) {
+                if (isset($_COOKIE['error'])) {
                     ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Error: </strong> <?php echo $_COOKIE['error']; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong></strong> <?php echo $_COOKIE['error']; ?>
+                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+    
+                        </button>
                     </div>
                     <?php
                 }
+
+                setcookie('success', '', time() - 3600, '/');
+                setcookie('error', '', time() - 3600, '/');
                 ?>
             </div>
         </div>
