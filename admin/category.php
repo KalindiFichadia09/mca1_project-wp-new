@@ -335,7 +335,7 @@ if (isset($_POST['update'])) {
     } else {
         $image = $rs['c_image'];
     }
-    $update_query = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$image', `c_status`='$c_status' WHERE `c_code`='$c_code'";
+    $update_query = "UPDATE `category_tbl` SET `c_name`='$c_name', `c_gender`='$c_gender', `c_image`='$image', `c_status`='$c_status' WHERE `c_code`='$c_code' AND (`c_status`='Active' OR `c_status`='Inactive') ";
 
     if (mysqli_query($con, $update_query)) {
         if ($image != $rs['c_image']) {

@@ -28,32 +28,30 @@ crystal report
 
 PHP Project
 
-sub category(thai to jjj)
- 
+sub category(thai to jjj) - done
+
 user
 
-multiple images in product
+multiple images in product - done
 user search
 checkout from cart
+discount in cart
 featured product
-discount
+discount - done
 order history
 payment
 order detail design
 coupen code
-category filter
-profile img
+category filter - done
+profile img - done
 
 admin
 
-product new field (discount, multiple image)
-delete ny deactive
-foreign key in all table
-admin profile responsive
+product new field (discount, multiple image) -  done
+delete ny deactive - done
+admin profile responsive - done
 user table ma cart, wishlist, order
-
-
-
+foreign key in all table
 
 
 

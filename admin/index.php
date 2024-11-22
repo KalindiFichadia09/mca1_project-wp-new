@@ -248,6 +248,13 @@ include_once 'header.php';
         <div class="col-md-4 mb-4">
             <div class="card text-center">
                 <div class="card-body">
+                    <a href="sub_category.php" class="nav-link">Sub Category</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
                     <a href="product.php" class="nav-link">Product</a>
                 </div>
             </div>

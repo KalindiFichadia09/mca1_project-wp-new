@@ -32,7 +32,7 @@ if (isset($_GET['remove_id'])) {
             if (isset($_SESSION['user_username'])) {
                 $email = $_SESSION['user_username'];
                 $q = "SELECT * FROM product_tbl P 
-                              INNER JOIN category_tbl C ON P.p_c_code = C.c_code 
+                              INNER JOIN sub_category_tbl SC ON P.p_sc_code = SC.sc_code 
                               WHERE p_code IN (SELECT w_p_code FROM wishlist_tbl WHERE w_username = '$email')";
                 $result = mysqli_query($con, $q);
 
@@ -40,7 +40,7 @@ if (isset($_GET['remove_id'])) {
                     ?>
                     <div class="col-md-4">
                         <div class="product-item card mb-4">
-                            <img src="<?php echo $r['p_image']; ?>" class="card-img-top img-fluid" alt="<?php echo $r['p_name']; ?>">
+                            <img src="<?php echo $r['p_main_image']; ?>" class="card-img-top img-fluid" alt="<?php echo $r['p_name']; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $r['p_name']; ?></h5>
                                 <p class="text-muted"><?php echo $r['c_name']; ?></p>

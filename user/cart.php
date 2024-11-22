@@ -46,20 +46,20 @@ if (isset($_GET['remove_id'])) {
                         if (isset($_SESSION['user_username'])) {
                             $email = $_SESSION['user_username'];
                             $q = "SELECT * FROM product_tbl P 
-                                  INNER JOIN category_tbl C ON P.p_c_code = C.c_code 
+                                  INNER JOIN sub_category_tbl SC ON P.p_sc_code = SC.sc_code 
                                   WHERE p_code IN (SELECT ct_p_code FROM cart_tbl WHERE ct_username = '$email')";
                             $result = mysqli_query($con, $q);
 
                             while ($r = mysqli_fetch_assoc($result)) {
-                                $price = $r['p_total_price'];
+                                $price = $r['p_discount_price'];
                                 $quantity = 1; // Default quantity
                                 $rowTotal = $price * $quantity;
                                 $grandTotal += $rowTotal;
                                 ?>
                                 <tr>
-                                    <td><img src="<?php echo $r['p_image']; ?>" class="img-fluid" alt="<?php echo $r['p_name']; ?>" width="100"></td>
+                                    <td><img src="<?php echo $r['p_main_image']; ?>" class="img-fluid" alt="<?php echo $r['p_name']; ?>" width="100"></td>
                                     <td><?php echo $r['p_name']; ?></td>
-                                    <td><?php echo $r['c_name']; ?></td>
+                                    <td><?php echo $r['sc_name']; ?></td>
                                     <td>₹ <?php echo number_format($price, 2); ?></td>
                                     <td>
                                         <input type="number" name="quantity[]" class="form-control quantity" style="width: 60px;" value="1" min="1"
@@ -82,7 +82,7 @@ if (isset($_GET['remove_id'])) {
                             <td colspan="5" class="text-right"><strong>Total</strong></td>
                             <td id="grand-total"><strong>₹ <?php echo number_format($grandTotal, 2); ?></strong></td>
                             <input type="hidden" name="grand_total" id="hidden-grand-total" value="<?php echo $grandTotal; ?>" />
-                            <td><button type="submit" class="btn btn-success">Order Now</button></td>
+                            <td><button type="submit" class="buy-now">Order Now</button></td>
                         </tr>
                     </tfoot>
                 </table>

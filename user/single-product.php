@@ -3,7 +3,7 @@
 include_once 'header.php';
 include_once '../conn.php';
 $p_code = $_GET['p_code'];
-$q = "SELECT * FROM product_tbl P INNER JOIN category_tbl C on P.p_c_code=C.c_code WHERE p_code='$p_code'";
+$q = "SELECT * FROM product_tbl P INNER JOIN sub_category_tbl SC on P.p_sc_code=SC.sc_code WHERE p_code='$p_code' AND p_status='Active' ";
 $result = mysqli_query($con, $q);
 ?>
 
@@ -14,23 +14,64 @@ $result = mysqli_query($con, $q);
             <div class="row">
                 <!-- Left Sidebar with Thumbnails and Main Product Image -->
                 <div class="col-md-4 d-flex">
-                    <div class="col-md-12">
-                        <div class="product-main-image">
-                            <img id="mainProductImage" src="<?php echo $r['p_image']; ?>" class="img-fluid main-img"
-                                alt="Main Product Image">
+                    <div class="container p-3">
+                        <!-- Main Product Image -->
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-12 text-center">
+                                <img id="mainProductImage" src="<?php echo $r['p_main_image']; ?>"
+                                    class="img-fluid main-img" alt="Main Product Image"
+                                    style="width: 450px; height: 300px; object-fit: cover; border: 2px solid #ddd; border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        <!-- Other Product Images -->
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center gap-3">
+                                    <?php
+                                    $other_images = explode(",", $r['p_other_image']);
+                                    foreach ($other_images as $image) {
+                                        ?>
+                                        <div class="other-img-wrapper">
+                                            <img src="<?php echo trim($image); ?>" alt="Other Product Image"
+                                                class="img-fluid other-img"
+                                                style="width: 150px; height: 100px; object-fit: cover; border: 1px solid #ccc; border-radius: 5px; cursor: pointer;"
+                                                onclick="document.getElementById('mainProductImage').src='<?php echo trim($image); ?>'">
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
+
                 </div>
 
                 <!-- Product Information -->
                 <div class="col-md-8">
                     <div class="product-details">
-                        <h2><?php echo $r['p_name']; ?></h2>
+                        <h3><?php echo $r['p_name']; ?></h3>
                         <p class="text-muted"><?php echo $r['c_name']; ?></p>
-                        <h3 class="text-danger">&#8377; <?php echo $r['p_total_price']; ?></h3>
+                        <div class="d-flex align-items-center">
+                            <h5 class="text-decoration-line-through me-2" style="color:#9e9e9d">
+                                &#8377;<?php echo $r['p_total_price']; ?>
+                            </h5>
+                            <h5 class="text-danger me-2">
+                                &#8377;<?php echo $r['p_discount_price']; ?>
+                            </h5>
+                            <span class="border-start mx-2"
+                                style="height: 1.5rem; display: inline-block; border-color: #495057;"></span>
+                            <h6 style="color:#609c60">
+                                <?php echo $r['p_discount']; ?>% off
+                            </h6>
+                        </div>
+                        <h6 style="color:#5c6874">inclusive of all taxes</h6>
 
                         <div class="mt-4">
-                            <h6>Weight Details</h6>
+                            <h6 style="color:#41566E">Weight Details</h6>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <tr>
@@ -45,7 +86,7 @@ $result = mysqli_query($con, $q);
                                     </tr>
                                 </table>
                             </div>
-                            <h6>Price Details</h6>
+                            <h6 style="color:#41566E">Price Details</h6>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <tr>

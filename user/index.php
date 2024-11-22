@@ -74,23 +74,12 @@ include_once '../conn.php';
       ?>
       <a href="">
         <div class="arrival-item">
-          <img src="<?php echo $r['p_image']; ?>" alt="<?php echo $r['p_name']; ?>">
+          <img src="<?php echo $r['p_main_image']; ?>" alt="<?php echo $r['p_name']; ?>">
           <h3 class="card-title text-truncate"><?php echo $r['p_name']; ?></h3>
-          <?php
-          if ($r['p_discount'] != 0) {
-            $disounted_price = $r['p_total_price'] - ($r['p_discount'] * $r['p_total_price'] / 100);
-            ?>
-            <span class="card-text" style="text-decoration: line-through;">Price: ₹
-              <?php echo $r['p_total_price']; ?></span><br>
-            <span class="cart-text"><?php echo $r['p_discount'] . "% Discount"; ?> </span><br>
-            <span class="card-text">Price: ₹ <?php echo $disounted_price; ?></sp><br>
-              <?php
-          } else {
-            ?>
-              <span class="card-text">Price: ₹ <?php echo $r['p_total_price']; ?></span><br>
-              <?php
-          }
-          ?>
+          <span class="card-text" style="text-decoration: line-through;">Price: ₹
+            <?php echo $r['p_total_price']; ?></span><br>
+          <span class="cart-text"><?php echo $r['p_discount'] . "% Discount"; ?> </span><br>
+          <span class="card-text">Price: ₹ <?php echo $r['p_discount_price']; ?></sp><br>
             <form action="" method="post">
               <input type="hidden" name="P_Code" value="<?php echo $r['p_code']; ?>">
               <input type="hidden" name="p_tot_price" value="<?php echo $r['p_total_price']; ?>">
