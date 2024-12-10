@@ -4,32 +4,39 @@ require '../vendor/autoload.php';
 include_once '../conn.php';
 session_start();
 if (!isset($_SESSION['user_username'])) {
-    $eml = $_SESSION['user_username'];
     ?>
         <script>
             window.location.href = "../signin.php";
-        </script>
+            </script>
         <?php
         exit();
+} else {
+    $eml = $_SESSION['user_username'];
+    echo $eml;
 }
 
 if (isset($_SESSION['gt'])) {
     $new_cart_total = $_SESSION['gt'];  // Assuming the total amount is in session
-
+    echo $new_cart_total;
     // Initialize Razorpay API
     $api = new Razorpay\Api\Api('rzp_test_yCgrsfXSuM7SxL', 'eaxt0pkgow03xe2s2ufGFmBK');
 
+    try {
     $orderData = [
         'receipt' => 'order_rcptid_' . uniqid(),
-        'amount' => $new_cart_total * 100,  // Amount in paise
+            'amount' => intval($new_cart_total) * 100,
         'currency' => 'INR',
-        'payment_capture' => 1  // Auto capture the payment after the transaction
+            'payment_capture' => 1
     ];
 
     $razorpayOrder = $api->order->create($orderData);
-    $_SESSION['razorpay_order_id'] = $razorpayOrder['id'];  // Store Razorpay order ID in session
+        $_SESSION['razorpay_order_id'] = $razorpayOrder['id'];
+    } catch (Exception $e) {
+        echo "Error creating Razorpay order: " . $e->getMessage();
+        exit;
 }
-echo $_SESSION['user_address'];
+}
+?>
 ?>
 <div class="container mt-5 bgcolor">
     <div class="row mb-5" style="text-align: center;">
@@ -92,7 +99,7 @@ echo $_SESSION['user_address'];
                 var redirect_url = "process_order.php?payment_id=" + response.razorpay_payment_id +
                     "&order_id=" + response.razorpay_order_id +
                     "&total_amount=" + <?php echo $_SESSION['gt'] * 100; ?> +
-                    "&email=<?php echo $Email_Session; ?>";
+                    "&email=<?php echo $eml; ?>";
 
                 // Redirect to the order processing page
                 window.location.href = redirect_url;

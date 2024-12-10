@@ -28,8 +28,12 @@ include_once '../conn.php';
         while ($rp = mysqli_fetch_assoc($resultp)) {
           ?>
           <a href="single-product.php?p_code=<?php echo $rp['p_code']; ?>">
-            <div class="arrival-item">
+            <div class="arrival-item <?php echo ($rp['p_stock'] == 0) ? 'out-of-stock' : ''; ?>" >
               <img src="<?php echo $rp['p_main_image']; ?>" alt="<?php echo $rp['p_name']; ?>">
+              <?php if ($rp['p_stock'] == 0) { ?>
+                <!-- Always visible Out of Stock badge -->
+                <div class="out-of-stock-badge">Out of Stock</div>
+              <?php } ?>
               <h3 class="card-title text-truncate"><?php echo $rp['p_name']; ?></h3>
               <?php
               if ($rp['p_discount'] != 0) {

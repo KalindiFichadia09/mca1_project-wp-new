@@ -5,6 +5,12 @@ include_once '../conn.php';
 $p_code = $_GET['p_code'];
 $q = "SELECT * FROM product_tbl P INNER JOIN sub_category_tbl SC on P.p_sc_code=SC.sc_code WHERE p_code='$p_code' AND p_status='Active' ";
 $result = mysqli_query($con, $q);
+$qRating = "SELECT SUM(r_rating) / COUNT(r_rating) as avg FROM review_tbl WHERE r_p_code = '$p_code'";
+$avgResult = mysqli_query($con, $qRating);
+$avg = mysqli_fetch_assoc($avgResult);
+
+// If there are no reviews, set average rating to 0
+$rating = isset($avg['avg']) ? $avg['avg'] : 0;
 ?>
 
 <!-- Product Page Structure -->
@@ -68,7 +74,19 @@ $result = mysqli_query($con, $q);
                                 <?php echo $r['p_discount']; ?>% off
                             </h6>
                         </div>
-                        <h6 style="color:#5c6874">inclusive of all taxes</h6>
+                        <h6 style="color:#5c6874">include all taxes</h6>
+                        <div class="stars">
+                            <?php
+                                $rating = intval($avg['avg']); // Assuming $avg['avg'] contains the average rating.
+                                for ($i = 1; $i <= 5; $i++) {
+                                    if ($i <= $rating) {
+                                        echo '<span class="fa fa-star" style="color: #ffcc00;"></span>'; // Filled star
+                                    } else {
+                                        echo '<span class="fa fa-star" style="color: gray;"></span>'; // Empty star
+                                    }
+                                }
+                                ?>
+                        </div>
 
                         <div class="mt-4">
                             <h6 style="color:#41566E">Weight Details</h6>
@@ -135,12 +153,157 @@ $result = mysqli_query($con, $q);
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         <?php } ?>
     </div>
+
+    <!-- Add a Review Section -->
+<?php
+if (isset($_SESSION['user_username']) && !empty($_SESSION['user_username'])) {
+    $eml = $_SESSION['user_username'];
+    $checkReview = "SELECT * FROM review_tbl WHERE r_p_code='$p_code' AND r_email='$eml' ";
+    $checkReviewData = mysqli_num_rows(mysqli_query($con, $checkReview));
+
+    if ($checkReviewData > 0) {
+        // echo 'chipcip';
+        // setcookie('success', "You've already reviewed this product once.", time() + 5, "/");
+    } else {
+        $checkOrderStat = "SELECT * FROM order_tbl WHERE o_username='$eml' AND o_p_code='$p_code' AND o_delivery_status='Delivered'
+                       AND o_payment_status='Completed' ";
+        $checkOrderStatData = mysqli_query($con, $checkOrderStat);
+
+        // Fetch the first row of the result as an associative array
+        $orderData = mysqli_fetch_assoc($checkOrderStatData);
+
+        if ($orderData == false) {
+            setcookie('success', "You can review this product after confirmed order.", time() + 5, "/");
+        } else {
+            // Fetch the order ID from the associative array
+            // $o_id = $orderData['O_Order_Id'];
+            // echo $o_id;
+
+            // Continue with your review form
+            ?>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col">
+                        <h2>Add a review</h2>
+                        <form method="post">
+                            <!-- <input type="hidden" value="<?php echo $o_id; ?>" name="O_id"> -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Name :</label>
+                                    <input type="text" class="form-control" id="name" name="nm" placeholder="First Name Last Name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Email :</label>
+                                    <input type="text" class="form-control" id="email"
+                                        value="<?php echo $_SESSION['user_username']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="review" class="form-label">Review</label>
+                                    <textarea class="form-control" id="review" name="reviewText" rows="3"></textarea>
+                                </div>
+
+                                <!-- Ratings -->
+                                <div class="col-md-6">
+                                    <label for="rating" class="form-label">Rating</label>
+                                    <div class="star-rating">
+
+                                        <input type="radio" name="rating" id="r5" value="5" class="star-input" required>
+                                        <label for="r5" class="star-label">&#9733;</label>
+
+                                        <input type="radio" name="rating" id="r4" value="4" class="star-input" required>
+                                        <label for="r4" class="star-label">&#9733;</label>
+
+                                        <input type="radio" name="rating" id="r3" value="3" class="star-input" required>
+                                        <label for="r3" class="star-label">&#9733;</label>
+
+                                        <input type="radio" name="rating" id="r2" value="2" class="star-input" required>
+                                        <label for="r2" class="star-label">&#9733;</label>
+
+                                        <input type="radio" name="rating" id="r1" value="1" class="star-input" required>
+                                        <label for="r1" class="star-label">&#9733;</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-dark" name="SubmitReview">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+    }
+} else {
+    echo 'dsdsds';
+}
+?>
 </section>
+
+<div class="container mt-5 mb-5 bg-light p-5">
+        <section class="featured" id="latest">
+            <h2>Reviews</h2>
+            <div class="row mt-5">
+                <div class="row" id="product">
+                    <table>
+                        <!-- <tr>
+                            <th>img</th>
+                            <th>nm</th>
+                            <th>text</th>
+                            <th>stars</th>
+                        </tr> -->
+                       <?php
+                    $q = "SELECT r.*,u.* FROM review_tbl r JOIN user_tbl u ON r.r_email=u.u_email where r.r_p_code='$p_code' ORDER BY r.r_id DESC LIMIT 3";
+                    $resultreview = mysqli_query($con, $q);
+
+                    if (mysqli_num_rows($resultreview) > 0) {
+                        while ($review = mysqli_fetch_assoc($resultreview)) {
+                            ?>
+                            <tr>
+                                <td><img src="<?php echo $review['u_image']; ?>" alt="User Image"
+                                        class="user-image"></td>
+                                <td><?php echo $review['r_username'] ?><br>
+                                    <p style="text-size:2px"><?php echo $review['r_email'] ?></p>
+                                </td>
+                                <td><?php echo $review['r_review'] ?></td>
+                                <td>
+                                    <div class="stars-review">
+                                        <?php
+                                        $rating = $review['r_rating']; // Assuming the column name for rating is R_Rating
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            if ($i <= $rating) {
+                                                echo '<span class="fa fa-star" style="color: #ffcc00;"></span>'; // Filled star
+                                            } else {
+                                                echo '<span class="fa fa-star" style="color: gray;"></span>'; // Empty star
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        // No reviews
+                        echo '<tr><td colspan="4">No reviews available.</td></tr>';
+                    }
+                    ?>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
 
 <br /><br />
 
@@ -199,5 +362,33 @@ if (isset($_POST['order'])) {
     // echo "Error in submit";
 }
 
+if (isset($_POST['SubmitReview'])) {
+    $userEmail = $_SESSION['user_username'];
+    $userName = $_POST['nm'];
+    $reviewText = $_POST['reviewText'];
+    // $orderId = $_POST['O_id'];
+    $rating = $_POST['rating'];  // Fetch the rating directly
+
+    $query = "INSERT INTO `review_tbl`(`r_username`, `r_email`, `r_p_code`, `r_rating`, `r_review`, `r_date`)
+                  VALUES ('$userName', '$userEmail', '$p_code', '$rating', '$reviewText', NOW())";
+
+    echo $query;
+
+    if (mysqli_query($con, $query)) {
+        setcookie('success', 'Review Added', time() + 5, "/");
+        ?>
+                <script>
+                    window.location.href = "single-product.php?p_code=<?php echo $p_code; ?>";
+                </script>
+                <?php
+    } else {
+        setcookie('error', 'Error in adding Review', time() + 5, "/");
+        ?>
+                <script>
+                    window.location.href = "single-product.php?p_code=<?php echo $p_code; ?>";
+                </script>
+                <?php
+    }
+}
 
 ?>
