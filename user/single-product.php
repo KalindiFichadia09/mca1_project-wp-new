@@ -148,6 +148,7 @@ $result = mysqli_query($con, $q);
 include_once 'footer.php';
 
 if (isset($_POST['cart'])) {
+    $Ct_Quantity = 1;
     $username = $_SESSION['user_username'];
     $ct_p_code = $_POST['P_Code'];
     $ct_p_tot_price = $_POST['p_tot_price'];
@@ -156,7 +157,7 @@ if (isset($_POST['cart'])) {
 
     if (mysqli_num_rows($result) == 0) {
         // Insert product into cart
-        $sql = "INSERT INTO cart_tbl (ct_username, ct_p_code, ct_p_tot_price) VALUES ('$username', '$ct_p_code', '$ct_p_tot_price')";
+        $sql = "INSERT INTO cart_tbl (ct_username, ct_p_code, ct_quentity, ct_p_tot_price) VALUES ('$username', '$ct_p_code', '$Ct_Quantity', '$ct_p_tot_price')";
         if (mysqli_query($con, $sql)) {
             echo "<script>alert('Product added to cart!');
       window.location.href = 'cart.php';</script>";

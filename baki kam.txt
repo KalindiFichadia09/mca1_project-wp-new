@@ -6,21 +6,21 @@ footer chotelu nthi retu (emp , dashboard)
 search
 view profile(img, block gape), 
 dropdown 
-payroll(show data)
+payroll(show data)  
 
 
 user
 
-update profile (block gape)
-working hour(table responsive)
-leave(table responsive, dd, footer)
-task(table, status, )
-holiday(table,)
-salary slip
+update profile  - done
+(block gape) in profile 
+working hour(table responsive) -  done
+leave(table responsive, dd, footer) - done
+task(table - done, status, ) - 
+holiday(table,) - done
+salary slip - 
 
-leave management
-according to leave payroll management
-
+leave management - done
+according to leave payroll management - done
 
 crystal report
 
@@ -34,12 +34,12 @@ user
 
 multiple images in product - done
 user search
-checkout from cart
-discount in cart
+checkout from cart - done
+discount in cart - done
 featured product
-discount - done
+product discount - done
 order history
-payment
+payment  
 order detail design
 coupen code
 category filter - done
@@ -57,3 +57,5 @@ foreign key in all table
 
 
 
+D:\MCA1\.net Workspace\Employee-Management-System-ASP.net--master\user\payslips.rpt
+D:\MCA1\.net Workspace\Employee-Management-System-ASP.net--master\user\Payroll.aspx.cs
