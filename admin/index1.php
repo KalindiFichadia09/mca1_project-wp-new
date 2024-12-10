@@ -1,5 +1,5 @@
 <?php
-include_once 'header.php'; 
+include_once 'header.php';
 $recordCount = 100; // Ensure $recordCount is defined in header.php
 ?>
 <!DOCTYPE html>
@@ -16,16 +16,23 @@ $recordCount = 100; // Ensure $recordCount is defined in header.php
     <style>
         body {
             justify-content: center;
-            background-color: #f2f2f2;
+            background-color: white;
+            align-items: center;
+
+        }
+
+        .container {
+            width: auto;
+            /* Ensure it fits within the center */
         }
 
         .card {
-            
-                margin-top: 30px;
-                border: none;
-                background-color: #fff;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                
+
+            margin-top: 10px;
+            border: none;
+            background-color: #edeef0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
         }
 
         .card-body {
@@ -51,8 +58,7 @@ $recordCount = 100; // Ensure $recordCount is defined in header.php
         }
 
         .nav-link {
-            font-weight: bold;
-            color: #007bff;
+            color: #304878;
         }
 
         .nav-link:hover {
@@ -63,173 +69,226 @@ $recordCount = 100; // Ensure $recordCount is defined in header.php
 </head>
 
 <body>
-    <div class="container mt-5 pt-5">
-        <!-- Row 1 -->
-        <div class="row">
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-users icon"></i>
-                        <h5 class="card-title">Total Users</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
+    <div class="container d-flex flex-column align-items-center mt-5 pt-5"">
+        <div class="container mt-1 margin-left-150px">
+            <!-- Row 1 -->
+            <div class="row justify-content-center">
+                <div class="col-md-2 mb-4 ">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-users icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM user_tbl where u_role='User' ";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-th-list icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM category_tbl";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Total Categories</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-box icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM product_tbl";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Total Products</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-check icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM user_tbl where u_role='User' AND u_status='Active' ";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Active Users</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-slash icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM user_tbl where u_role='User' AND u_status='Inactive' ";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Inactive Users</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-th-list icon"></i>
-                        <h5 class="card-title">Total Categories</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
+
+            <!-- Row 2 -->
+            <div class="row justify-content-center">
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-tags icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM category_tbl where c_status='Active' ";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Active Categories</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-box icon"></i>
-                        <h5 class="card-title">Total Products</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-tag icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM category_tbl where c_status='Inactive' ";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Inactive Categories</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-check icon"></i>
-                        <h5 class="card-title">Active Users</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shopping-cart icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM product_tbl where p_status='Active'";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Active Products</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-slash icon"></i>
-                        <h5 class="card-title">Inactive Users</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-box-open icon"></i>
+                            <?php
+                            $countQuery = "SELECT COUNT(*) as total FROM product_tbl where p_status='Inactive'";
+                            $result = mysqli_query($con, $countQuery);
+                            $data = mysqli_fetch_assoc($result);
+                            $recordCount = $data['total'];
+                            ?>
+                            <h5 class="card-title">Inactive Products</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="card bg-gray">
+                        <div class="card-body text-center">
+                            <i class="fas fa-tasks icon"></i>
+                            <h5 class="card-title">Other Data</h5>
+                            <p class="card-text"><?php echo $recordCount; ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Row 2 -->
-        <div class="row">
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-tags icon"></i>
-                        <h5 class="card-title">Active Categories</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-tag icon"></i>
-                        <h5 class="card-title">Inactive Categories</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-shopping-cart icon"></i>
-                        <h5 class="card-title">Active Products</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-box-open icon"></i>
-                        <h5 class="card-title">Inactive Products</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 mb-4">
-                <div class="card bg-gray">
-                    <div class="card-body text-center">
-                        <i class="fas fa-tasks icon"></i>
-                        <h5 class="card-title">Other Data</h5>
-                        <p class="card-text"><?php echo $recordCount; ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Navigation Links -->
         <div class="row">
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="user.php" class="nav-link">User</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="about_us.php" class="nav-link">About Us</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="contact.php" class="nav-link">Contact Us</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="category.php" class="nav-link">Category</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="product.php" class="nav-link">Product</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="feedback.php" class="nav-link">Feedback</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="cart.php" class="nav-link">Cart</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="wishlist.php" class="nav-link">Wishlist</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="order.php" class="nav-link">Order</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <a href="CarouselImage.php" class="nav-link">Slider</a>
