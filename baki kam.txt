@@ -56,6 +56,12 @@ foreign key in all table
 
 
 
+Account Label : JayshreeJewels.ct.ws
+Account Password : MNNpBpRJnQoL
+username : if0_37911774
 
-D:\MCA1\.net Workspace\Employee-Management-System-ASP.net--master\user\payslips.rpt
-D:\MCA1\.net Workspace\Employee-Management-System-ASP.net--master\user\Payroll.aspx.cs
+
+MySQL DB Name : if0_37911774_online_jewelry_system_db	
+MySQL User Name : 	if0_37911774
+MySQL Password : 
+MySQL Host Name : sql103.infinityfree.com	

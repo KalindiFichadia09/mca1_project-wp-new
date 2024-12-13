@@ -94,7 +94,7 @@ if (isset($_GET['remove_id'])) {
     </div>
     <!-- checkout form -->
         <div class="container card bgcolor mt-5 p-6" id="checkOut_form">
-            <div class="row">
+            <div class="row p-5">
                 <!-- Images Column -->
                 <div class="col-md-4">
                     <div class="product-image">
@@ -102,7 +102,7 @@ if (isset($_GET['remove_id'])) {
                             <label for="anm" class="form-label">Offer Code:</label>
                             <input type="text" class="form-control" name="offercode" id="offercode">
                             <span id="offercode_er"></span><br>
-                            <button class="btn btn-dark" type="submit" name="offerApply">Apply</button>
+                            <button class="buy-now" type="submit" name="offerApply">Apply</button>
                         </form>
                         <hr />
 
@@ -255,7 +255,7 @@ if (isset($_GET['remove_id'])) {
                             </div>
                             <div class="col-md-3"></div>
                             <div class="col-md-3" style="align-content: end;">
-                                <button type="submit" class="btn btn-dark" name="checkOut">Check Out</button>
+                                <button type="submit" class="buy-now" name="checkOut">Check Out</button>
                             </div>
                         </div>
                     </form>
@@ -319,5 +319,4 @@ if (isset($_POST['checkOut'])) {
     <?php
 
 }
-
 ?>

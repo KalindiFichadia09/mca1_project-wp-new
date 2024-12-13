@@ -227,13 +227,19 @@ use PHPMailer\PHPMailer\Exception;
                                     </form>
                                 </td>
                                 <td>
-                                    <button class="btn btn-success btn-sm"><i class="fas fa-shopping-cart"></i></button>
+                                    <button class="btn btn-success btn-sm show-btn"
+                                        data-target="#cartRow<?php echo $r['u_id'] ?>"><i
+                                            class="fas fa-shopping-cart"></i></button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></button>
+                                    <button class="btn btn-secondary btn-sm show-btn"
+                                        data-target="#wishlistRow<?php echo $r['u_id'] ?>"><i
+                                            class="fas fa-heart"></i></button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm"><i class="fas fa-shopping-bag"></i></button>
+                                    <button class="btn btn-warning btn-sm show-btn"
+                                        data-target="#orderRow<?php echo $r['u_id'] ?>"><i
+                                            class="fas fa-shopping-bag"></i></button>
                                 </td>
                             </tr>
                             <tr id="detailRow<?php echo $r['u_id']; ?>" class="detail-row" style="display:none;">
@@ -425,6 +431,113 @@ use PHPMailer\PHPMailer\Exception;
                                             </div>
                                         </div>
                                     </div>
+                                </td>
+                            </tr>
+                            <tr id="cartRow<?php echo $r['u_id']; ?>" class="detail-row" style="display:none;">
+                                <?php
+                                $eml = $r['u_email'];
+                                $qc = "select * from cart_tbl where ct_username = '$eml' ";
+                                $resultc = mysqli_query($con, $qc);
+                                $srno = 1;
+                                ?>
+                                <td colspan="10">
+                                    <table class="table table-bordered text-center align-middle">
+                                        <header class="h4">Cart Products</header>
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Sr No</th>
+                                                <th scope="col">Cart Code</th>
+                                                <th scope="col">Product Code</th>
+                                                <th scope="col">Quentity</th>
+                                                <th scope="col">Total Price</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($rc = mysqli_fetch_assoc($resultc)) {
+                                            ?>
+                                            <tbody>
+                                                <td><?php echo $srno++; ?></td>
+                                                <td><?php echo $rc['ct_code']; ?></td>
+                                                <td><?php echo $rc['ct_p_code']; ?></td>
+                                                <td><?php echo $rc['ct_quentity']; ?></td>
+                                                <td>₹ <?php echo $rc['ct_p_tot_price']; ?></td>
+                                            </tbody>
+                                            <?php
+                                        }
+                                        ?>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr id="wishlistRow<?php echo $r['u_id']; ?>" class="detail-row" style="display:none;">
+                                <?php
+                                $eml = $r['u_email'];
+                                $qw = "select * from wishlist_tbl where w_username = '$eml' ";
+                                $resultw = mysqli_query($con, $qw);
+                                $srno = 1;
+                                ?>
+                                <td colspan="10">
+                                    <table class="table table-bordered text-center align-middle">
+                                        <header class="h4">Wishlist Products</header>
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Sr No</th>
+                                                <th scope="col">Wishlist Code</th>
+                                                <th scope="col">Product Code</th>
+                                                <th scope="col">Total Price</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($rw = mysqli_fetch_assoc($resultw)) {
+                                            ?>
+                                            <tbody>
+                                                <td><?php echo $srno++; ?></td>
+                                                <td><?php echo $rw['w_code']; ?></td>
+                                                <td><?php echo $rw['w_p_code']; ?></td>
+                                                <td>₹ <?php echo $rw['w_p_tot_price']; ?></td>
+                                            </tbody>
+                                            <?php
+                                        }
+                                        ?>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr id="orderRow<?php echo $r['u_id']; ?>" class="detail-row" style="display:none;">
+                                <?php
+                                $eml = $r['u_email'];
+                                $qo = "select * from order_tbl where o_username = '$eml' ";
+                                $resulto = mysqli_query($con, $qo);
+                                $srno = 1;
+                                ?>
+                                <td colspan="10">
+                                    <table class="table table-bordered text-center align-middle">
+                                        <header class="h4">Ordered Products</header>
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Sr No</th>
+                                                <th scope="col">Order Id</th>
+                                                <th scope="col">Product Code</th>
+                                                <th scope="col">Quentity</th>
+                                                <th scope="col">Total Amount</th>
+                                                <th scope="col">Delivery Status</th>
+                                                <th scope="col">Payment Status</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($ro = mysqli_fetch_assoc($resulto)) {
+                                            ?>
+                                            <tbody>
+                                                <td><?php echo $srno++; ?></td>
+                                                <td><?php echo $ro['o_order_id']; ?></td>
+                                                <td><?php echo $ro['o_p_code']; ?></td>
+                                                <td><?php echo $ro['o_quentity']; ?></td>
+                                                <td>₹ <?php echo $ro['o_total_amount']; ?></td>
+                                                <td><?php echo $ro['o_delivery_status']; ?></td>
+                                                <td><?php echo $ro['o_payment_status']; ?></td>
+                                            </tbody>
+                                            <?php
+                                        }
+                                        ?>
+                                    </table>
                                 </td>
                             </tr>
                             <?php

@@ -11,14 +11,15 @@ if (!isset($_SESSION['user_username'])) {
     exit();
 }
 if (isset($_SESSION['user_username'])) {
-    $email = $_SESSION['user_username'];
-    $q = "select * from user_tbl where u_email='$email'";
+    $eml = $_SESSION['user_username'];
+    $o_id=$_GET['o_id'];
+    $q = "SELECT * FROM `order_tbl` o INNER JOIN product_tbl p INNER JOIN user_tbl u on o.o_p_code = p.p_code AND o.o_username = u.u_email WHERE o.o_username = '$eml' AND o.o_id='$o_id' ";
     $result = mysqli_query($con, $q);
     if (mysqli_num_rows($result)) {
         $r = mysqli_fetch_assoc($result)
             ?>
 
-        <section class="order-details py-5">
+        <section class="order-details py-5 bg-light">
             <div class="container">
                 <h2 class="mb-4 text-center">Order Details</h2>
 
@@ -27,10 +28,10 @@ if (isset($_SESSION['user_username'])) {
                     <div class="col-md-6">
                         <fieldset>
                             <legend>Order Information</legend>
-                            <p><strong>Order ID:</strong> #ORD12345</p>
-                            <p><strong>Order Date:</strong> 2024-08-10</p>
-                            <p><strong>Status:</strong> Completed</p>
-                            <p><strong>Total Amount:</strong> ₹1,499.99</p>
+                            <p><strong>Order ID:</strong> <?php echo $r['o_order_id']; ?></p>
+                            <p><strong>Order Date:</strong> <?php echo $r['o_date']; ?></p>
+                            <p><strong>Status:</strong> <?php echo $r['o_delivery_status']; ?></p>
+                            <p><strong>Total Amount:</strong> ₹<?php echo $r['o_total_amount']; ?></p>
                         </fieldset>
                     </div>
 
@@ -63,15 +64,18 @@ if (isset($_SESSION['user_username'])) {
                             <legend>Ordered Items</legend>
                             <ul class="list-unstyled">
                                 <li class="media mb-3">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <img src="../images/product1(1).jpeg" class="mr-3" alt="Gold Necklace">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-3">
+                                            <!-- Set fixed size for the image -->
+                                            <img src="<?php echo $r['p_main_image']; ?>" class="img-fluid"
+                                                style="width: 125px; height: 130px; object-fit: cover;"
+                                                alt="<?php echo $r['p_name']; ?>">
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-9">
                                             <div class="media-body">
-                                                <h5 class="mt-0 mb-1">Gold Necklace</h5>
-                                                <p><strong>Quantity:</strong> 1</p>
-                                                <p><strong>Price:</strong> ₹999.99</p>
+                                                <h4><?php echo $r['p_name']; ?></h4>
+                                                <p><strong>Quantity:</strong> <?php echo $r['o_quentity']; ?></p>
+                                                <p><strong>Price:</strong> ₹<?php echo $r['o_total_amount']; ?></p>
                                             </div>
                                         </div>
                                     </div>

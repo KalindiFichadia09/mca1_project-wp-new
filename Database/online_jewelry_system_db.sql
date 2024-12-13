@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 03:44 AM
+-- Generation Time: Dec 13, 2024 at 08:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,8 +60,8 @@ CREATE TABLE `cart_tbl` (
 --
 
 INSERT INTO `cart_tbl` (`ct_id`, `ct_code`, `ct_username`, `ct_p_code`, `ct_quentity`, `ct_p_tot_price`) VALUES
-(6, 'CART01', 'fichadiyakalindi@gmail.com', 'PRO08', 1, 623.15),
-(7, 'CART02', 'fichadiyakalindi@gmail.com', 'PRO04', 1, 3364.08);
+(9, 'CART01', 'fichadiyakalindi@gmail.com', 'PRO08', 1, 623.15),
+(10, 'CART02', 'fichadiyakalindi@gmail.com', 'PRO04', 1, 3364.08);
 
 --
 -- Triggers `cart_tbl`
@@ -195,13 +195,22 @@ CREATE TABLE `order_tbl` (
   `o_mobile` varchar(10) NOT NULL,
   `o_city` varchar(50) NOT NULL,
   `o_pincode` varchar(6) NOT NULL,
-  `o_status` varchar(50) NOT NULL,
+  `o_state` varchar(50) NOT NULL,
   `o_delivery_status` varchar(50) NOT NULL,
   `o_payment_status` varchar(50) NOT NULL,
   `o_offer_name` varchar(50) NOT NULL,
   `o_payment_mode` varchar(50) NOT NULL,
   `o_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_tbl`
+--
+
+INSERT INTO `order_tbl` (`o_id`, `o_username`, `o_order_id`, `o_sub_order_id`, `o_p_code`, `o_total_amount`, `o_quentity`, `o_address`, `o_mobile`, `o_city`, `o_pincode`, `o_state`, `o_delivery_status`, `o_payment_status`, `o_offer_name`, `o_payment_mode`, `o_date`) VALUES
+(1, 'fichadiyakalindi@gmail.com', 'order_PVMgwSob7lJVtF', '6757d7944869b', 'PRO08', 3652.28, 1, 'Shree radhekrishna park railnager', '9408136373', 'Rajkot', '360002', 'Gujarat', 'Delivered', 'Completed', 'BigSale24', 'Online', '2024-12-10 11:24:28'),
+(2, 'fichadiyakalindi@gmail.com', 'order_PVMgwSob7lJVtF', '6757d7944869b', 'PRO04', 3652.28, 1, 'Shree radhekrishna park railnager', '9408136373', 'Rajkot', '360002', 'Gujarat', 'Delivered', 'Completed', 'BigSale24', 'Online', '2024-12-10 11:24:28'),
+(3, 'fichadiyakalindi@gmail.com', 'order_PVNMgdY41lrAIv', '6757e0c3aaba9', 'PRO10', 2148.01, 1, 'Shree radhekrishna park railnager', '9408136373', 'Rajkot', '360002', 'Gujarat', 'Delivered', 'Completed', 'BigSale24', 'Online', '2024-12-10 12:03:39');
 
 -- --------------------------------------------------------
 
@@ -258,13 +267,13 @@ INSERT INTO `product_tbl` (`p_id`, `p_code`, `p_name`, `p_sc_code`, `p_type`, `p
 (1, 'PRO01', 'Cross Chain', 'none', 'Rose Gold', 25.000, 0.000, 0, '20K', 25.00, 124995.00, 0.00, 12500.00, 2250.00, 139745.00, 4192.35, 143937.35, 'NA ', 3, 5, 136740.48, '../images/product_image/671e7a1782e5ag_chain_m.jpg', '', 'Active'),
 (3, 'PRO02', 'Ring', 'SCT01', 'Rose Gold', 2.000, 0.350, 10, '20K', 1.65, 8249.67, 200.00, 1000.00, 1050.00, 10499.67, 314.99, 10814.66, 'White', 4, 2, 10598.37, '../images/product_image/671e7a24f111bg_ring_f.jpg', '', 'Deleted'),
 (4, 'PRO03', 'Bangles', 'SCT03', 'Yellow Gold', 30.000, 0.000, 0, '22K', 30.00, 165006.00, 0.00, 15000.00, 5420.00, 185426.00, 5562.78, 190988.78, 'NA ', 1, 2, 187169.00, '../images/product_image/671e7a2e5b11dc13.jpg', '', 'Active'),
-(5, 'PRO04', 'Earings', 'SCT02', 'Yellow Gold', 0.500, 0.010, 4, '22K', 0.49, 2695.10, 80.00, 250.00, 241.00, 3266.10, 97.98, 3364.08, 'Silver', 2, 7, 3128.60, '../images/product_image/671e79f03dc46c8.jpg', ',,', 'Active'),
+(5, 'PRO04', 'Earings', 'SCT02', 'Yellow Gold', 0.500, 0.010, 4, '22K', 0.49, 2695.10, 80.00, 250.00, 241.00, 3266.10, 97.98, 3364.08, 'Silver', 1, 7, 3128.60, '../images/product_image/671e79f03dc46c8.jpg', ',,', 'Active'),
 (6, 'PRO05', 'Gold Plated Mangalsutra', 'none', 'Yellow Gold', 2.000, 0.000, 0, '20K', 2.00, 9999.60, 0.00, 1000.00, 1001.00, 12000.60, 360.02, 12360.62, 'NA', 3, 3, 0.00, '../images/product_image/671e7a71160a5m1.jpg', '', 'Active'),
 (7, 'PRO06', 'Infinite Rose Gold Chain', 'CAT02', 'Rose Gold', 7.000, 0.000, 9, '20K', 7.00, 34998.60, 180.00, 3500.00, 1950.00, 40628.60, 1218.86, 41847.46, 'NA', 4, 9, 0.00, '../images/product_image/671e7d6a5d007rg1.jpg', '', 'Active'),
 (8, 'PRO07', 'Anklet', 'CAT07', 'Rose Gold', 5.000, 0.000, 0, '18K', 5.00, 22500.00, 0.00, 2500.00, 1000.00, 26000.00, 780.00, 26780.00, 'not ', 1, 2, 0.00, '../images/product_image/671e79d50bb9cc6.jpg', '', 'Active'),
-(9, 'PRO08', 'Gold Ring', 'SCT01', 'Rose Gold', 0.100, 0.000, 0, '18K', 0.10, 450.00, 0.00, 50.00, 105.00, 605.00, 18.15, 623.15, 'NA ', 5, 4, 598.22, '../images/product_image/Leonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_3.jpg', '673f6b1d1e2aeLeonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_0.jpg,673f6b1d1e2b6Leonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_1.jpg,673f6b1d1e2b8Leonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_2.jpg', 'Active'),
+(9, 'PRO08', 'Gold Ring', 'SCT01', 'Rose Gold', 0.100, 0.000, 0, '18K', 0.10, 450.00, 0.00, 50.00, 105.00, 605.00, 18.15, 623.15, 'NA ', 4, 4, 598.22, '../images/product_image/Leonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_3.jpg', '673f6b1d1e2aeLeonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_0.jpg,673f6b1d1e2b6Leonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_1.jpg,673f6b1d1e2b8Leonardo_Phoenix_A_warm_golden_light_illuminates_a_beautifully_2.jpg', 'Active'),
 (10, 'PRO09', 'Bangles', 'SCT03', 'Yellow Gold', 25.000, 0.000, 0, '16K', 25.00, 100005.00, 0.00, 12500.00, 5500.00, 118005.00, 3540.15, 121545.15, 'NA ', 2, 2, 119114.25, '../images/product_image/673f6e406544fg_bangle.jpg', '../images/product_image/673f6e406545bg_bangle.jpg,../images/product_image/673f6e406545ep_bangle1.jpg,../images/product_image/673f6e4065460p_bangle2.jpg', 'Deleted'),
-(11, 'PRO10', 'Bangles', 'SCT03', 'Rose Gold', 30.000, 0.000, 0, '20K', 30.00, 149994.00, 0.00, 15000.00, 5500.00, 170494.00, 5114.82, 175608.82, 'NA ', 2, 3, 170340.56, '../images/product_image/673f733494aec673f6e406544fg_bangle.jpg', '../images/product_image/67401a31a03da_671e7a2e5b11dc13.jpg,../images/product_image/67401a6643015_674017bd7073f_p_bangle2.jpg,../images/product_image/67401a9207410_p_bangle1.jpg', 'Active');
+(11, 'PRO10', 'Bangles', 'SCT03', 'Rose Gold', 0.300, 0.000, 0, '20K', 0.30, 1499.94, 0.00, 150.00, 500.00, 2149.94, 64.50, 2214.44, 'NA ', 1, 3, 2148.01, '../images/product_image/673f733494aec673f6e406544fg_bangle.jpg', '../images/product_image/67401a31a03da_671e7a2e5b11dc13.jpg,../images/product_image/67401a6643015_674017bd7073f_p_bangle2.jpg,../images/product_image/67401a9207410_p_bangle1.jpg', 'Active');
 
 --
 -- Triggers `product_tbl`
@@ -284,6 +293,31 @@ CREATE TRIGGER `before_insert_product` BEFORE INSERT ON `product_tbl` FOR EACH R
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_tbl`
+--
+
+CREATE TABLE `review_tbl` (
+  `r_id` int(11) NOT NULL,
+  `r_username` varchar(100) NOT NULL,
+  `r_email` varchar(250) NOT NULL,
+  `r_p_code` varchar(15) NOT NULL,
+  `r_rating` int(11) NOT NULL,
+  `r_review` varchar(500) NOT NULL,
+  `r_date` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `review_tbl`
+--
+
+INSERT INTO `review_tbl` (`r_id`, `r_username`, `r_email`, `r_p_code`, `r_rating`, `r_review`, `r_date`) VALUES
+(1, 'hi', 'fichadiyakalindi@gmail.com', 'PRO08', 4, 'asdfgbn', '2024-12-10 11:59:25'),
+(2, 'gtfrddrrdde', 'fichadiyakalindi@gmail.com', 'PRO04', 5, 'poiuytfgjklg', '2024-12-10 12:01:09'),
+(3, 'kalllu', 'fichadiyakalindi@gmail.com', 'PRO10', 4, 'niceeeeeeeeeeeeee !!!!!!!!!!!!!!', '2024-12-10 12:04:16');
 
 -- --------------------------------------------------------
 
@@ -419,8 +453,6 @@ CREATE TABLE `wishlist_tbl` (
 
 INSERT INTO `wishlist_tbl` (`w_id`, `w_code`, `w_username`, `w_p_code`, `w_p_tot_price`) VALUES
 (1, 'WISH01', 'fichadiyakalindi@gmail.com', 'PRO03', 190988.78),
-(2, 'WISH02', '', 'PRO03', 190988.78),
-(3, 'WISH03', '', 'PRO10', 175608.82),
 (4, 'WISH04', 'fichadiyakalindi@gmail.com', 'PRO10', 175608.82);
 
 --
@@ -496,6 +528,12 @@ ALTER TABLE `product_tbl`
   ADD PRIMARY KEY (`p_id`);
 
 --
+-- Indexes for table `review_tbl`
+--
+ALTER TABLE `review_tbl`
+  ADD PRIMARY KEY (`r_id`);
+
+--
 -- Indexes for table `slider_tbl`
 --
 ALTER TABLE `slider_tbl`
@@ -534,7 +572,7 @@ ALTER TABLE `about_us_tbl`
 -- AUTO_INCREMENT for table `cart_tbl`
 --
 ALTER TABLE `cart_tbl`
-  MODIFY `ct_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ct_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `category_tbl`
@@ -558,7 +596,7 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `order_tbl`
 --
 ALTER TABLE `order_tbl`
-  MODIFY `o_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `o_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `password_token_tbl`
@@ -571,6 +609,12 @@ ALTER TABLE `password_token_tbl`
 --
 ALTER TABLE `product_tbl`
   MODIFY `p_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `review_tbl`
+--
+ALTER TABLE `review_tbl`
+  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `slider_tbl`

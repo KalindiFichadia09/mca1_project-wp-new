@@ -6,7 +6,7 @@ include_once('header.php');
 // ini_set('display_errors', 1);
 ?>
 
-<section class="bg-light py-5">
+<section class="bg-light py-4">
     <main class="container mt-1">
         <h1 class="mb-5 text-center">Contact Us</h1>
 

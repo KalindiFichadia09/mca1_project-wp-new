@@ -34,7 +34,7 @@ if (isset($_GET['payment_id']) && isset($_GET['order_id']) && isset($_GET['total
             // $Payment_Status = Paid;
 
             // Prepare the SQL insert statement for the order
-            $query = "INSERT INTO `order_tbl`(`o_username`, `o_order_id`, `o_sub_order_id`, `o_p_code`, `o_total_amount`, `o_quentity`, `o_address`, `o_mobile`, `o_city`, `o_pincode`, `o_status`, `o_delivery_status`, `o_payment_status`, `o_offer_name`, `o_payment_mode`, `o_date`) 
+            $query = "INSERT INTO `order_tbl`(`o_username`, `o_order_id`, `o_sub_order_id`, `o_p_code`, `o_total_amount`, `o_quentity`, `o_address`, `o_mobile`, `o_city`, `o_pincode`, `o_state`, `o_delivery_status`, `o_payment_status`, `o_offer_name`, `o_payment_mode`, `o_date`) 
             VALUES ('$email', '$order_id', '$sub_order_id', '$product_id', '$total', '$quantity', '$address', '$phone', '$city', '$zip', '$state','Delivered', 'Completed', '$offer', 'Online', NOW())";
             echo $query; 
             // Execute the query

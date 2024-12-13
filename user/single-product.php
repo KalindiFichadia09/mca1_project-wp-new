@@ -246,7 +246,7 @@ if (isset($_SESSION['user_username']) && !empty($_SESSION['user_username'])) {
         }
     }
 } else {
-    echo 'dsdsds';
+    // echo 'dsdsds';
 }
 ?>
 </section>

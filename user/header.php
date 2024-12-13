@@ -56,11 +56,11 @@ if ($con->connect_error) {
                             </li>
                         </ul>
                         <!-- Search Bar -->
-                        <form class="d-flex ms-auto" action="search.php" method="GET">
+                        <!-- <form class="d-flex ms-auto" action="search.php" method="GET">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                                 name="search">
                             <button class="buy-now" type="submit">Search</button>
-                        </form>
+                        </form> -->
                         <!-- Icons and Dropdown Menu -->
                         <ul class="navbar-nav ms-auto d-flex align-items-center">
                             <!-- Cart Icon -->
