@@ -159,7 +159,7 @@ if (isset($_POST['signin'])) {
         ?>
         <script>
             alert("Email is not registered !!");
-            window.location.href = "signin.php";
+            window.location.href = "signup.php";
         </script>
 
         <?php
