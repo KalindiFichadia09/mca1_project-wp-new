@@ -3,7 +3,7 @@ include_once 'header.php';
 include_once '../conn.php';
 session_start();
 if (!isset($_SESSION['user_username'])) {
-    echo "<script>window.location.href = '../signin.php';</script>";
+    echo "<script>window.location.href = '../index.php';</script>";
     exit();
 }
 if (isset($_SESSION['user_username'])) {

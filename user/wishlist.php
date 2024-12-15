@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['user_username'])) {
     ?>
     <script>
-        window.location.href = "../signin.php";
+        window.location.href = "../index.php";
     </script>
     <?php
     exit();
@@ -40,7 +40,7 @@ if (isset($_GET['remove_id'])) {
                     ?>
                     <div class="col-md-4">
                         <div class="product-item card mb-4">
-                            <img src="<?php echo $r['p_main_image']; ?>" class="card-img-top img-fluid" alt="<?php echo $r['p_name']; ?>">
+                            <img src="<?php echo $r['p_main_image']; ?>" class="card-img-top img-fluid" alt="<?php echo $r['p_name']; ?>" style="height:200px;width:300px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $r['p_name']; ?></h5>
                                 <p class="text-muted"><?php echo $r['c_name']; ?></p>

@@ -7,7 +7,7 @@ if ($con->connect_error) {
     if (!isset($_SESSION['user_username'])) {
         ?>
         <script>
-            window.location.href = "../signin.php";
+            window.location.href = "../index.php";
         </script>
         <?php
     }
@@ -99,7 +99,7 @@ if ($con->connect_error) {
                                 } else {
                                     ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../signin.php">signin</a>
+                                    <a class="nav-link" href="../index.php">signin</a>
                                 </li>
                                 <?php
                                 }

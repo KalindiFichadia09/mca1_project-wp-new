@@ -78,7 +78,7 @@ session_start();
                         </div>
                         <button type="submit" class="btn btn-primary btn-block" name="frgt_pwd_btn">Send OTP</button>
                         <div class="text-center mt-3">
-                            <p>Remembered your password? <a href="signin.php">Sign In</a></p>
+                            <p>Remembered your password? <a href="index.php">Sign In</a></p>
                         </div>
                     </form>
                 </div>

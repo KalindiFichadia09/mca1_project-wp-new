@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_username'])) {
     $eml = $_SESSION['user_username'];
     ?>
     <script>
-        window.location.href = "../signin.php";
+        window.location.href = "../index.php";
     </script>
     <?php
     exit();
@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_username'])) {
     $eml = $_SESSION['user_username'];
     $q = "select * from order_tbl where o_username = '$eml' ";
     $result = mysqli_query($con, $q);
-
+    $srno = 1;
     ?>
     <section class="cart-section py-5 bg-light">
         <div class="container">
@@ -37,7 +37,7 @@ if (!isset($_SESSION['user_username'])) {
                         while ($r = mysqli_fetch_assoc($result)) {
                             ?>
                             <tr>
-                                <td>1</td>
+                                <td><?php echo $srno++; ?></td>
                                 <td><?php echo $r['o_order_id']; ?></td>
                                 <td><?php echo $r['o_delivery_status']; ?></td>
                                 <td>₹<?php echo $r['o_total_amount']; ?></td>

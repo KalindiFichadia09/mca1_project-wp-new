@@ -6,18 +6,18 @@ session_start();
 if (!isset($_SESSION['user_username'])) {
     ?>
         <script>
-            window.location.href = "../signin.php";
+            window.location.href = "../index.php";
             </script>
         <?php
         exit();
 } else {
     $eml = $_SESSION['user_username'];
-    echo $eml;
+    // echo $eml;
 }
 
 if (isset($_SESSION['gt'])) {
     $new_cart_total = $_SESSION['gt'];  // Assuming the total amount is in session
-    echo $new_cart_total;
+    // echo $new_cart_total;
     // Initialize Razorpay API
     $api = new Razorpay\Api\Api('rzp_test_yCgrsfXSuM7SxL', 'eaxt0pkgow03xe2s2ufGFmBK');
 
@@ -37,8 +37,7 @@ if (isset($_SESSION['gt'])) {
 }
 }
 ?>
-?>
-<div class="container mt-5 bgcolor">
+<div class=" bgcolor bg-light p-5">
     <div class="row mb-5" style="text-align: center;">
         <h2>Payment for blah😒!</h2>
     </div>
@@ -48,7 +47,7 @@ if (isset($_SESSION['gt'])) {
             <form method="POST">
                 <div class="form-group">
                     <label for="total"><b>Net Payable Amount</b></label>
-                    <input type="text" class="form-control" readonly value="<?php echo $_SESSION['gt']; ?>">
+                    <input type="text" class="form-control" readonly value="₹ <?php echo $_SESSION['gt']; ?>">
                 </div>
                 <br>
                 <div class="form-group">

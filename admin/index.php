@@ -262,7 +262,7 @@ include_once 'header.php';
         <div class="col-md-4 mb-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <a href="feedback.php" class="nav-link">Feedback</a>
+                    <a href="review.php" class="nav-link">Reviews</a>
                 </div>
             </div>
         </div>
@@ -290,7 +290,7 @@ include_once 'header.php';
         <div class="col-md-4 mb-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <a href="CarouselImage.php" class="nav-link">Slider</a>
+                    <a href="carouselImage.php" class="nav-link">Slider</a>
                 </div>
             </div>
         </div>

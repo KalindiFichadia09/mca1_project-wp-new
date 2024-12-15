@@ -15,7 +15,7 @@ if ($count == 1) {
             setcookie('success', "Email is already verified", time() + 5, "/");
             ?>
                         <script>
-                            window.location.href = "signin.php";
+                            window.location.href = "index.php";
                         </script>
                         <?php
         } else {
@@ -24,7 +24,7 @@ if ($count == 1) {
                 setcookie('success', "Email verified successfully", time() + 5, "/");
                 ?>
                                 <script>
-                                    window.location.href = "signin.php";
+                                    window.location.href = "index.php";
                                 </script>
                     <?php
             }

@@ -168,7 +168,7 @@ use PHPMailer\PHPMailer\Exception;
                         <input type="submit" class="btn btn-primary btn-block" value="Sign Up" name="signup">
                         <!-- <button type="submit" class="btn btn-primary btn-block">Sign Up</button> -->
                         <div class="text-center mt-3">
-                            <p>Already have an account? <a href="signin.php">Sign In</a></p>
+                            <p>Already have an account? <a href="index.php">Sign In</a></p>
                         </div>
                     </form>
                 </div>
@@ -262,7 +262,7 @@ if (isset($_POST['signup'])) {
         ?>
         <script>
             alert("Registered!");
-            window.location.href = "signin.php";
+            window.location.href = "index.php";
         </script>
         <?php
     } else {

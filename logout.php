@@ -7,7 +7,7 @@ if (isset($_SESSION['user_username'])) {
     unset($_SESSION['user_username']);
     ?>
     <script>
-        window.location.href = "signin.php";
+        window.location.href = "index.php";
     </script>
     <?php
 } else if (isset($_SESSION['admin_username'])) {
@@ -15,7 +15,7 @@ if (isset($_SESSION['user_username'])) {
     unset($_SESSION['admin_username']);
     ?>
         <script>
-            window.location.href = "signin.php";
+            window.location.href = "index.php";
         </script>
     <?php
 }

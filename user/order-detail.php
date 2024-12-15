@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['user_username'])) {
     ?>
     <script>
-        window.location.href = "../signin.php";
+        window.location.href = "../index.php";
     </script>
     <?php
     exit();

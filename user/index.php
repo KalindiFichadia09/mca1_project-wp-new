@@ -45,15 +45,15 @@ include_once '../conn.php';
   <h2>Popular Categories</h2>
   <div class="categories-container">
     <?php
-    $q = "select * from category_tbl where c_status='Active' ORDER BY c_id DESC LIMIT 5";
+    $q = "select * from sub_category_tbl where sc_status='Active' ORDER BY sc_id DESC LIMIT 5";
     $result = mysqli_query($con, $q);
     while ($r = mysqli_fetch_assoc($result)) {
       ?>
-      <a href="product.php?c_code=<?php echo $r['c_code']; ?>">
+      <a href="product.php?sc_code=<?php echo $r['sc_code']; ?>">
         <div class="category">
           <img src="<?php echo
-            $r['c_image']; ?>" alt="<?php echo $r['c_name']; ?>">
-          <h3><?php echo $r['c_name']; ?></h3>
+            $r['sc_image']; ?>" alt="<?php echo $r['sc_name']; ?>">
+          <h3><?php echo $r['sc_name']; ?></h3>
         </div>
       </a>
       <?php
@@ -116,38 +116,39 @@ include_once '../conn.php';
 <section class="new-arrivals">
   <h2>Featured Product</h2>
   <div class="arrivals-container">
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg1.jpg" alt="New Arrival 1">
-        <h3>Product 1</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg2.jpg" alt="New Arrival 1">
-        <h3>Product 2</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg3.jpg" alt="New Arrival 1">
-        <h3>Product 3</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
-    <a href="single-product.php">
-      <div class="arrival-item">
-        <img src="../images/newArrivalImg4.jpg" alt="New Arrival 1">
-        <h3>Product 4</h3>
-        <p class="price">₹ 49.99</p>
-        <button class="buy-now">Buy Now</button>
-      </div>
-    </a>
+    <?php
+    $q = "SELECT o.o_p_code,count(o.o_p_code) as maxCount,p.* FROM order_tbl o JOIN product_tbl p ON o.o_p_code=p.p_code GROUP BY o.o_p_code ORDER BY maxCount DESC LIMIT 3";
+    $result = mysqli_query($con, $q);
+
+    while ($r = mysqli_fetch_assoc($result)) { ?>
+      <a href="single-product.php">
+        <div class="arrival-item">
+          <img src="<?php echo $r['p_main_image']; ?>" alt="<?php echo $r['p_name']; ?>">
+          <h3><?php echo $r['p_name']; ?></h3>
+          <span class="card-text" style="text-decoration: line-through;">Price: ₹
+            <?php echo $r['p_total_price']; ?></span><br>
+          <span class="cart-text"><?php echo $r['p_discount'] . "% Discount"; ?> </span><br>
+          <span class="card-text">Price: ₹ <?php echo $r['p_discount_price']; ?></sp><br>
+            <form action="" method="post">
+              <input type="hidden" name="P_Code" value="<?php echo $r['p_code']; ?>">
+              <input type="hidden" name="p_tot_price" value="<?php echo $r['p_total_price']; ?>">
+              <div class="form-group mt-3">
+                <button type="submit" name="cart" class="buy-now">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+                <button type="submit" name="show" class="buy-now">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button type="submit" name="wishlist" class="buy-now">
+                  <i class="fa-solid fa-heart"></i>
+                </button>
+              </div>
+            </form>
+        </div>
+      </a>
+      <?php
+    } ?>
+
   </div>
 </section>
 <!-- featured product - end -->

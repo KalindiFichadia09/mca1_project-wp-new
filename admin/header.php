@@ -5,7 +5,7 @@ include_once "../conn.php";
 if (!isset($_SESSION['admin_username'])) {
     ?>
     <script>
-        window.location.href = "../signin.php";
+        window.location.href = "../index.php";
     </script>
     <?php
     exit();
@@ -50,7 +50,7 @@ if (!isset($_SESSION['admin_username'])) {
                 <button id="toggle-btn" class="toggle-btn">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="header-left ml-3">
+                <div class="header-left ml-2">
                     <a href="index.php" class="logo">
                         <img src="../images/logo.png" alt="Jayshree Jewels Logo" class="logo-img">
                     </a>
@@ -63,16 +63,17 @@ if (!isset($_SESSION['admin_username'])) {
                             <li><a href="about_us.php">AboutUs</a></li>
                             <li><a href="contact.php">contactUs</a></li>
                             <li><a href="category.php">Category</a></li>
+                            <li><a href="sub_category.php">SubCategory</a></li>
                             <li><a href="product.php">Product</a></li>
                             <li><a href="cart.php">Cart</a></li>
                             <li><a href="wishlist.php">Wishlist</a></li>
                             <li><a href="order.php">Order</a></li>
-                            <li><a href="feedback.php">Feedback</a></li>
-                            <li><a href="carouselimage.php">Slider</a></li>
+                            <li><a href="review.php">Reviews</a></li>
+                            <li><a href="carouselImage.php">Slider</a></li>
                         </ul>
                     </nav>
                 </div>
-                <div class="header-right mr-3">
+                <div class="header-right mr-2">
                     <div class="dropdown">
                         <?php
                         if (isset($_SESSION['admin_username'])) {
@@ -95,7 +96,7 @@ if (!isset($_SESSION['admin_username'])) {
                             }
                         } else {
                             ?>
-                            <a class="text-light" href="../signin.php">signin</a>
+                            <a class="text-light" href="../index.php">signin</a>
                             <?php
                         }
                         ?>
@@ -107,13 +108,15 @@ if (!isset($_SESSION['admin_username'])) {
                     <li><a href="index.php" class="nav-link"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="user.php" class="nav-link"><i class="fas fa-user"></i> User</a></li>
                     <li><a href="about_us.php" class="nav-link"><i class="fas fa-user"></i> About Us</a></li>
+                    <li><a href="contact.php" class="nav-link"><i class="fas fa-comments"></i> Contact Us</a></li>
                     <li><a href="category.php" class="nav-link"><i class="fas fa-list"></i> Category</a></li>
+                    <li><a href="sub_category.php" class="nav-link"><i class="fas fa-list"></i> Sub Category</a></li>
                     <li><a href="product.php" class="nav-link"><i class="fas fa-box"></i> Product</a></li>
                     <li><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                     <li><a href="wishlist.php" class="nav-link"><i class="fas fa-heart"></i> Wishlist</a></li>
                     <li><a href="order.php" class="nav-link"><i class="fas fa-receipt"></i> Order</a></li>
-                    <li><a href="contact.php" class="nav-link"><i class="fas fa-comments"></i> Contact</a></li>
-                    <li><a href="carouselImage.php" class="nav-link"><i class="fas fa-comments"></i> carouselImage</a>
+                    <li><a href="review.php" class="nav-link"><i class="fas fa-user"></i> Review</a></li>
+                    <li><a href="carouselImage.php" class="nav-link"><i class="fas fa-comments"></i> Slider</a>
                     </li>
                 </ul>
             </div>

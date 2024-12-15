@@ -149,7 +149,7 @@ $rating = isset($avg['avg']) ? $avg['avg'] : 0;
                                 <div class="form-group mt-3">
                                     <input type="submit" name="cart" value="Add to Cart" class="buy-now">
                                     <input type="submit" name="wishlist" value="Add to Wishlist" class="buy-now">
-                                    <input type="submit" name="order" value="Order Now" class="buy-now">
+                                    <!-- <input type="submit" name="order" value="Order Now" class="buy-now"> -->
                                 </div>
                             </form>
                         </div>

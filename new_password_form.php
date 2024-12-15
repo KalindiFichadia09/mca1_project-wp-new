@@ -107,7 +107,7 @@ if (isset($_POST['reset_pwd_btn'])) {
             ?>
 
             <script>
-                window.location.href = 'signin.php';
+                window.location.href = 'index.php';
             </script>
             <?php
 

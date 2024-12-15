@@ -263,7 +263,7 @@ $recordCount = 100; // Ensure $recordCount is defined in header.php
             <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <a href="feedback.php" class="nav-link">Feedback</a>
+                        <a href="review.php" class="nav-link">Feedback</a>
                     </div>
                 </div>
             </div>

@@ -140,7 +140,7 @@ if (isset($_POST['signin'])) {
                     ?>
                     <script>
                         alert("Email is not varified !!");
-                        window.location.href = "signin.php";
+                        window.location.href = "index.php";
                     </script>
                     <?php
                 }
@@ -149,7 +149,7 @@ if (isset($_POST['signin'])) {
                 ?>
                 <script>
                     alert("Incorrect username or password !!");
-                    window.location.href = "signin.php";
+                    window.location.href = "index.php";
                 </script>
                 <?php
             }
